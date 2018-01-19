@@ -771,11 +771,11 @@
         <div class="changelist" ng-repeat="a in list">
             <div style="flex: 0.5;">{{$index + 1}}、</div>
             <div>修改人员：</div>
-            <div style="flex: 0.3;">{{a.caseSource}}</div>
+            <div style="flex: 0.3;">{{a.applyRoleDesc}}</div>
             <div>目的地点：</div>
-            <div>{{a.caseNo}}</div>
+            <div>{{a.applyAddress}}</div>
             <div>修改时间：</div>
-            <div>{{a.caseNo}}</div>
+            <div>{{a.createTime | ToLocal}}</div>
         </div>
     </div>
     <div class="closeBg" ng-click="closeBG()"></div>

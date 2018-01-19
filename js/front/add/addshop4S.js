@@ -13,24 +13,18 @@ addshop4S.controller('addshop4SCtrl', ['$scope', 'APIService', "$http", function
         lat: '',
         lng: ''
     }
+
     $scope.initData = function () {
         $scope.data = {
-            // "noPushFixCode": '',
             "branchCompany": '',
             "pushFixCode": '',
             "fullName": '',
             "simpleName": '',
             "address": '',
             "longitude": '',
-            "latitude": '',
-            // "afterSaleMgr": '',
-            // "afterSalePhone": '',
-            // "afterSaleMgr2": '',
-            // "afterSalePhone2": '',
-            // "dealer": '',
-            // "dealerPhone": ''
+            "latitude": ''
         }
-        $scope.data.noPushFixCode = false;
+        // $scope.data.noPushFixCode = false;
         if (JSON.parse(sessionStorage.getItem('shop4S_data') != '') && JSON.parse(sessionStorage.getItem('shop4S_data') != undefined)) {
             $scope.data = JSON.parse(sessionStorage.getItem('shop4S_data'))
             //$scope.noPushFixCode = $scope.data.noPushFixCode;
@@ -45,8 +39,8 @@ addshop4S.controller('addshop4SCtrl', ['$scope', 'APIService', "$http", function
                 address.lat = $scope.data.latitude;
                 address.lng = $scope.data.longitude;
             }
-
         }
+
         $scope.shop4s_type = sessionStorage.getItem('shop4S_type');
         if ($scope.shop4s_type == 'addshop4s') {
             $scope.title = '添加推修厂'
@@ -116,6 +110,7 @@ addshop4S.controller('addshop4SCtrl', ['$scope', 'APIService', "$http", function
         data.address = address.address;
         data.latitude = address.lat;
         data.longitude = address.lng;
+        data.id = sessionStorage.getItem('changeId')
         APIService.change_shop4S(data).then(function (res) {
             if (res.data.http_status == 200) {
                 layer.msg('转换成功');
@@ -165,31 +160,38 @@ addshop4S.controller('addshop4SCtrl', ['$scope', 'APIService', "$http", function
             $scope.counts3 = 1;
         }
     });
-    $scope.$watch('data.noPushFixCode', function (newValue) {
-        if (newValue == true) {
-            $scope.data.pushFixCode = ''
-            $scope.address = '';
-            sessionStorage.removeItem('shop4S')
+    $scope.$watch('counts1  + counts3  + counts4', function (newValue, oldValue) {
+        if (newValue == 3) {
+            $('#submit').removeAttr("disabled").removeClass('button_disabled');
         } else {
             $('#submit').addClass('button_disabled').attr("disabled", 'disabled');
         }
-        $scope.change();
-    })
-    $scope.$watch('counts1  + counts3  + counts4', function (newValue, oldValue) {
-        if ($scope.data.noPushFixCode) {
-            if (newValue == 1) {
-                $('#submit').removeAttr("disabled").removeClass('button_disabled');
-            } else {
-                $('#submit').addClass('button_disabled').attr("disabled", 'disabled');
-            }
-        } else {
-            if (newValue == 3) {
-                $('#submit').removeAttr("disabled").removeClass('button_disabled');
-            } else {
-                $('#submit').addClass('button_disabled').attr("disabled", 'disabled');
-            }
-        }
     });
+    // $scope.$watch('data.noPushFixCode', function (newValue) {
+    //     if (newValue == true) {
+    //         $scope.data.pushFixCode = ''
+    //         $scope.address = '';
+    //         sessionStorage.removeItem('shop4S')
+    //     } else {
+    //         $('#submit').addClass('button_disabled').attr("disabled", 'disabled');
+    //     }
+    //     $scope.change();
+    // })
+    // $scope.$watch('counts1  + counts3  + counts4', function (newValue, oldValue) {
+    //     if ($scope.data.noPushFixCode) {
+    //         if (newValue == 1) {
+    //             $('#submit').removeAttr("disabled").removeClass('button_disabled');
+    //         } else {
+    //             $('#submit').addClass('button_disabled').attr("disabled", 'disabled');
+    //         }
+    //     } else {
+    //         if (newValue == 3) {
+    //             $('#submit').removeAttr("disabled").removeClass('button_disabled');
+    //         } else {
+    //             $('#submit').addClass('button_disabled').attr("disabled", 'disabled');
+    //         }
+    //     }
+    // });
     $scope.reset = function () {
         if (confirm('重置后页面填写的信息将被清空')) {
             sessionStorage.setItem('shop4S_data', '{}');

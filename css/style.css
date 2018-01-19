@@ -312,6 +312,7 @@ button {
     font-size: 14px;
     border-radius: 3px;
     margin: 2px;
+    cursor: pointer;
 }
 
 .output_button {
@@ -553,7 +554,12 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .button_del {
-    background: #f00;
+    min-width: 60px !important;
+    background: #ff4546;
+}
+
+.button_del:active {
+    background: #e53e3f;
 }
 
 .button_disabled {
@@ -2527,7 +2533,7 @@ img {
     margin-bottom: 50px;
 }
 
-.change_list{
+.change_list {
     display: none;
     width: 50%;
     position: fixed;
@@ -2543,17 +2549,20 @@ img {
     overflow-y: auto;
     padding: 15px 10px;
 }
-.changelist{
+
+.changelist {
     display: flex;
     padding: 7px 5px;
     width: 97%;
 }
-.changelist div{
+
+.changelist div {
     flex: 1;
     text-align: center;
 }
+
 @media screen and (max-width:1366px) {
-    .change_list{
+    .change_list {
         font-size: 12px;
     }
     .detail_div {
@@ -2592,6 +2601,7 @@ img {
         min-width: 50px;
         height: 27px;
         line-height: 27px;
+        cursor: pointer;
     }
     .left_menu {
         top: 65px;

@@ -21,21 +21,15 @@ addnocooperation.controller('addnocooperationCtrl', ['$scope', 'APIService', "$h
         console.log(type)
         $scope.change();
     }
+
     $scope.initData = function () {
         $scope.data = {
-            // "noPushFixCode": '',
             "branchCompany": '',
             "fullName": '',
             "address": '',
             "longitude": '',
             "latitude": '',
             "type": 2
-            // "afterSaleMgr": '',
-            // "afterSalePhone": '',
-            // "afterSaleMgr2": '',
-            // "afterSalePhone2": '',
-            // "dealer": '',
-            // "dealerPhone": ''
         }
         if (JSON.parse(sessionStorage.getItem('shop4S_data') != '') && JSON.parse(sessionStorage.getItem('shop4S_data') != undefined)) {
             $scope.data = JSON.parse(sessionStorage.getItem('shop4S_data'))
@@ -96,6 +90,8 @@ addnocooperation.controller('addnocooperationCtrl', ['$scope', 'APIService', "$h
         data.address = address.address;
         data.latitude = address.lat;
         data.longitude = address.lng;
+        data.id = sessionStorage.getItem('changeId');
+        data.type = 2;
         APIService.update_shop4S(data).then(function (res) {
             if (res.data.http_status == 200) {
                 layer.msg('修改成功');

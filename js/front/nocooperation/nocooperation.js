@@ -79,7 +79,7 @@ nocooperation.controller('nocooperationCtrl', ['$scope', 'APIService', function 
     $scope.goto = function (type, a) {
         $scope.save_filter();
         sessionStorage.setItem('shop4S_type', type)
-        sessionStorage.setItem('select_shop4sId', a.shop4sId)
+        sessionStorage.setItem('changeId', a.id)
         if (type == 'addshop4s') {
             sessionStorage.removeItem('shop4S_data');
             sessionStorage.removeItem('nocoopertation')
