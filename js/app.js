@@ -1,4 +1,4 @@
-var insurance = angular.module('insurance', ['threecars', 'batchnocooperation', 'nocooperation', 'addnocooperation', 'confirmation', 'backinfo', 'backtotal', 'brandcfg', 'member', 'brand', 'shop4sorder', 'shop4snum', 'updateFix', 'auditDetail', 'audit', 'third', 'auth', 'datastatistics', 'paymentdetail', 'batchinspector', 'payment', 'inspector', 'companyfleet', 'addshop4S', 'batchshop4S', 'shop4S', 'nar_location', 'disasterdriverorderlist', 'disastermap', 'driverordertotle', 'disasterorderlist', 'totleorder', 'batchaddorder', 'review', 'driverlocation', 'disasterdriver', 'disasterinspector', 'site', 'disasterdetail', 'disaster', 'createdisaster', 'addorder_nar', 'selectlocation', 'editorder', 'track', 'detail', 'team', 'ui.router', 'evaluation', 'adddriver', 'map', 'login', 'Road167', 'fixaddress', 'main', 'addorder', 'orderlist']);
+var insurance = angular.module('insurance', ['threecars', 'confirmation', 'backinfo', 'backtotal', 'brandcfg', 'member', 'brand', 'shop4sorder', 'shop4snum', 'updateFix', 'auditDetail', 'audit', 'third', 'auth', 'datastatistics', 'paymentdetail', 'batchinspector', 'payment', 'inspector', 'companyfleet', 'addshop4S', 'batchshop4S', 'shop4S', 'nar_location', 'disasterdriverorderlist', 'disastermap', 'driverordertotle', 'disasterorderlist', 'totleorder', 'batchaddorder', 'review', 'driverlocation', 'disasterdriver', 'disasterinspector', 'site', 'disasterdetail', 'disaster', 'createdisaster', 'addorder_nar', 'selectlocation', 'editorder', 'track', 'detail', 'team', 'ui.router', 'evaluation', 'adddriver', 'map', 'login', 'Road167', 'fixaddress', 'main', 'addorder', 'orderlist']);
 var t;
 insurance.config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.when('', '/login');
@@ -23,14 +23,6 @@ insurance.config(function ($stateProvider, $urlRouterProvider) {
         .state('main.backinfo', {
             url: '/backinfo',
             templateUrl: 'view/backinfo.html'
-        })
-        .state('main.nocooperation', {
-            url: '/nocooperation',
-            templateUrl: 'view/nocooperation/nocooperation.html'
-        })
-        .state('main.addnocooperation', {
-            url: '/addnocooperation',
-            templateUrl: 'view/nocooperation/addnocooperation.html'
         })
         .state('main.backtotal', {
             url: '/backtotal',
@@ -91,10 +83,6 @@ insurance.config(function ($stateProvider, $urlRouterProvider) {
         .state('main.batchinspector', {
             url: '/batchinspector',
             templateUrl: 'view/batch/batchinspector.html'
-        })
-        .state('main.batchnocooperation', {
-            url: '/batchnocooperation',
-            templateUrl: 'view/batch/batchnocooperation.html'
         })
         .state('main.shop4S', {
             url: '/shop4S',
@@ -337,6 +325,16 @@ function DateFormat(type, date) {
             break;
     }
 }
+var cancelArray = [7, 8, 81, 82, 9];
+
+function isCancel(taskFlag) {
+    console.log(contains(cancelArray, taskFlag))
+    return contains(cancelArray, taskFlag);
+}
+
+function isDriverFinish(taskFlag) {
+    return taskFlag == 0 ? 'true' : 'false';
+}
 insurance.filter('zhiPei', function () {
     function ToLocal(text) {
         if (text) {
@@ -400,16 +398,6 @@ insurance.filter('ToFormat', function () {
             var s = time.getSeconds();
             var nowtime = y + '年' + add0(m) + '月' + add0(d) + '日';
             return nowtime;
-        }
-    }
-    return ToLocal;
-})
-insurance.filter('ToFenzhong', function () {
-    function ToLocal(shijianchuo) {
-        if (shijianchuo == null) {
-            return null;
-        } else {
-            return parseInt(shijianchuo / 60000) <= 0 ? '1分钟' : parseInt(shijianchuo / 60000) + '分钟';
         }
     }
     return ToLocal;
@@ -507,24 +495,6 @@ insurance.filter('ToLocal2', function () {
             var mm = time.getMinutes();
             var s = time.getSeconds();
             var nowtime = y + '-' + add0(m) + '-' + add0(d) + ' ' + add0(h) + ':' + add0(mm) + ':' + add0(s);
-            return nowtime;
-        } else {
-            return '-';
-        }
-
-    }
-    return ToLocal;
-});
-insurance.filter('ToLocal3', function () {
-    function ToLocal(shijianchuo) {
-        if (shijianchuo != null) {
-            var time = new Date(shijianchuo);
-            var y = time.getFullYear();
-            var m = time.getMonth() + 1;
-            var d = time.getDate();
-            var h = time.getHours();
-            var mm = time.getMinutes();
-            var nowtime = y + '-' + add0(m) + '-' + add0(d) + ' ' + add0(h) + ':' + add0(mm);
             return nowtime;
         } else {
             return '-';
@@ -942,6 +912,7 @@ function contains(e, d) {
             return true;
         }
     }
+    return false;
 }
 //判断是车商人员还是4s店人员
 function shop4sMsg(type) {

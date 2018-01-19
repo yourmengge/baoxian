@@ -115,7 +115,7 @@ member.controller('memberCtrl', ['$scope', 'APIService', function ($scope, APISe
     //页面跳转
     $scope.goto = function (type, a) {
         sessionStorage.setItem('shop4S_type', type)
-        sessionStorage.setItem('select_shop4sId', a.shop4sId)
+        sessionStorage.setItem('select_shop4sId', a.id)
         if (a == '') {
             sessionStorage.removeItem('shop4S_data');
         } else {

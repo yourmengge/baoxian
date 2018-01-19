@@ -3,16 +3,8 @@ var map, orderPic = [],
     accidentPic = [],
     fixPic = [];
 detail.controller('detailCtrl', ['$scope', 'APIService', function ($scope, APIService) {
-    $scope.ASSIGN_DRIVER = 'ASSIGN_DRIVER',
-        $scope.PICTURE_VIDEO = 'PICTURE_VIDEO',
-        $scope.PUSH_FIX = 'PUSH_FIX',
-        $scope.LICENSE = 'LICENSE',
-        $scope.DIRECT_COMPENSATION = 'DIRECT_COMPENSATION',
-        $scope.CHARGE_MODE = 'CHARGE_MODE',
-        $scope.FIX_ADDRESS = 'FIX_ADDRESS'
     $scope.initData = function () {
         $scope.openDetail = -1;
-        $scope.tabType = $scope.ASSIGN_DRIVER;
         $scope.zhipeiremark = '';
         $scope.disaster = sessionStorage.getItem('isDisaster')
         if ($scope.disaster == 'yes') {
@@ -29,101 +21,53 @@ detail.controller('detailCtrl', ['$scope', 'APIService', function ($scope, APISe
         fixPic = [];
         //$scope.order = '1712200006'
         $scope.order = sessionStorage.getItem('orderNo');
-        APIService.get_order_detail($scope.order, 'BASE').then(function (res) {
+        APIService.get_order_detail($scope.order).then(function (res) {
             if (res.data.http_status == 200) {
                 closeloading();
                 $scope.detail = res.data;
+                $scope.assignDriverses = res.data.assignDriverses;
                 if (res.data.verifyAddressItems != null) {
                     $scope.fix_change_list = res.data.verifyAddressItems.items.reverse();
                 }
-
-            } else {
-                isError(res);
-            }
-        })
-        $scope.get_shijiu();
-    }
-
-    //获取变更记录
-    $scope.changeList = function (type) {
-        $('.alert_bg').css('display', 'block');
-        if (type == $scope.CHARGE_MODE) {
-            $('#changemode').css('display', 'block');
-        } else {
-            $('#fixchange').css('display', 'block');
-        }
-        APIService.get_order_detail($scope.order, type).then(function (res) {
-            if (res.data.http_status == 200) {
-                $scope.list = res.data.items;
-            } else {
-                isError(res);
-            }
-
-        })
-    }
-    //获取施救信息
-    $scope.get_shijiu = function () {
-        loading();
-        APIService.get_order_detail($scope.order, $scope.tabType).then(function (res) {
-            if (res.data.http_status == 200) {
-                closeloading();
-                switch ($scope.tabType) {
-                    case 'ASSIGN_DRIVER':
-                        $scope.assignDriverses = res.data.assignDriverses;
-                        $scope.notTuoche = true;
-                        $scope.notFinished = true;
-                        for (let i in $scope.assignDriverses) {
-                            if ($scope.assignDriverses[i].carType == 2) {
-                                $scope.notTuoche = false;
-                                if ($scope.assignDriverses[i].taskFlag == 0) {
-                                    $scope.notFinished = false;
-                                }
-
-                                if ($scope.assignDriverses[i].notFixAddrRemark == null) {
-                                    $scope.notFixAddrRemark = null
-                                } else if ($scope.assignDriverses[i].notFixAddrRemark == '一致') {
-                                    $scope.notFixAddrRemark = '一致'
-                                } else {
-                                    $scope.notFixAddrRemark = $scope.assignDriverses[i].notFixAddrRemark
-                                }
-                            }
-                        }
-                        break;
-                    case 'PICTURE_VIDEO':
-                        $scope.allPictures = res.data;
-                        break;
-                    case 'PUSH_FIX':
-                        $scope.pushFix = res.data;
-                        break;
-                    case 'LICENSE':
-                        $scope.detail.licenseInfo = res.data;
-                        break;
-                    case 'DIRECT_COMPENSATION':
-                        $scope.detail.authDirBilCancel = res.data;
-                        $scope.authDirBilCancel = $scope.detail.authDirBilCancel;
-                        if ($scope.authDirBilCancel == null) {
-                            $scope.confirmationDiv = true;
-                        } else {
-                            $scope.hideZhipeiFN($scope.authDirBilCancel);
-                            $scope.hideCancelTypeFN($scope.authDirBilCancel);
-                            $scope.hideButtonFN($scope.authDirBilCancel);
-                            $scope.hideCancelButtonFN($scope.authDirBilCancel);
-                            $scope.hideCancelFN($scope.authDirBilCancel);
-                        }
-                        break;
-                    default:
-                        break;
+                $scope.authDirBilCancel = $scope.detail.authDirBilCancel;
+                if ($scope.authDirBilCancel == null) {
+                    $scope.confirmationDiv = true;
+                } else {
+                    $scope.hideZhipeiFN($scope.authDirBilCancel);
+                    $scope.hideCancelTypeFN($scope.authDirBilCancel);
+                    $scope.hideButtonFN($scope.authDirBilCancel);
+                    $scope.hideCancelButtonFN($scope.authDirBilCancel);
+                    $scope.hideCancelFN($scope.authDirBilCancel);
                 }
 
+                // $scope.pictures = $scope.detail.assignDriverses.pictureAndVideo;
+                // if ($scope.pictures.length != 0) {
+                //     for (var i = 0; i < $scope.pictures.length; i++) {
+                //         if ($scope.pictures[i].type == 1) {
+                //             orderPic.push($scope.pictures[i]);
+                //             $scope.order_pic = orderPic;
+                //         } else if ($scope.pictures[i].type == 2) {
+                //             accidentPic.push($scope.pictures[i]);
+                //             $scope.accident_pic = accidentPic;
+                //         } else {
+                //             fixPic.push($scope.pictures[i]);
+                //             $scope.fix_pic = fixPic;
+                //         }
+                //     }
+                //     console.log($scope.accident_pic)
+                // }
+
             } else {
                 isError(res);
             }
         })
     }
-
-    $scope.tabs = function (type) {
-        $scope.tabType = type;
-        $scope.get_shijiu();
+    $scope.isDriverFinish = function (taskFlag) {
+        console.log(isDriverFinish(taskFlag));
+        return isDriverFinish(taskFlag);
+    }
+    $scope.taskCancel = function (taskFlag) {
+        return isCancel(taskFlag);
     }
     $scope.openDiv = function (index, roleType) {
         if ($scope.openDetail == index) {
@@ -250,8 +194,6 @@ detail.controller('detailCtrl', ['$scope', 'APIService', function ($scope, APISe
     $scope.close = function () {
         $('.alert_bg').css('display', 'none')
         $('.addinspector_div').css('display', 'none')
-        $('#fixchange').css('display', 'none')
-        $('#changemode').css('display', 'none')
         $scope.zhipeiremark = '';
     }
     $scope.cancel = function () {

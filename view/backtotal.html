@@ -49,15 +49,15 @@
         <div ng-repeat="a in orderlist">
             <div class="list_table_td">
                 <div>
-                    {{a.fullName}}
+                    {{a.name}}
                 </div>
                 <div>
                     {{a.percentage}}
                 </div>
-                <div class="div_link" ng-click="goto('',a.name)">
+                <div class="div_link" ng-click="goto('',a.userId)">
                     {{a.counts}}
                 </div>
-                <div class="div_link" ng-click="goto('SUCCESS',a.name)">
+                <div class="div_link" ng-click="goto('SUCCESS',a.userId)">
                     {{a.pushFixCounts}}
                 </div>
             </div>

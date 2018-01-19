@@ -220,10 +220,20 @@ orderlist.controller('orderlistCtrl', ['$scope', 'APIService', '$http', function
     $scope.get_date = function () {
         var startDate = $('#startDay').val();
         var endDate = $('#endDay').val();
-        $scope.start = startDate.split("-");
-        $scope.endDay = endDate.split("-");
-        $scope.start = $scope.start[0].substr(2, 3) + '' + $scope.start[1] + '' + $scope.start[2];
-        $scope.endDay = $scope.endDay[0].substr(2, 3) + '' + $scope.endDay[1] + '' + $scope.endDay[2];
+        if (startDate != '') {
+            $scope.start = startDate.split("-");
+            $scope.start = $scope.start[0].substr(2, 3) + '' + $scope.start[1] + '' + $scope.start[2];
+        } else {
+            $scope.start = '';
+        }
+        if (endDate != '') {
+            $scope.endDay = endDate.split("-");
+            $scope.endDay = $scope.endDay[0].substr(2, 3) + '' + $scope.endDay[1] + '' + $scope.endDay[2];
+        } else {
+            $scope.endDay = '';
+        }
+
+
     }
     $scope.detail = function (orderNo) {
         $scope.save_filter();

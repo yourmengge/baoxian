@@ -65,7 +65,6 @@ main.controller('mainCtrl', ['$scope', 'APIService', function ($scope, APIServic
         }
     }
     $scope.open = function (type) {
-        sessionStorage.removeItem('shop4s_filter')
         if (type == 1) {
             sessionStorage.setItem('audit_type', 'QUOTE')
         } else if (type == 2) {
@@ -76,8 +75,6 @@ main.controller('mainCtrl', ['$scope', 'APIService', function ($scope, APIServic
             sessionStorage.setItem('audit_type', 'brand')
         } else if (type == 5) {
             sessionStorage.setItem('audit_type', 'member')
-        } else if (type == 6) {
-            sessionStorage.setItem('audit_type', 'nocooperation')
         }
         $scope.selectType = type;
 
@@ -102,9 +99,6 @@ main.controller('mainCtrl', ['$scope', 'APIService', function ($scope, APIServic
             case 'member':
                 $scope.selectType = 5;
                 break;
-            case 'nocooperation':
-                $scope.selectType = 6;
-                break;
             default:
                 break;
         }
@@ -123,7 +117,7 @@ main.controller('mainCtrl', ['$scope', 'APIService', function ($scope, APIServic
             $('.shop4SInfo').css('display', 'block')
             $('.brand').css('display', 'block')
             $('.member').css('display', 'block')
-
+            
             $('.shop4S').css('display', 'block')
             $('.orderlist').css('display', 'block')
             $('#' + sessionStorage.getItem('lmId')).addClass('left_menu_click').siblings().removeClass('left_menu_click');

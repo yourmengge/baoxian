@@ -18,9 +18,9 @@
     </p>
     <table cellspacing="0" cellpadding='10' class="table">
         <tr class="table_1_tr">
-            <!-- <td>
+            <td>
                 <input type="checkbox" ng-click="selectAll()" ng-checked="all">
-            </td> -->
+            </td>
             <td>
                 支公司
             </td>
@@ -62,9 +62,9 @@
             </td>
         </tr>
         <tr ng-repeat="a in shopList">
-            <!-- <td>
-                <input ng-hide="a.type == 1" type="checkbox" ng-checked="select_one" ng-click="selectOne(a.shop4sId)">
-            </td> -->
+            <td>
+                <input ng-hide="a.type == 1" type="checkbox" ng-checked="select_one" ng-click="selectOne(a.id)">
+            </td>
             <td>
                 {{a.branchCompany}}
             </td>
@@ -110,7 +110,6 @@
             <td>
                 <span ng-hide="a.type == 1" class="button_span" style="min-width:50px;" ng-click="goto('add',a)">人员管理</span>
                 <span ng-hide="a.type == 1" class="button_span" style="min-width:50px;" ng-click="goto('update',a)">修改</span>
-                <span ng-hide="a.type == 1" class="button_span" style="min-width:50px;" ng-click="delete(a)">删除</span>
             </td>
         </tr>
     </table>

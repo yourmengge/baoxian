@@ -37,7 +37,8 @@ backtotal.controller('backtotalCtrl', ['$scope', 'APIService', function ($scope,
             type: $scope.type,
             success: $scope.success,
             inspector: $scope.inspector,
-            current: $scope.current
+            current: $scope.current,
+            keyword:''
         }
         sessionStorage.setItem('inspectorBackFilter', JSON.stringify(inspectorBackFilter));
     }
@@ -47,10 +48,14 @@ backtotal.controller('backtotalCtrl', ['$scope', 'APIService', function ($scope,
         if (startDate != '') {
             $scope.start = startDate.split("-");
             $scope.start = $scope.start[0].substr(2, 3) + '' + $scope.start[1] + '' + $scope.start[2];
+        } else {
+            $scope.start = '';
         }
         if (endDate != '') {
             $scope.endDay = endDate.split("-");
             $scope.endDay = $scope.endDay[0].substr(2, 3) + '' + $scope.endDay[1] + '' + $scope.endDay[2];
+        } else {
+            $scope.endDay = '';
         }
     }
     $scope.reset_date = function () {
@@ -83,20 +88,22 @@ backtotal.controller('backtotalCtrl', ['$scope', 'APIService', function ($scope,
         $scope.saveFilter();
         $scope.get_inspector_back_factory();
         $scope.back_factory_total();
-        
+
     }
     $scope.changeType = function (type) {
+        $scope.current = 1;
         $scope.type = type;
         inspectorBackFilter.type = $scope.type;
         $scope.saveFilter();
         $scope.get_inspector_back_factory();
         $scope.back_factory_total();
     }
-    $scope.goto = function (type, name) {
-        if (name == null) {
-            name = '';
+    $scope.goto = function (type, userId) {
+        if (userId == null) {
+            userId = '';
         }
-        $scope.inspector = name;
+        $scope.inspector = userId;
+        $scope.current = 1;
         $scope.success = type;
         $scope.saveFilter();
         sessionStorage.setItem('inspectorBackFilter2', JSON.stringify(inspectorBackFilter));
@@ -119,8 +126,10 @@ backtotal.controller('backtotalCtrl', ['$scope', 'APIService', function ($scope,
                 }
                 if ($scope.current == 1) {
                     $scope.up = hide;
+                    $scope.down = show;
                 } else if ($scope.current == $scope.pageCount) {
                     $scope.down = hide;
+                    $scope.up = show;
                 }
                 $scope.home = show;
                 $scope.end = show;

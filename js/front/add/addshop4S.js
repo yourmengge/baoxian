@@ -30,7 +30,7 @@ addshop4S.controller('addshop4SCtrl', ['$scope', 'APIService', "$http", function
             // "dealer": '',
             // "dealerPhone": ''
         }
-        $scope.data.noPushFixCode = false;
+       // $scope.data.noPushFixCode = false;
         if (JSON.parse(sessionStorage.getItem('shop4S_data') != '') && JSON.parse(sessionStorage.getItem('shop4S_data') != undefined)) {
             $scope.data = JSON.parse(sessionStorage.getItem('shop4S_data'))
             //$scope.noPushFixCode = $scope.data.noPushFixCode;
@@ -47,29 +47,22 @@ addshop4S.controller('addshop4SCtrl', ['$scope', 'APIService', "$http", function
             }
 
         }
-        $scope.shop4s_type = sessionStorage.getItem('shop4S_type');
-        if ($scope.shop4s_type == 'addshop4s') {
+
+        if (sessionStorage.getItem('shop4S_type') == 'addshop4s') {
             $scope.title = '添加推修厂'
-        } else if ($scope.shop4s_type == 'update') {
+        } else {
             $scope.data = JSON.parse(sessionStorage.getItem('shop4S_data'))
             $scope.title = '修改推修厂'
-        } else if ($scope.shop4s_type == 'change') {
-            $scope.data = JSON.parse(sessionStorage.getItem('shop4S_data'))
-            $scope.title = '转为推修厂'
         }
 
     }
 
     //确定按钮
     $scope.submit_button = function () {
-        if ($scope.shop4s_type == 'addshop4s') {
+        if (sessionStorage.getItem('shop4S_type') == 'addshop4s') {
             $scope.add_shop4S($scope.data, address);
-        } else if ($scope.shop4s_type == 'update') {
+        } else {
             $scope.update_shop4S($scope.data, address);
-        } else if ($scope.shop4s_type == 'change') {
-            if (confirm('确认将这修理厂转为推修厂')) {
-                $scope.change_shop4S($scope.data, address);
-            }
         }
     }
 
@@ -110,26 +103,6 @@ addshop4S.controller('addshop4SCtrl', ['$scope', 'APIService', "$http", function
             }
         })
     }
-
-    //转为推修厂
-    $scope.change_shop4S = function (data, address) {
-        data.address = address.address;
-        data.latitude = address.lat;
-        data.longitude = address.lng;
-        APIService.change_shop4S(data).then(function (res) {
-            if (res.data.http_status == 200) {
-                layer.msg('转换成功');
-                setTimeout(function () {
-                    sessionStorage.removeItem('shop4S_data');
-                    sessionStorage.removeItem('shop4S');
-                    $scope.back();
-                }, 2000);
-            } else {
-                isError(res);
-            }
-        })
-    }
-
     $scope.change = function () {
         sessionStorage.setItem('shop4S_data', JSON.stringify($scope.data));
     }
@@ -165,29 +138,34 @@ addshop4S.controller('addshop4SCtrl', ['$scope', 'APIService', "$http", function
             $scope.counts3 = 1;
         }
     });
-    $scope.$watch('data.noPushFixCode', function (newValue) {
-        if (newValue == true) {
-            $scope.data.pushFixCode = ''
-            $scope.address = '';
-            sessionStorage.removeItem('shop4S')
+    // $scope.$watch('data.noPushFixCode', function (newValue) {
+    //     if (newValue == true) {
+    //         $scope.data.pushFixCode = ''
+    //         $scope.address = '';
+    //         sessionStorage.removeItem('shop4S')
+    //     } else {
+    //         $('#submit').addClass('button_disabled').attr("disabled", 'disabled');
+    //     }
+    //     $scope.change();
+    // })
+    $scope.$watch('counts1  + counts3  + counts4', function (newValue, oldValue) {
+        // if ($scope.data.noPushFixCode) {
+        //     if (newValue == 1) {
+        //         $('#submit').removeAttr("disabled").removeClass('button_disabled');
+        //     } else {
+        //         $('#submit').addClass('button_disabled').attr("disabled", 'disabled');
+        //     }
+        // } else {
+        //     if (newValue == 3) {
+        //         $('#submit').removeAttr("disabled").removeClass('button_disabled');
+        //     } else {
+        //         $('#submit').addClass('button_disabled').attr("disabled", 'disabled');
+        //     }
+        // }
+        if (newValue == 3) {
+            $('#submit').removeAttr("disabled").removeClass('button_disabled');
         } else {
             $('#submit').addClass('button_disabled').attr("disabled", 'disabled');
-        }
-        $scope.change();
-    })
-    $scope.$watch('counts1  + counts3  + counts4', function (newValue, oldValue) {
-        if ($scope.data.noPushFixCode) {
-            if (newValue == 1) {
-                $('#submit').removeAttr("disabled").removeClass('button_disabled');
-            } else {
-                $('#submit').addClass('button_disabled').attr("disabled", 'disabled');
-            }
-        } else {
-            if (newValue == 3) {
-                $('#submit').removeAttr("disabled").removeClass('button_disabled');
-            } else {
-                $('#submit').addClass('button_disabled').attr("disabled", 'disabled');
-            }
         }
     });
     $scope.reset = function () {

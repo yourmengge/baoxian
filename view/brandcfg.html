@@ -8,8 +8,9 @@
         <button class="button" style="float:right" ng-click="add('')">添加车行</button>
         <button class="button" style="float:right" ng-click="cfg('')">订单比例配置</button>
 
-        <input type="text" ng-model="keyword" placeholder="请输入车行全称" class="input" style="width:250px;" ng-model="keyword"> 直赔资质：
-        <select ng-change="search()" class="input" name="" style="width:100px;" ng-model="status" ng-options="a.id as a.name for a in statusTexts"
+        <input type="text" ng-model="keyword" placeholder="请输入车行全称" class="input" style="width:250px;" ng-model="keyword"> 
+        <span ng-hide="zhipeiDiv" style="margin-left:40px;"> 直赔资质：</span>
+        <select ng-hide="zhipeiDiv" ng-change="search()" class="input" name="" style="width:100px;" ng-model="status" ng-options="a.id as a.name for a in statusTexts"
             id=""></select>
         <button class="button" ng-click="search()">查询</button>
         <button class="button" ng-click="searchAll()">显示全部</button>
@@ -22,7 +23,7 @@
             <td>
                 车行全称
             </td>
-            <td>
+            <td ng-hide="zhipeiDiv">
                 直赔资质
             </td>
             <td>
@@ -39,7 +40,7 @@
             <td>
                 {{a.shop4sFullName}}
             </td>
-            <td>
+            <td ng-hide="zhipeiDiv">
                 {{a.directCompensation | zhiPei}}
             </td>
             <td>

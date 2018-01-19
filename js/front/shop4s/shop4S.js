@@ -109,10 +109,7 @@ shop4S.controller('shop4SCtrl', ['$scope', 'APIService', function ($scope, APISe
             $scope.all = true;
             $scope.checked = [];
             angular.forEach($scope.shopList, function (i, index) {
-                if (i.type == 0) {
-                    $scope.checked.push(i.id);
-                }
-
+                $scope.checked.push(i.shop4sId);
             })
         } else {
             $scope.all = false;
@@ -177,9 +174,23 @@ shop4S.controller('shop4SCtrl', ['$scope', 'APIService', function ($scope, APISe
     }
 
     //删除
-    $scope.delete = function (data) {
-        if (confirm('确定是否删除该推修厂')) {
-            APIService.delete_shop4S('id=' + data.id).then(function (res) {
+    $scope.delete = function () {
+        if ($scope.checked.length == 0) {
+            alert('未选中任何推修厂')
+        } else {
+            var data = 'id=';
+            if ($scope.checked.length == 1) {
+                data = data + $scope.checked[0];
+            } else {
+                angular.forEach($scope.checked, function (i, index) {
+                    if (index != $scope.checked.length - 1) {
+                        data = data + i + '&id='
+                    } else {
+                        data = data + i;
+                    }
+                })
+            }
+            APIService.delete_shop4S(data).then(function (res) {
                 if (res.data.http_status == 200) {
                     layer.msg('删除成功');
                     setTimeout(function () {
@@ -194,6 +205,7 @@ shop4S.controller('shop4SCtrl', ['$scope', 'APIService', function ($scope, APISe
                 }
             })
         }
+
     }
     $scope.save_filter = function () {
         shop4s_filter.keyword = $scope.keyword;

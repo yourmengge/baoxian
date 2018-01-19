@@ -36,12 +36,9 @@ nar_location.controller('nar_locationCtrl', ['$scope', 'APIService', function ($
         } else if ($scope.type == '修改事故') {
             $scope.type = '事故';
             $scope.sessionStorageName = 'update'
-        } else if ($scope.type == '事故_nar') {
+        } else if ($scope.type = '事故_nar') {
             $scope.map_type = '事故'
             $scope.sessionStorageName = 'nar_address'
-        }else if($scope.type == '修理厂'){
-            $scope.map_type = '修理厂';
-            $scope.sessionStorageName = 'nocoopertation'
         }
 
     }

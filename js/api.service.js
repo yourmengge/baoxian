@@ -119,8 +119,8 @@ Road167.factory('APIService', function ($http) {
     }
 
     //获取订单详情
-    service.get_order_detail = function (orderNo, type) {
-        return service.get(host + urlV1 + urlOrder + "/" + orderNo + '/detail/' + type);
+    service.get_order_detail = function (orderNo) {
+        return service.get(host + urlV1 + urlOrder + "/" + orderNo + '/detail');
     }
 
     //上传图片,获取oss权限
@@ -328,10 +328,6 @@ Road167.factory('APIService', function ($http) {
     service.get_shop4S_page = function (keyword, limit, offset, status) {
         return service.get(host + urlV1 + '/shop4s/page?$limit=' + limit + '&$offset=' + offset + '&keyword=' + keyword + '&directCompensation=' + status)
     }
-    //获取无合作厂列表(后台列表)
-    service.get_nocooperation_page = function (keyword, limit, offset, status) {
-        return service.get(host + urlV1 + '/shop4s/page?$limit=' + limit + '&$offset=' + offset + '&keyword=' + keyword + '&Shop4sType=NO_COOPERATE')
-    }
     //删除4s管理人员
     service.delete_afterSaleMgr = function (id) {
         return service.delete(host + urlV1 + '/shop4s/user/' + id);
@@ -349,11 +345,6 @@ Road167.factory('APIService', function ($http) {
         return service.post(host + urlV1 + '/shop4s/import/confirm/' + id);
     }
 
-    //确认批量导入2
-    service.submit_shop4S_list2 = function (id) {
-        return service.post(host + urlV1 + '/shop4s/import/confirm2/' + id);
-    }
-
     //添加推修厂
     service.add_shop4S = function (data) {
         return service.post(host + urlV1 + '/shop4s', data);
@@ -362,11 +353,6 @@ Road167.factory('APIService', function ($http) {
     //修改推修厂
     service.update_shop4S = function (data) {
         return service.put(host + urlV1 + '/shop4s', data);
-    }
-
-    //转为推修厂
-    service.change_shop4S = function (data) {
-        return service.put(host + urlV1 + '/shop4s/tran', data);
     }
 
     //删除推修厂
@@ -436,8 +422,8 @@ Road167.factory('APIService', function ($http) {
     }
 
     //回厂信息
-    service.get_back_factory_list = function (limit, offset, start, end, type, keyword, result) {
-        return service.get(host + urlV1 + '/third/back-factory/information/list?startDay=' + start + '&endDay=' + end + '&keyword=' + keyword + '&orderType=' + type + '&pushResult=' + result + '&$limit=' + limit + '&$offset=' + offset)
+    service.get_back_factory_list = function (limit, offset, start, end, type, keyword, result,userId) {
+        return service.get(host + urlV1 + '/third/back-factory/information/list?startDay=' + start + '&endDay=' + end + '&keyword=' + keyword + '&orderType=' + type + '&pushResult=' + result + '&createUserId=' + userId + '&$limit=' + limit + '&$offset=' + offset)
     }
 
     //获取回厂率统计
