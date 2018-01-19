@@ -182,7 +182,7 @@
             <div ng-hide="notTuoche || notFinished || notFixAddrRemark == null">
                 <div class="flex_div_line">
                     拖送结果与推修厂
-                    <span class="red_font {{notFixAddrRemark == '一致'?'':'red_font'}}">{{notFixAddrRemark == '一致'?'一致':'不一致'}}</span>
+                    <span class="{{notFixAddrRemark == '一致'?'':'red_font'}}">{{notFixAddrRemark == '一致'?'一致':'不一致'}}</span>
                 </div>
                 <div class="flex_div_line" ng-hide="notFixAddrRemark == '一致'">
                     {{notFixAddrRemark}}
