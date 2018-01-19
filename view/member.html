@@ -1,0 +1,130 @@
+<div class="adddriver" ng-controller="memberCtrl" ng-init="initData()">
+    <h2>会员店</h2>
+    <p class="search_div">
+
+        <button class="button" style="float:right" ng-click="add()">添加车行</button>
+
+
+        <input type="text" ng-model="keyword" placeholder="请输入推修码、车行全称或车行地址" class="input" style="width:250px;" ng-model="keyword">
+        直赔资质：
+        <select ng-change="search()" class="input" name="" style="width:100px;" ng-model="status" ng-options="a.id as a.name for a in statusTexts" id=""></select>
+        <button class="button" ng-click="search()">查询</button>
+        <button class="button" ng-click="searchAll()">显示全部</button>
+
+
+    </p>
+    <div style="text-align:center;" ng-hide="shopList.length != 0">
+        <img src="img/img-none-zi.png" alt="">
+    </div>
+    <table cellspacing="0" cellpadding='10' class="table" ng-hide="shopList.length == 0">
+        <tr class="table_1_tr">
+            <td>
+                支公司
+            </td>
+            <td style="width:150px;">
+                推修码
+            </td>
+            <td>
+                车行全称
+            </td>
+            <td>
+                车行简称
+            </td>
+            <td style="width:250px;">
+                车行地址
+            </td>
+            <td>
+                直赔资质
+            </td>
+            <!-- <td>
+                售后经理
+            </td>
+            <td>
+                电话
+            </td>
+            <td>
+                售后经理2
+            </td>
+            <td>
+                电话2
+            </td>
+            <td>
+                车商人员
+            </td>
+            <td>
+                电话
+            </td> -->
+            <td style="min-width:130px;">
+                操作
+            </td>
+        </tr>
+        <tr ng-repeat="a in shopList">
+
+            <td>
+                {{a.branchCompany}}
+            </td>
+            <td style="width:150px;">
+                {{a.pushFixCode}}
+            </td>
+            <td>
+                {{a.fullName}}
+            </td>
+            <td>
+                {{a.simpleName}}
+            </td>
+            <td style="width:250px;">
+                {{a.address}}
+            </td>
+            <td>
+                {{a.directCompensation | zhiPei}}
+            </td>
+            <!-- <td>
+                {{a.afterSaleMgr}}
+            </td>
+            <td>
+                {{a.afterSalePhone}}
+            </td>
+            <td>
+                {{a.afterSaleMgr2}}
+            </td>
+            <td>
+                {{a.afterSalePhone2}}
+            </td>
+            <td>
+                {{a.dealer}}
+            </td>
+            <td>
+                {{a.dealerPhone}}
+            </td> -->
+            <td>
+                <span class="button_span" style="min-width:50px;" ng-click="del(a)">移除</span>
+            </td>
+        </tr>
+    </table>
+    <div class="alert_bg" ng-click="close()"></div>
+    <div class="addinspector_div">
+        <h2 class="alert_add_h2">添加车行</h2>
+        <img src="img/guanbi-dianji.png" alt="" class="close_img" ng-click="close()">
+        <div style="    text-align: left;    margin-left: 100px;width:300px">
+            车行全称：
+            <input ng-change="get_member_list()" type="text" class="input" style="width: 70%;" ng-model="Name" placeholder="请输入车行全称">
+            <div class="input_div">
+                <p ng-repeat="b in list" ng-click="select(b)">
+                    {{b.fullName}}
+                </p>
+
+            </div>
+        </div>
+        <p>
+            <button class="button {{Name != ''?'':'button_disabled'}}" ng-click="submit_add()" ng-disabled="Name != '' && phone != ''?'':'true'">确定</button>
+            <button class="button button_del" ng-click="close()">取消</button>
+        </p>
+    </div>
+    <p ng-hide="page_p" class="page_p">
+        <button class="page_btn" ng-hide="home" ng-click="Page('home')">首页 </button>
+        <button class="page_btn" ng-hide="up" ng-click="Page('up')">上一页 </button>
+        <button class="page_btn current_btn" disabled>{{current}}</button>
+        <button class="page_btn" ng-hide="down" ng-click="Page('down')">下一页 </button>
+        <button class="page_btn" ng-hide="end" ng-click="Page('end')">尾页 </button> 总页数:{{pageCount}}
+    </p>
+</div>

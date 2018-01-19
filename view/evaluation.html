@@ -1,0 +1,53 @@
+<div class="fixaddress" ng-controller="evaluationCtrl" ng-init="initData()">
+    <h2>查看评价</h2>
+    <button class="button output_button" ng-click="toexcel()">
+        导出excel
+    </button>
+    <table id="table2excel" cellspacing="0" class="table">
+        <tr class="table_1_tr">
+            <td width='3%'></td>
+            <td>评价时间</td>
+            <td class="noExl">评级</td>
+            <td>意见建议</td>
+            <td class="hide">客户姓名</td>
+            <td>报案电话</td>
+            <td>施救司机</td>
+            <td class="noExl">具体服务信息</td>
+            <td class="hide">车牌号</td>
+            <td class="hide">报案号</td>
+            <td class="hide ">服务项目</td>
+            <td class="hide ">服务受理时间</td>
+            <td class="hide ">服务完成时间</td>
+            <td class="hide">满意度</td>
+        </tr>
+        <tr ng-repeat="a in items">
+            <td>{{$index + 1}}</td>
+            <td>
+                {{a.evalTime | ToLocal}}
+            </td>
+            <td class="noExl"><img class="evalImg" ng-src="img/{{a.evalStar}}.png" alt=""></td>
+            <td style="max-width: 400px;padding: 20px;"><p style="word-wrap: break-word;">{{a.evalContent}}</p></td>
+            <td class="hide">{{a.accidentDriverName}}</td>
+            <td>{{a.accidentDriverPhone}}</td>
+            <td>{{a.assignDrivers | Drivers}}</td>
+            <td class="noExl"><button class="button" ng-click="detail(a.orderNo)">订单详情</button></td>
+            <td class="hide">{{a.accidentCarNoDesc}}</td>
+            <td class="hide">[{{a.caseNo}}]</td>
+            <td class="hide ">{{a.serviceItems | ServiceItems}}</td>
+            <td class="hide">{{a.createTime | ToLocal}}</td>
+            <td class="hide">{{a.orderEndTime | ToLocal}}</td>
+            <td class="hide">{{a.evalStar}}</td>
+        </tr>
+    </table>
+     
+    <p ng-hide="page_p" class="page_p">
+        <button class="page_btn" ng-hide="home" ng-click="Page('home')">首页 </button>
+        <button class="page_btn" ng-hide="up" ng-click="Page('up')">上一页 </button> {{current}}
+        <button class="page_btn" ng-hide="down" ng-click="Page('down')">下一页 </button>
+        <button class="page_btn" ng-hide="end" ng-click="Page('end')">尾页 </button> 总页数:{{pageCount}}
+    </p>
+    <!--<div class="closeBg" ng-click="closeBG()"></div>
+    <div class="map_div">
+        <div ui-view></div>
+    </div>-->
+</div>

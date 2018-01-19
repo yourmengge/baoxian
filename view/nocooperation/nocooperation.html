@@ -1,0 +1,70 @@
+<div class="adddriver" ng-controller="nocooperationCtrl" ng-init="initData()">
+    <h2>无合作修理厂信息</h2>
+    <p class="search_div">
+        <input type="text" ng-model="keyword" placeholder="请输入修理厂名称" class="input" style="width:230px;" ng-model="keyword">
+        <button class="button" ng-click="search()">查询</button>
+        <button class="button" ng-click="searchAll()">显示全部</button>
+        <button class="button" style="float:right" ui-sref="main.batchnocooperation">批量导入</button>
+        <button class="button" style="float:right" ng-click="goto('addshop4s','')">添加</button>
+    </p>
+    <p>
+        <button class="button" ng-click="delete()">删除</button>
+    </p>
+    <table cellspacing="0" cellpadding='10' class="table">
+        <tr class="table_1_tr">
+            <td>
+                <input type="checkbox" ng-click="selectAll()" ng-checked="all">
+            </td>
+            <td>
+                修理厂名称
+            </td>
+            <td style="width:150px;">
+                修理厂类别
+            </td>
+            <td style="width:200px;">
+                修理厂地址
+            </td>
+            <td style="width:200px;">
+                添加时间
+            </td>
+            <td style="width:200px;">
+                操作人
+            </td>
+            <td style="min-width:130px;">
+                操作
+            </td>
+        </tr>
+        <tr ng-repeat="a in shopList">
+            <td>
+                <input type="checkbox" ng-checked="select_one" ng-click="selectOne(a.id)">
+            </td>
+            <td>
+                {{a.fullName}}
+            </td>
+            <td style="width:150px;">
+                {{a.branchCompany}}
+            </td>
+            <td style="width:200px;">
+                {{a.address}}
+            </td>
+            <td style="width:200px;">
+                {{a.updateTime | ToLocal3}}
+            </td>
+            <td style="width:200px;">
+                {{a.updateName}}
+            </td>
+            <td>
+                <span class="button_span" style="min-width:50px;" ng-click="goto('update',a)">修改</span>
+                <span class="button_span" style="min-width:50px;" ng-click="deleteOne(a.id)">删除</span>
+                <span class="button_span" style="min-width:50px;" ng-click="goto('change',a)">转为推修厂</span>
+            </td>
+        </tr>
+    </table>
+    <p ng-hide="page_p" class="page_p">
+        <button class="page_btn" ng-hide="home" ng-click="Page('home')">首页 </button>
+        <button class="page_btn" ng-hide="up" ng-click="Page('up')">上一页 </button>
+        <button class="page_btn current_btn" disabled>{{current}}</button>
+        <button class="page_btn" ng-hide="down" ng-click="Page('down')">下一页 </button>
+        <button class="page_btn" ng-hide="end" ng-click="Page('end')">尾页 </button> 总页数:{{pageCount}}
+    </p>
+</div>

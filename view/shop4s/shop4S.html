@@ -1,0 +1,158 @@
+<div class="adddriver" ng-controller="shop4SCtrl" ng-init="initData()">
+    <h2>推修厂信息</h2>
+    <p class="search_div">
+
+        <button class="button" ng-click="delete()">删除</button>
+
+
+        <input type="text" ng-model="keyword" placeholder="请输入推修码、车行全称或车行地址" class="input" style="width:230px;" ng-model="keyword">
+        <span ng-hide="zhipeiDiv">直赔资质：</span>
+        <select ng-hide="zhipeiDiv" ng-change="search()" class="input" name="" style="width:100px;" ng-model="status" ng-options="a.id as a.name for a in statusTexts"
+            id=""></select>
+        <button class="button" ng-click="search()">查询</button>
+        <button class="button" ng-click="searchAll()">显示全部</button>
+        <button class="button" style="float:right" ng-click="output()">导出excel</button>
+        <button class="button" style="float:right" ui-sref="main.batchshop4S">批量导入</button>
+        <button class="button" style="float:right" ng-click="goto('addshop4s','')">添加</button>
+
+    </p>
+    <table cellspacing="0" cellpadding='10' class="table">
+        <tr class="table_1_tr">
+            <!-- <td>
+                <input type="checkbox" ng-click="selectAll()" ng-checked="all">
+            </td> -->
+            <td>
+                支公司
+            </td>
+            <td style="width:150px;">
+                推修码
+            </td>
+            <td style="width:200px;">
+                车行全称
+            </td>
+            <td style="width:200px;">
+                车行简称
+            </td>
+            <td style="width:200px;">
+                车行地址
+            </td>
+            <td style="width: 150px;" ng-hide="zhipeiDiv">
+                直赔资质
+            </td>
+            <!-- <td>
+                售后经理
+            </td>
+            <td>
+                电话
+            </td>
+            <td>
+                售后经理2
+            </td>
+            <td>
+                电话2
+            </td>
+            <td>
+                车商人员
+            </td>
+            <td>
+                电话
+            </td> -->
+            <td style="min-width:130px;">
+                操作
+            </td>
+        </tr>
+        <tr ng-repeat="a in shopList">
+            <!-- <td>
+                <input ng-hide="a.type == 1" type="checkbox" ng-checked="select_one" ng-click="selectOne(a.shop4sId)">
+            </td> -->
+            <td>
+                {{a.branchCompany}}
+            </td>
+            <td style="width:150px;">
+                {{a.type == 1 ?'*无推修码':a.pushFixCode}}
+            </td>
+            <td style="width:200px;">
+                {{a.fullName}}
+            </td>
+            <td style="width:200px;">
+                {{a.simpleName}}
+            </td>
+            <td style="width:200px;">
+                {{a.type == 1 ? '*无地址': a.address}}
+            </td>
+            <td style="width: 150px;" ng-hide="zhipeiDiv || a.type == 1">
+                <label>
+                    <input ng-click="start(a)" ng-model="zhipei" class="mui-switch mui-switch-animbg" type="checkbox" ng-checked="a.directCompensation">
+                </label>
+                <span class="button_span zhipei" style="min-width:50px;" ng-click='addDriver(a)'>操作记录</span>
+            </td>
+            <td ng-hide="a.type == 0">
+                *无直赔资质
+            </td>
+            <!-- <td>
+                {{a.afterSaleMgr}}
+            </td>
+            <td>
+                {{a.afterSalePhone}}
+            </td>
+            <td>
+                {{a.afterSaleMgr2}}
+            </td>
+            <td>
+                {{a.afterSalePhone2}}
+            </td>
+            <td>
+                {{a.dealer}}
+            </td>
+            <td>
+                {{a.dealerPhone}}
+            </td> -->
+            <td>
+                <span ng-hide="a.type == 1" class="button_span" style="min-width:50px;" ng-click="goto('add',a)">人员管理</span>
+                <span ng-hide="a.type == 1" class="button_span" style="min-width:50px;" ng-click="goto('update',a)">修改</span>
+                <span ng-hide="a.type == 1" class="button_span" style="min-width:50px;" ng-click="delete(a)">删除</span>
+            </td>
+        </tr>
+    </table>
+    <div class="alert_bg" ng-click="close()"></div>
+    <div class="zhipeilist">
+        <div class="zhipeilist_title">
+            <h3 style="float:left;margin-left:6px;">
+                操作记录
+            </h3>
+            <img src="img/guanbi-dianji.png" alt="" class="close_img" ng-click="close()" style="margin-bottom: 0;margin-top:12px">
+
+        </div>
+        <div class="zhipeilist_div_title">
+            <div>
+                操作人员
+            </div>
+            <div>
+                操作时间
+            </div>
+            <div>
+                操作内容
+            </div>
+        </div>
+        <div class="zhipeilist_div2">
+            <div ng-repeat="a in zhipeilist" class="zhipeilist_div">
+                <div>
+                    {{a.createByDesc}}
+                </div>
+                <div>
+                    {{a.createTime | ToLocal}}
+                </div>
+                <div>
+                    {{a.operateContent}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <p ng-hide="page_p" class="page_p">
+        <button class="page_btn" ng-hide="home" ng-click="Page('home')">首页 </button>
+        <button class="page_btn" ng-hide="up" ng-click="Page('up')">上一页 </button>
+        <button class="page_btn current_btn" disabled>{{current}}</button>
+        <button class="page_btn" ng-hide="down" ng-click="Page('down')">下一页 </button>
+        <button class="page_btn" ng-hide="end" ng-click="Page('end')">尾页 </button> 总页数:{{pageCount}}
+    </p>
+</div>

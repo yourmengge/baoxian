@@ -1,0 +1,95 @@
+<div class="adddriver" ng-controller="backinfoCtrl" ng-init="initData()">
+    <h2>回厂信息</h2>
+    <button class="goback" ng-click="back()"></button>
+    <p class="search_div">
+        出险时间&emsp;&emsp;开始：
+        <input type="date" id="startDay" class="input"> 结束：
+        <input type="date" id="endDay" class="input">
+        <br>
+        <br> 订单类型：
+        <select ng-change="search()" class="input" name="" style="width:100px;" ng-model="ordertype" ng-options="a.id as a.name for a in orderTypeTexts"
+            id=""></select>
+        推修结果：
+        <select ng-change="search()" class="input" name="" style="width:100px;" ng-model="jieguo" ng-options="a.id as a.name for a in jieguoTexts"
+            id=""></select>
+        <input class="input" type="text" ng-model="keyword" style="width:250px;" placeholder="请输入查勘员、推修厂名称或车牌号">
+        <button class="button" ng-click="search()" style="min-width:60px;">查询</button>
+        <button class="button output_button" ng-click="searchAll()">
+            显示全部
+        </button>
+        <button class="button output_button" ng-click="toexcel(status,caseNo)">
+            导出excel
+        </button>
+    </p>
+    <div class="list_table">
+        <div class="list_table_tr">
+            <div>
+                推修结果
+            </div>
+            <div>
+                查勘员
+            </div>
+            <div>
+                车牌号
+            </div>
+            <div>
+                出险日期
+            </div>
+            <div>
+                车保类型
+            </div>
+            <div>
+                推修车行
+            </div>
+            <div>
+                回厂车行
+            </div>
+            <div>
+                确认时间
+            </div>
+            <div>
+                操作
+            </div>
+        </div>
+        <div ng-repeat="a in orderList">
+            <div class="list_table_td">
+                <div>
+                    <img ng-src="{{switchImg(a.backShop4sId)}}" alt="">
+                </div>
+                <div>
+                    {{a.inspectorName}}
+                </div>
+                <div>
+                    {{a.accidentCarNo}}
+                </div>
+                <div>
+                    {{a.accidentTime | ToLocal}}
+                </div>
+                <div>
+                    {{a.insuranceTypeDesc}}
+                </div>
+                <div>
+                    {{a.pushAddress}}
+                </div>
+                <div>
+                    {{a.backAddress}}
+                </div>
+                <div>
+                    {{a.shop4sConfirmTime | ToLocal}}
+                </div>
+                <div>
+                    <button class="detail_button" title="查看订单" ng-click="detail(a.orderNo)"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div ui-view class="ui_view_1" ng-hide="none"></div> -->
+    <p ng-hide="page_p" class="page_p">
+        <button class="page_btn" ng-hide="home" ng-click="Page('home')">首页 </button>
+        <button class="page_btn" ng-hide="up" ng-click="Page('up')">上一页 </button>
+        <button class="page_btn current_btn" disabled>{{current}}</button>
+        <button class="page_btn" ng-hide="down" ng-click="Page('down')">下一页 </button>
+        <button class="page_btn" ng-hide="end" ng-click="Page('end')">尾页 </button> 总页数:{{pageCount}}
+        <!-- 传送到<input type="text" ng-model="input_jump" ng-keypress="isNum($event)"><button ng-click="jump()" class="button" style="min-width:50px;">传送</button> -->
+    </p>
+</div>

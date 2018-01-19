@@ -1,0 +1,138 @@
+<div class="auth" ng-controller="confirmationCtrl" ng-init="initData()">
+    <!--startprint-->
+    <div ng-hide="detail.insuranceType == 1">
+        <div id="div1">
+            <h2>
+                直赔确认书
+            </h2>
+            <button class="goback" ng-click="back()"></button>
+            <!-- <p>
+                {{detail.authDesc}}
+            </p> -->
+
+            <div style="text-align:center" class="title">
+                机动车保险事故车辆委托维修及费用结算确认书
+
+            </div>
+            <p style="text-align:center">
+                （适用第三者车辆）
+            </p>
+            <p>
+                <span>{{detail.companyName}}</span>：
+            </p>
+            <p>
+                &emsp;&emsp;本人系保单号为
+                <span class="{{isNull(detail.policyNo) ?'isNotComfirmation':''}}">{{detail.policyNo}}</span>的保险合同项下的被保险人，保险标的车辆
+                <span class="{{isNull(detail.markCarNo) ?'isNotComfirmation':''}}">{{detail.markCarNo}}</span>于
+                <span class="{{isNull(detail.accidentTime) ?'isNotComfirmationDate':''}}">{{detail.accidentTime | ToFormatDate}}</span>发生保险事故，造成第三者车牌号为
+                <span class="{{isNull(detail.thirdCarNo)?'isNotComfirmation':''}}">{{detail.thirdCarNo}}</span>的车辆损失。为方便理赔，经与第三者协商，一致同意以下理赔事项：
+            </p>
+            <p>&emsp;&emsp;1、本人及第三者车主同意由你司委托
+                <span class="{{isNull(detail.serviceAddress)?'isNotComfirmation':''}}">{{detail.serviceAddress}}</span>（维修单位）将上述第三者车辆修复；
+            </p>
+            <p>&emsp;&emsp;2、维修单位依据行业的技术标准对上述第三者车辆进行修复，并由维修单位承担因维修质量给本人及第三者车主造成的损失。如出现维修质量纠纷，你司应协助做好沟通协调工作。</p>
+            <p class="font_bold">&emsp;&emsp;3、本人及第三者车主同意你司仅依据保险合同的约定核定本次事故的第三者车辆损失赔款，并同意你司将此项赔款作为第三者车辆维修费用直接支付给维修单位。 维修单位根据你司的支付金额，开具以你司为抬头的维修发票。</p>
+            <p class="font_bold">&emsp;&emsp;对于不属保险责任范围或超过保险理赔范围或超过保险理赔金额的车辆维修项目或维修费用，本人及第三者车主同意你司不予承担;并同意由本人、第三者车主或者事故其他方自行承担并自行负责与维修单位结算。</p>
+            <p class="font_bold">&emsp;&emsp;<span class="underline">特别声明：</span>如非本车被保险人、第三者车辆所有权人在本《机动车保险事故车辆委托维修及费用结算确认书》上签字的，签字人应保证其为本车被保险人、第三者车辆所有权人的合法代理人，确保被保险人、第三者车辆所有权人已知晓并同意本《确认书》约定的事项，否则该签字人应承担一切法律后果，赔偿保险人、被保险人及第三者车辆所有权人的全部损失。</p>
+            <div class="sign_div">
+                <div class="sign_left">
+                    <p>
+                        被保险人或其代理人签字：
+                    </p>
+                    <img ng-click="openImg(detail.insuranceSignURL)" width="300px" ng-src="{{detail.insuranceSignURL}}" alt="">
+                    <p>
+                        联系电话：
+                        <span>{{detail.insurancePhone}}</sstyle="text-align:center"pan>
+                    </p>
+                    <p>
+                        {{detail.insuranceSignTime | ToFormat}}
+                    </p>
+                </div>
+                <div class="sign_left">
+                    <p>
+                        第三者车主或其代理人签字：
+                    </p>
+                    <img ng-click="openImg(detail.thirdSignURL)" height="200px;" width="300px" ng-src="{{detail.thirdSignURL }}" alt="">
+                    <p>
+                        联系电话：
+                        <span>{{detail.thirdPhone}}</span>
+                    </p>
+                    <p>
+                        {{detail.thirdSignTime | ToFormat}}
+                    </p>
+                    <img ng-click="openImg(detail.orderIdCardPath)"  width="300px;" ng-src="{{detail.orderIdCardPath | noIdCard}}" alt="">
+                    <!-- <p ng-hide="detail.orderIdCardPath != null" class="no_id_card">
+                        暂无第三者车主或其代理人身份证
+                    </p> -->
+                </div>
+            </div>
+        </div>
+        <p style="text-align:center;margin-top:70px;margin-bottom:100px;">
+            <button class="button" style="margin-top:30px;" onclick="print('div1')">
+                打印
+            </button>
+        </p>
+    </div>
+    <div id="div2" ng-hide="detail.insuranceType == 2">
+        <div id="div1">
+            <h2>
+                直赔确认书
+            </h2>
+            <button class="goback" ng-click="back()"></button>
+            <p>
+                {{detail.authDesc}}
+            </p>
+
+            <div style="text-align:center" class="title">
+                机动车保险事故车辆委托维修及费用结算确认书
+            </div>
+            <p style="text-align:center">
+                （适用被保险机动车辆 ）
+            </p>
+            <p>
+                <span>{{detail.companyName}}</span>：
+            </p>
+            <p>
+                &emsp;&emsp;保单号为
+                <span class="{{isNull(detail.policyNo)?'isNotComfirmation':''}}">{{detail.policyNo}}</span>的保险合同项下的保险标的车辆
+                <span class="{{isNull(detail.markCarNo) ?'isNotComfirmation':''}}">{{detail.markCarNo}}</span>于
+                <span class="{{isNull(detail.accidentTime) ?'isNotComfirmationDate':''}}">{{detail.accidentTime | ToFormatDate}}</span>发生保险事故，造成车辆损失。为方便事故处理与理赔，现本人同意以下事项：
+            </p>
+            <p>&emsp;&emsp;1、本人同意由你司委托
+                <span class="{{isNull(detail.serviceAddress) ?'isNotComfirmation':''}}">{{detail.serviceAddress}}</span>（维修单位）将上述车辆修复；
+            </p>
+            <p>&emsp;&emsp;2、维修单位依据行业的技术标准对上述的事故车辆进行修复，并由维修单位承担因维修质量给本人造成的损失。如出现维修质量纠纷，你司应协助做好沟通协调工作。</p>
+            <p class="font_bold">&emsp;&emsp;3、本人同意你司仅依据保险合同的约定核定本次事故的本车损赔款，并同意你司将此项赔款作为本次事故车辆维修费用直接支付给维修单位。维修单位根据你司的支付金额，开具以你司为抬头的维修发票。</p>
+            <p class="font_bold">&emsp;&emsp;对于不属保险责任范围或超过保险理赔范围或超过保险理赔金额的车辆维修项目和维修费用，本人同意你司不予承担；并同意由本人或者事故其他方自行承担并自行负责与维修单位结算。</p>
+            <p class="font_bold">&emsp;&emsp;4. 若事故车为贷款车辆，本人同意由被保险人自行获取银行等保单约定的第一受益人的书面授权书或同意书，否则，由此造成的无法及时结算维修费用或无法及时提车等不利后果，由本人自行承担。</p>
+            <p class="font_bold">&emsp;&emsp;<span class="underline">特别声明：</span>如非被保险人本人在本《机动车保险事故车辆委托维修及费用结算确认书》上签字的，签字人应保证其为被保险人的合法代理人，确保被保险人知晓并同意本《确认书》的事项，否则该签字人应承担一切法律后果，赔偿保险人及被保险人的全部损失。</p>
+            <div class="sign_div">
+                <div class="sign_left">
+                    <p>
+                        被保险人或其代理人：
+                    </p>
+                    <img ng-click="openImg(detail.insuranceSignURL)" height="200px;" width="300px" ng-src="{{detail.insuranceSignURL}}" alt="">
+                    <p>
+                        联系电话：
+                        <span>{{detail.insurancePhone}}</span>
+                    </p>
+                    <p>
+                        {{detail.insuranceSignTime | ToFormat}}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <p style="text-align:center;margin-top:70px;padding-top: 20px;margin-bottom:100px">
+            <button class="button" onclick="print('div2')">
+                打印
+            </button>
+        </p>
+    </div>
+
+    <!--endprint-->
+</div>
+<script>
+    var print = function (text) {
+        $("#" + text).jqprint();
+    }
+</script>

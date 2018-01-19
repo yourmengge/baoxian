@@ -1,0 +1,75 @@
+<div ng-controller="paymentCtrl" ng-init="initData()">
+    <h2>付款管理</h2>
+    <p class="search_div">
+        付款状态：
+        <select class="input" name="" style="width:100px;" ng-model="status" ng-options="a.id as a.name for a in statusTexts" id=""></select>        
+        订单来源：
+        <select class="input" name="" style="width:100px;" ng-model="ordertype" ng-options="a.id as a.name for a in orderTypeTexts"
+            id=""></select>
+        <input type="text" class="input" placeholder="请输入下单人员姓名" ng-model="name" style="width:250px;">
+        <button class="button" ng-click="search()">
+            查询
+        </button>
+        <button class="button" ng-click="initData()">
+            显示全部
+        </button>
+    </p>
+    <div class="list_table" ng-hide="table">
+        <div class="list_table_tr">
+            <div>
+                车牌号
+            </div>
+            <div>
+                订单来源
+            </div>
+            <div>
+                事故地点
+            </div>
+            <div>
+                施救地点
+            </div>
+            <div>
+                施救费用（元）
+            </div>
+            <div>
+                付款状态
+            </div>
+            <div>
+                操作
+            </div>
+        </div>
+        <div ng-repeat="a in list">
+            <div class="list_table_td">
+                <div>
+                    {{a.carNo}}
+                </div>
+                <div>
+                    {{a.orderFrom}}
+                </div>
+                <div>
+                    {{a.accidentAddress}}
+                </div>
+                <div>
+                    {{a.fixAddress}}
+                </div>
+                <div>
+                    {{a.rescueFee | Price}}
+                </div>
+                <div>
+                    {{a.settleStatusDesc}}
+                </div>
+                <div>
+                    <span class="button_span" ng-click="detail(a.orderNo)">查看订单</span>
+                    <span class="button_span" ng-click="paymentdetail(a.orderNo,a.orderFrom)">付款信息</span>
+                </div>
+            </div>
+        </div>
+        <p ng-hide="page_p" class="page_p">
+            <button class="page_btn" ng-hide="home" ng-click="Page('home')">首页 </button>
+            <button class="page_btn" ng-hide="up" ng-click="Page('up')">上一页 </button>
+            <button class="page_btn current_btn" disabled>{{current}}</button>
+            <button class="page_btn" ng-hide="down" ng-click="Page('down')">下一页 </button>
+            <button class="page_btn" ng-hide="end" ng-click="Page('end')">尾页 </button> 总页数:{{pageCount}}
+        </p>
+        <div class="mini_view" ui-view></div>
+    </div>

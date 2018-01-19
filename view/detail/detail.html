@@ -1,0 +1,782 @@
+<div class="fixaddress" ng-controller="detailCtrl" ng-init="initData()">
+
+    <h2>订单详情</h2>
+    <button class="goback" ng-click="back()"></button>
+    <h4 class="detail_title">订单{{detail.orderNo}} &emsp;&emsp;
+        <span ng-hide="disaster == 'not'">大灾{{title}}</span>
+    </h4>
+    <div class="detail_div">
+        <div class="flex_div_line">
+            <div>订单状态：</div>
+            <div>{{detail.statusDesc}}</div>
+            <div>下单时间：</div>
+            <div>{{detail.createTime | ToLocal}}</div>
+            <div>
+                出险日期：
+            </div>
+            <div>
+                {{detail.accidentTime | ToDay}}
+            </div>
+            <!-- <div>订单类型：</div>
+            <div>{{detail.orderTypeDesc}}&emsp;{{detail.rescueTypeDesc}}</div>
+            <div ng-hide="disaster == 'not'">二次派单：</div>
+            <div ng-hide="disaster == 'not'">{{detail.sourceOrderNo == null || detail.sourceOrderNo == ''?'否':'是'}}</div> -->
+
+        </div>
+        <div class="flex_div_line">
+            <div>订单来源：</div>
+            <div>{{detail.createRoleDesc}} {{detail.createName}}</div>
+            <div>订单类型：</div>
+            <div>{{detail.orderTypeDesc}}&emsp;{{detail.rescueTypeDesc}}</div>
+            <div>救援车类型：</div>
+            <div>{{detail.carTypeDesc}}</div>
+            <!-- <div>标的/三者：</div>
+            <div>{{detail.insuranceTypeDesc}}</div>
+            <div>下单时间：</div>
+            <div>{{detail.createTime | ToLocal}}</div> -->
+
+        </div>
+        <div class="flex_div_line">
+            <div>收费方式：</div>
+            <div>{{detail.chargeModeDesc}}
+                <span class="button_span div_link" ng-click="changeList(CHARGE_MODE)">变更记录</span>
+            </div>
+            <div>订单费用：</div>
+            <div>{{detail.platformPayments | Price}}</div>
+            <div>
+                车辆信息：
+            </div>
+            <div>
+                {{detail.carSizeDesc}}
+            </div>
+            <!-- <div>报案人：</div>
+            <div>{{detail.accidentDriverName}}</div>
+            <div>报案电话：</div>
+            <div>{{detail.accidentDriverPhone}}</div>
+            <div>车牌号：</div>
+            <div>{{detail.accidentCarNoDesc}}</div> -->
+        </div>
+        <div class="flex_div_line">
+            <div>车牌号：</div>
+            <div>{{detail.accidentCarNoDesc}}</div>
+            <div>报案人：</div>
+            <div>{{detail.accidentDriverName}}</div>
+            <div>报案电话：</div>
+            <div>{{detail.accidentDriverPhone}}</div>
+            <!-- <div>订单费用：</div>
+            <div>{{detail.platformPayments | Price}}</div>
+            <div>救援车类型：</div>
+            <div>{{detail.carTypeDesc}}</div>
+            <div>收费方式：</div>
+            <div>{{detail.chargeModeDesc}}</div> -->
+        </div>
+        <div class="flex_div_line">
+            <div>标的/三者：</div>
+            <div>{{detail.insuranceTypeDesc}}</div>
+            <!-- <div>下单备注：</div>
+            <div style="max-width: 30px;">
+                <audio ng-src="{{detail.remarkOfVoice}}" controls></audio>
+            </div> -->
+            <div>推修类型：</div>
+            <div>{{detail.pushFixTypeDesc}}</div>
+            <div>推修备注：</div>
+            <div>
+                <audio ng-src="{{detail.pushFixRemark}}" controls></audio>
+            </div>
+        </div>
+        <div class="flex_div_line">
+            <div>下单备注：</div>
+            <div>
+                <audio ng-src="{{detail.remarkOfVoice}}" controls></audio>
+            </div>
+            <!-- <div>
+                车辆信息：
+            </div>
+            <div>
+                {{detail.carSizeDesc}}
+            </div>
+            <div>
+                出险日期：
+            </div>
+            <div>
+                {{detail.accidentTime | ToDay}}
+            </div> -->
+            <div colspan="2" style="width:300px;">
+                <span style="color:#999999;" ng-hide="!detail.noNeedCompensate">*损失小，客户不打算理赔</span>
+            </div>
+
+        </div>
+        <div class="flex_div_line" ng-hide="detail.status != 8 && detail.status != 81 && detail.status != 82">
+            <div>取消订单备注：</div>
+            <div style="max-width: 30px;">{{detail.cancelCause}}</div>
+        </div>
+    </div>
+    <h4 class="detail_title">地图位置
+        <button class="button" ng-click="location(detail)">地图定位</button>
+    </h4>
+    <div class="detail_div">
+        <div class="flex_div_line">
+            <div>事故地点：</div>
+            <div>{{detail.accidentAddress}}</div>
+            <!-- <div>经度：</div>
+            <div>{{detail.accidentLongitude}}</div>
+            <div>纬度：</div>
+            <div>{{detail.accidentLatitude}}</div> -->
+            <div>拍照事故地点：</div>
+            <div>{{detail.accidentAddressPicture}}</div>
+        </div>
+        <div class="flex_div_line">
+            <div>推修厂：</div>
+            <div>{{detail.fixAddress}}
+                <p class="button_span div_link" style="margin-top: 25px;float: right;margin-right:50px;" ng-click="changeList(FIX_ADDRESS)">变更记录</p>
+            </div>
+            <!-- <div>经度：</div>
+            <div>{{detail.fixLongitude}}</div>
+            <div>纬度：</div>
+            <div>{{detail.fixLatitude}}</div>
+        </tr>
+        <tr> -->
+            <div>拍照维修地点：</div>
+            <div>{{detail.fixAddressPicture}}</div>
+        </div>
+    </div>
+    <h4 class="detail_title">机构信息</h4>
+    <div class="detail_div">
+        <div class="flex_div_line">
+            <div>案件来源：</div>
+            <div>{{detail.caseSource}}</div>
+            <div>案件号：</div>
+            <div>{{detail.caseNo}}</div>
+        </div>
+        <div class="flex_div_line">
+            <div>查勘员：</div>
+            <div>{{detail.inspectorName}}</div>
+            <div>查勘电话：</div>
+            <div>{{detail.inspectorPhone}}</div>
+        </div>
+    </div>
+    <div class="tabs_div">
+        <button class="{{tabType == ASSIGN_DRIVER ? 'tabs_btn_active':''}}" style="margin-left:40px;" ng-click="tabs(ASSIGN_DRIVER)">
+            施救信息
+        </button>
+        <button class="{{tabType == PICTURE_VIDEO? 'tabs_btn_active':''}}" ng-click="tabs(PICTURE_VIDEO)">
+            施救影像
+        </button>
+        <button class="{{tabType == PUSH_FIX? 'tabs_btn_active':''}}" ng-click="tabs(PUSH_FIX)">
+            推修信息
+        </button>
+        <button class="{{tabType == LICENSE ? 'tabs_btn_active':''}}" ng-click="tabs(LICENSE)">
+            信息采集
+        </button>
+        <button class="{{tabType == DIRECT_COMPENSATION? 'tabs_btn_active':''}}" ng-click="tabs(DIRECT_COMPENSATION)">
+            赔付信息
+        </button>
+    </div>
+    <div>
+        <!-- 施救信息 -->
+        <div ng-hide="tabType != ASSIGN_DRIVER" class="tabsDiv">
+            <div class="flex_div_line" ng-hide="notTuoche || notFinished">
+                目的地点误差：&emsp;{{detail.fixDiffDistance}}
+                <span ng-hide="detail.fixDiffDistance == null">米</span>
+            </div>
+            <div ng-hide="notTuoche || notFinished || notFixAddrRemark == null">
+                <div class="flex_div_line">
+                    拖送结果与推修厂
+                    <span class="red_font {{notFixAddrRemark == '一致'?'':'red_font'}}">{{notFixAddrRemark == '一致'?'一致':'不一致'}}</span>
+                </div>
+                <div class="flex_div_line" ng-hide="notFixAddrRemark == '一致'">
+                    {{notFixAddrRemark}}
+                </div>
+            </div>
+
+            <div class="flex_div_line">
+                <div>接单车队：</div>
+                <div>{{detail.grabFleetName}}</div>
+                <div>调度姓名：</div>
+                <div>{{detail.grabUserName}}</div>
+                <div>调度电话：</div>
+                <div>{{detail.grabPhone}}</div>
+            </div>
+            <div ng-repeat="a in assignDriverses">
+                <p>
+                    <span style="font-size:24px;margin-right:20px;">{{a.carRemark}}</span>
+                    <span>司机：{{a.driverName}} &emsp;{{a.phone}}</span>
+                </p>
+                <div class="driver_status">
+                    <div class="driver_status_div status_active {{a.createTime != null?'':'driver_status_span'}}">
+                        <p>
+                            下单
+                        </p>
+
+                        <div class="ringle">
+
+                        </div>
+                        <p>
+                            {{detail.createTime | ToLocal}}
+                        </p>
+
+
+                    </div>
+                    <div class="driver_status_div {{a.createTime != null?'status_active':''}} {{a.departureTime != null?'':'driver_status_span'}}">
+                        <p>
+                            派遣
+                        </p>
+                        <div class="driver_status_line">
+
+                        </div>
+                        <div class="ringle">
+
+                        </div>
+                        <span ng-hide="a.createTime == null">
+                            <p>
+                                {{a.createTime | ToLocal}}
+                            </p>
+                            <p>
+                                {{a.createTime - detail.createTime | ToFenzhong}}
+                            </p>
+                        </span>
+
+
+                    </div>
+                    <div class="driver_status_div {{a.departureTime != null?'status_active':''}} {{a.accidentReachTime != null?'':'driver_status_span'}}">
+                        <p>
+                            出发
+                        </p>
+                        <div class="driver_status_line">
+
+                        </div>
+                        <div class="ringle">
+
+                        </div>
+                        <span ng-hide="a.departureTime == null">
+                            <p>
+                                {{a.departureTime | ToLocal}}
+                            </p>
+                            <p>
+                                {{a.departureTime - a.createTime | ToFenzhong}}
+                            </p>
+                        </span>
+
+                    </div>
+                    <div class="driver_status_div {{a.accidentReachTime != null?'status_active':''}} {{a.accidentFinishTime != null?'':'driver_status_span'}}">
+                        <p>
+                            到达现场
+                        </p>
+                        <div class="driver_status_line">
+
+                        </div>
+                        <div class="ringle">
+
+                        </div>
+                        <span ng-hide="a.accidentReachTime == null">
+                            <p>
+                                {{a.accidentReachTime | ToLocal}}
+                            </p>
+                            <p>
+                                {{a.accidentReachTime - a.departureTime | ToFenzhong}}
+                            </p>
+                        </span>
+
+                    </div>
+                    <div class="driver_status_div {{a.accidentFinishTime != null?'status_active':''}} {{a.fixReachTime != null?'':'driver_status_span'}}"
+                        ng-hide="a.carType == 1">
+                        <p>
+                            前往推修厂
+                        </p>
+                        <div class="driver_status_line">
+
+                        </div>
+                        <div class="ringle">
+
+                        </div>
+                        <span ng-hide="a.accidentFinishTime == null">
+                            <p>
+                                {{a.accidentFinishTime | ToLocal}}
+                            </p>
+                            <p>
+                                {{a.accidentFinishTime - a.accidentReachTime | ToFenzhong}}
+                            </p>
+                        </span>
+
+                    </div>
+                    <div class="driver_status_div {{a.fixReachTime != null?'status_active':''}} {{a.fixReachTime == null?'':'driver_status_span'}}">
+                        <p>
+                            施救完成
+                        </p>
+                        <div class="driver_status_line">
+
+                        </div>
+                        <div class="ringle">
+
+                        </div>
+                        <span ng-hide="a.fixReachTime == null">
+                            <p>
+                                {{a.fixReachTime | ToLocal}}
+                            </p>
+                            <p>
+                                {{a.fixReachTime - a.accidentFinishTime | ToFenzhong}}
+                            </p>
+                        </span>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 施救影像 -->
+        <div ng-hide="tabType != PICTURE_VIDEO" class="tabsDiv">
+            <p>下单照片</p>
+            <img ng-repeat="a in allPictures.orderPictures" ng-src="{{a.zoomOutView}}" alt="" ng-click="openPic(a.path)">
+
+            <p>下单视频</p>
+            <video ng-repeat="a in allPictures.videos" ng-src="{{a.path}}" controls></video>
+            <hr>
+            <div ng-repeat="a in allPictures.assignDriverses">
+                <p>
+                    <span style="font-size:24px;margin-right:20px;">{{a.carRemark}}</span>
+                    <span>司机：{{a.driverName}} &emsp;{{a.phone}}</span>
+                </p>
+                <h4>事故地点照片</h4>
+                <div class="img_div">
+                    <img ng-repeat="b in a.accidentPictures" ng-src="{{b.zoomOutView}}" alt="" ng-click="openPic(b.path)">
+                </div>
+                <h4>事故地点视频</h4>
+                <div class="img_div">
+                    <video ng-repeat="b in a.accidentVideos" ng-src="{{b.path}}" controls="controls"></video>
+                </div>
+                <div ng-hide="a.carType == 1">
+                    <h4>拖送地点照片</h4>
+                    <div class="img_div">
+                        <img ng-repeat="b in a.fixPictures" ng-src="{{b.zoomOutView}}" alt="" ng-click="openPic(b.path)">
+                    </div>
+                    <h4>拖送地点视频</h4>
+                    <div class="img_div">
+                        <video ng-repeat="b in b.fixVideos" ng-src="{{b.path}}" controls="controls"></video>
+                    </div>
+                </div>
+                <hr>
+            </div>
+        </div>
+        <!-- 推修信息 -->
+        <div ng-hide="tabType != PUSH_FIX" class="tabsDiv">
+            <div class="">
+                <div class="flex_div_line">
+                    <div>推修车行：</div>
+                    <div>{{pushFix.shop4sName}}</div>
+                </div>
+            </div>
+            <div class="">
+                <div class="flex_div_line">
+                    <div>查看时间：</div>
+                    <div>{{pushFix.shop4sReadTime | ToLocal}}</div>
+                    <div>查看人员：</div>
+                    <div>{{pushFix.shop4sReadName}}</div>
+                    <div>查看人员电话：</div>
+                    <div>{{pushFix.shop4sReadPhone}}</div>
+                </div>
+            </div>
+            <div class="">
+                <div class="flex_div_line">
+                    <div>回厂车行：</div>
+                    <div>{{pushFix.shop4sNameFinal}}</div>
+                    <div>回厂类型：</div>
+                    <div>{{pushFix.backTypeDesc}}</div>
+                    <div>回厂日期：</div>
+                    <div>{{pushFix.appointDate | ToDay}}</div>
+                </div>
+            </div>
+            <div class="">
+                <div class="flex_div_line">
+                    <div>确认时间：</div>
+                    <div>{{pushFix.shop4sConfirmTime | ToLocal}}</div>
+                    <div>确认人员：</div>
+                    <div>{{pushFix.shop4sConfirmName}}</div>
+                    <div>确认人员电话：</div>
+                    <div>{{pushFix.shop4sConfirmPhone}}</div>
+                </div>
+            </div>
+            <div class="" style="margin-top:20px;">
+                <div class="flex_div_line">
+                    <div>车辆回厂照片</div>
+                </div>
+            </div>
+            <div class="img_div">
+                <img ng-repeat="a in detail.shop4sPictures" ng-src="{{a.zoomOutView}}" alt="" ng-click="openPic(a.path)">
+            </div>
+            <div class="" style="margin-top:20px;">
+                <div class="flex_div_line">
+                    <div>回厂记录</div>
+                </div>
+            </div>
+            <table class="detail_back_factory_table" cellspacing="0">
+                <tr>
+                    <td style="width:50px;">
+                        序号
+                    </td>
+                    <td>
+                        下单时间
+                    </td>
+                    <td>
+                        车主手机号
+                    </td>
+                    <td>
+                        施救地点
+                    </td>
+                    <td>
+                        施救终点地点
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        序号
+                    </td>
+                    <td>
+                        下单时间
+                    </td>
+                    <td>
+                        车主手机号
+                    </td>
+                    <td>
+                        施救地点
+                    </td>
+                    <td>
+                        施救终点地点
+                    </td>
+                </tr>
+            </table>
+
+            <span class="car_div_title" style="color:#333;">通话记录</span>
+            <div class="list_table bodajilu" ng-hide="detail.dialInfo.length == 0">
+                <div class="list_table_tr">
+                    <div style="flex:0.3">
+                    </div>
+                    <div>
+                        角色
+                    </div>
+                    <div>
+                        姓名
+                    </div>
+                    <div>
+                        拨打次数
+                    </div>
+                    <div>
+                        首次拨打时间
+                    </div>
+                </div>
+                <div ng-repeat="a in detail.dialInfo">
+                    <div class="list_table_td">
+                        <div ng-click="openDiv($index,a.dialType)" class="openDiv">
+                            <img src="img/bihe-s.png" alt="" ng-hide="openDetail == $index">
+                            <img src="img/xiala-s.png" alt="" ng-hide="openDetail != $index">
+                        </div>
+                        <div>
+                            {{dialTypeTexts[a.dialType]}}
+                        </div>
+                        <div>
+                            {{a.dialUser}}
+                        </div>
+                        <div>
+                            {{a.dialCnt}}
+                        </div>
+                        <div>
+                            {{a.firstDialTime | ToLocal}}
+                        </div>
+                    </div>
+                    <div class="list_table_detail bodajilu_detail" ng-hide="openDetail != $index">
+                        <div>
+                            拨打人员
+                        </div>
+                        <div>
+                            <p ng-repeat="b in bodalist">
+                                {{b.createName}}
+                            </p>
+                        </div>
+                        <div>
+                            拨打时间
+                        </div>
+                        <div>
+                            <p ng-repeat="b in bodalist">
+                                {{b.createTime | ToLocal}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 信息采集 -->
+        <div ng-hide="tabType != LICENSE" class="tabsDiv">
+            <p class="car_div_title">
+                车主电话：{{detail.licenseInfo.carOwnerPhone}}
+            </p>
+            <p class="car_div_title">
+                未采集证照：{{}}
+            </p>
+            <div class="card_div">
+                <img ng-src="{{detail.licenseInfo.idCard.zoomOutView}}" alt="" ng-click="openPic(detail.licenseInfo.idCard.path)">
+                <div class="card_text">
+                    <h4>
+                        身份证
+                    </h4>
+                    <table>
+                        <tr>
+                            <td>
+                                <span>
+                                    姓名：
+                                </span>
+                                {{detail.licenseInfo.idCardName}}
+                            </td>
+                            <td>
+                                <span>性别：</span>{{detail.licenseInfo.idCardSex}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>出生：</span>{{detail.licenseInfo.idCardBirth}}
+                            </td>
+                            <td>
+                                <span>住址：</span>{{detail.licenseInfo.idCardAddr}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>身份证号：</span>{{detail.licenseInfo.idCardNo}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>采集人员：</span>{{detail.licenseInfo.idCreateByDesc}}
+                            </td>
+                            <td>
+                                <span>采集时间：</span>{{detail.licenseInfo.idCreateTime | ToLocal}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="card_div">
+                <img ng-src="{{detail.licenseInfo.drivingLicense.zoomOutView}}" alt="" ng-click="openPic(detail.licenseInfo.drivingLicense.path)">
+                <div class="card_text">
+                    <h4>
+                        行驶证
+                    </h4>
+                    <table style="width:50%">
+                        <tr>
+                            <td>
+                                <span>所有人：</span>{{detail.licenseInfo.drivingLicenseName}}
+                            </td>
+                            <td>
+                                <span>住址：</span>{{detail.licenseInfo.drivingLicenseAddr}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>车牌号码：</span>{{detail.licenseInfo.drivingLicenseNo}}
+                            </td>
+                            <td>
+                                <span>车辆类型：</span>{{detail.licenseInfo.drivingLicenseVehicleType}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>品牌型号：</span>{{detail.licenseInfo.drivingLicenseBrandModel}}
+                            </td>
+                            <td>
+                                <span>车辆识别代号：</span>{{detail.licenseInfo.drivingLicenseVin}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>发动机号码：</span>{{detail.licenseInfo.drivingLicenseEngineNo}}
+                            </td>
+                            <td>
+                                <span>注册日期：</span>{{detail.licenseInfo.drivingLicenseRegistDate}}
+                            </td>
+                        </tr>
+                        <tr>
+
+                            <td>
+                                <span>发证日期：</span>{{detail.licenseInfo.drivingLicenseCertifyDate}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>采集人员：</span>{{detail.licenseInfo.drivingCreateByDesc}}
+                            </td>
+                            <td>
+                                <span>采集时间：</span>{{detail.licenseInfo.drivingCreateTime | ToLocal}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="card_div">
+                <img ng-src="{{detail.licenseInfo.driverLicense.zoomOutView}}" alt="" ng-click="openPic(detail.licenseInfo.driverLicense.path)">
+                <div class="card_text">
+                    <h4>
+                        驾驶证
+                    </h4>
+                    <table>
+                        <tr>
+                            <td>
+                                <span>姓名：</span>{{detail.licenseInfo.driverLicenseName}}
+                            </td>
+                            <td>
+                                <span>性别：</span>{{detail.licenseInfo.driverLicenseSex}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>住址：</span>{{detail.licenseInfo.driverLicenseAddr}}
+                            </td>
+                            <td>
+                                <span> 证件号：</span>{{detail.licenseInfo.driverLicenseNo}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>采集人员：</span>{{detail.licenseInfo.driverCreateByDesc}}
+                            </td>
+                            <td>
+                                <span>采集时间：</span>{{detail.licenseInfo.driverCreateTime | ToLocal}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="card_div">
+                <img ng-src="{{detail.licenseInfo.insurancePolicy.zoomOutView}}" alt="" ng-click="openPic(detail.licenseInfo.insurancePolicy.path)">
+                <div class="card_text">
+                    <h4>
+                        保单
+                    </h4>
+                    <table>
+                        <tr>
+                            <td>
+                                <span>采集人员：</span>{{detail.licenseInfo.insCreateByDesc}}
+                            </td>
+                            <td>
+                                <span>采集时间：</span>{{detail.licenseInfo.insCreateTime | ToLocal}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+        <!-- 赔付信息 -->
+        <div ng-hide="tabType != DIRECT_COMPENSATION" class="tabsDiv">
+            <!-- <div class="car_div" ng-hide="hideZhipei">
+                <p>
+                    <span class="car_div_title">赔付类型：</span>
+                    <span style="margin-right:30px;">{{detail.authDirBilCancel.directCompensationDesc}}</span>
+                    <button style="margin-left: 50px;" class="button" ng-click="confirmation()" ng-hide="hideButton">直赔确认书</button>
+                    <button class="button" ng-click="cancel()" ng-hide="hideCancelButton">取消直赔</button>
+                </p>
+
+            </div> -->
+            <div class="">
+                <div class="flex_div_line" ng-hide="hideZhipei" style="height:50px;line-height:50px">
+                    <div>赔付类型：</div>
+                    <div>{{detail.authDirBilCancel.directCompensationDesc}}</div>
+                    <div style="width:auto;margin-left:-250px;">
+                        <button style="margin-left: 50px;" class="button" ng-click="confirmation()" ng-hide="hideButton">直赔确认书</button>
+                        <button class="button" ng-click="cancel()" ng-hide="hideCancelButton">取消直赔</button>
+                    </div>
+                </div>
+                <div class="flex_div_line" ng-hide="!hideZhipei">
+                    <div>赔付类型：</div>
+                    <div>{{detail.authDirBilCancel.directCompensationDesc}}</div>
+                </div>
+                <div class="flex_div_line" ng-hide="!hideZhipei">
+                    <div ng-hide="hideCancel">
+                        取消时间：
+                    </div>
+                    <div>
+                        {{detail.authDirBilCancel.cancelTime | ToLocal}}
+                    </div>
+                    <div ng-hide="hideCancel">
+                        取消人员：
+                    </div>
+                    <div>
+                        {{detail.authDirBilCancel.cancelTime | ToLocal}}
+                    </div>
+                    <div ng-hide="hideCancel">
+                        取消备注：
+                    </div>
+                    <div ng-hide="hideCancel">
+                        {{detail.authDirBilCancel.cancelRemark}}
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="car_div" ng-hide="!hideZhipei">
+                <p>
+                    <span class="car_div_title">赔付类型：</span>
+                    <span>{{detail.authDirBilCancel.directCompensationDesc}}</span>
+                    <span ng-hide="hideCancel">
+                        <span class="car_div_title">取消时间：</span>
+                        <span>{{detail.authDirBilCancel.cancelTime | ToLocal}}</span>
+                        <span class="car_div_title">取消人员：</span>
+                        <span>{{detail.authDirBilCancel.cancelUserName}}</span>
+                    </span>
+
+                </p>
+                <p ng-hide="hideCancel">
+                    <span class="car_div_title">取消备注：</span>
+                    <span>{{detail.authDirBilCancel.cancelRemark}}</span>
+                </p>
+            </div> -->
+        </div>
+    </div>
+    <div class="addinspector_div">
+        <h2 class="alert_add_h2">取消备注</h2>
+        <img src="img/guanbi-dianji.png" alt="" class="close_img" ng-click="close()">
+        <textarea class="zhipeiremark" ng-model="zhipeiremark" maxlength="50"></textarea>
+        <span class="zhipeiremarklength">{{zhipeiremark.length}}/50</span>
+        <p>
+            <button class="button" ng-click="cancelSubmit()">确定</button>
+            <button class="button button_del" ng-click="close()">取消</button>
+        </p>
+    </div>
+    <div class="alert_bg" ng-click="close()"></div>
+    <div class="detail_map">
+        <div id="allmap" style="width:100%"></div>
+    </div>
+    <div class="change_list " id="changemode">
+        <h2 class="alert_add_h2">收费方式变更记录</h2>
+        <img src="img/guanbi-dianji.png" alt="" class="close_img" ng-click="close()">
+        <div ng-repeat="a in list">
+            <div class="changelist">
+                <div style="flex: 0.2;">{{$index + 1}}、</div>
+                <div>修改人员：</div>
+                <div style="flex: 0.3;">{{a.createUserDesc}}</div>
+                <div>收费方式：</div>
+                <div style="flex: 0.3;">{{a.chargeModeDesc}}</div>
+                <div>修改时间：</div>
+                <div>{{a.createTime | ToLocal}}</div>
+            </div>
+            <div class="changelist">
+                <div style="flex: 0.2;"></div>
+                <div>审核人员：</div>
+                <div style="flex: 0.3;">{{a.verifyUserDesc}}</div>
+                <div>审核状态：</div>
+                <div style="flex: 0.3;">{{a.verifyStatusDesc}}</div>
+                <div>审核时间：</div>
+                <div>{{a.verifyTime | ToLocal}}</div>
+            </div>
+        </div>
+
+    </div>
+    <div class="change_list " id="fixchange">
+        <h2 class="alert_add_h2">目的地变更记录</h2>
+        <img src="img/guanbi-dianji.png" alt="" class="close_img" ng-click="close()">
+        <div class="changelist" ng-repeat="a in list">
+            <div style="flex: 0.5;">{{$index + 1}}、</div>
+            <div>修改人员：</div>
+            <div style="flex: 0.3;">{{a.caseSource}}</div>
+            <div>目的地点：</div>
+            <div>{{a.caseNo}}</div>
+            <div>修改时间：</div>
+            <div>{{a.caseNo}}</div>
+        </div>
+    </div>
+    <div class="closeBg" ng-click="closeBG()"></div>
+</div>

@@ -1,0 +1,50 @@
+<div class="adddriver" ng-controller="totleorderCtrl" ng-init="initData()">
+    <h2>订单统计</h2>
+    <button class="goback" ng-click="back()"></button>
+    <p class="search_div">
+
+    </p>
+    <p class="search_div">
+        <input class="input" type="text" ng-model="disasterNo" style="width:220px;" placeholder="支持编号和区域名称模糊查询"> 开始日期：
+        <input type="date" id="startDay" class="input"> 状态： <select class="input" name="" style="width:100px;" ng-model="status"
+            ng-options="a.id as a.name for a in statusTexts" id=""></select>
+
+        <button class="button search_button" ng-click="search_disaster()">查询</button>
+        <button class="button" ng-click="initData()">显示全部</button>
+    </p>
+    <table id="table2excel" cellspacing="0" ng-hide="table" cellpadding='10' class="table">
+        <tr class="table_1_tr">
+            <td>状态</td>
+            <td>编号</td>
+            <td>城市</td>
+            <td>区域</td>
+            <td>开始日期</td>
+            <td>待接单</td>
+            <td>进行中</td>
+            <td>已完成</td>
+            <td>已取消</td>
+            <td>操作</td>
+        </tr>
+        <tr ng-repeat="a in list">
+            <td class="{{a.status == 1? 'green_font' : a.status == 0?'':'gray'}}">{{a.statusDesc}}</td>
+            <td>{{a.disasterId}}</td>
+            <td>{{a.areaDesc|DisasterShi}}</td>
+            <td>{{a.areaDesc|DisasterQu}}</td>
+            <td>{{a.startDate}}</td>
+            <td>{{a.orderCntPending}}</td>
+            <td>{{a.orderCntDoing}}</td>
+            <td>{{a.orderCntFinish}}</td>
+            <td>{{a.orderCntCancel}}</td>
+            <td>
+                <button class="button" ng-click="site(a.disasterId,a.areaDesc,a.status,'disasterorderlist','')" style="width: 70px;">查看</button>
+            </td>
+        </tr>
+    </table>
+     
+    <p ng-hide="page_p" class="page_p">
+        <button class="page_btn" ng-hide="home" ng-click="Page('home')">首页 </button>
+        <button class="page_btn" ng-hide="up" ng-click="Page('up')">上一页 </button> {{current}}
+        <button class="page_btn" ng-hide="down" ng-click="Page('down')">下一页 </button>
+        <button class="page_btn" ng-hide="end" ng-click="Page('end')">尾页 </button> 总页数:{{pageCount}}
+    </p>
+</div>

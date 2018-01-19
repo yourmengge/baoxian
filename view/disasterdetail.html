@@ -1,0 +1,94 @@
+<div class="fixaddress" ng-controller="disasterdetailCtrl" ng-init="initData()">
+
+    <h2>大灾详情</h2>
+    <button class="goback" ui-sref='main.disaster'></button>
+    <h4 class="detail_title">{{disasterName}}
+        <button ng-hide="detail.status == 2 || detail.status == 1" class="button red" ng-click="start(detail)">开启大灾</button>
+        <button ng-hide="detail.status == 2 || detail.status == 0" class="button red" ng-click="start(detail)">关闭大灾</button>
+    </h4>
+    <table class="detail_table">
+        <tr>
+            <td>大灾状态：</td>
+            <td>{{detail.statusDesc}}</td>
+            <td>大灾来源：</td>
+            <td>{{detail.createFromDesc}}</td>
+            <td>开始日期：</td>
+            <td>{{detail.startDate}}</td>
+        </tr>
+        <tr>
+            <td>大灾省份：</td>
+            <td>{{detail.areaDesc | DisasterProvince}} </td>
+            <td>大灾城市：</td>
+            <td>{{detail.areaDesc | DisasterCity}}</td>
+            <td>大灾区域：</td>
+            <td>{{detail.areaDesc | DisasterQu}}</td>
+        </tr>
+        <tr>
+            <td>创建时间：</td>
+            <td>{{detail.createTime | ToLocal}}</td>
+            <td>开启时间：</td>
+            <td>{{detail.openTime | ToLocal}}</td>
+            <td>关闭时间：</td>
+            <td>{{detail.closeTime | ToLocal}}</td>
+        </tr>
+        <tr>
+            <td>司机需求量：</td>
+            <td>
+                <input type="number" ng-model="driver_need_conut" class="input" style="width:100px" ng-readonly="detail.status == 2">
+                <button ng-hide="detail.status == 2" class="button" id="submit" ng-click="updatenum()" style="min-width:80px;">修改</button>
+            </td>
+
+        </tr>
+        <tr>
+            <td>费用说明：</td>
+            <td style="max-width: 231px;word-wrap: break-word;">{{detail.feeDesc}}</td>
+        </tr>
+        <tr>
+            <td>备注：</td>
+            <td style="max-width: 231px;word-wrap: break-word;">{{detail.remark}}</td>
+        </tr>
+    </table>
+    <h4 class="detail_title">保全场地&emsp;&emsp;<button class="button" ng-click="site(detail.disasterId,detail.areaDesc,detail.status,'site','')">{{message2}}保全场地（{{site_counts}}个）</button></h4>
+    <table id="table2excel" cellspacing="0" ng-hide="siteList == ''" cellpadding='10' class="table" style="width:40vw;">
+        <tr class="table_1_tr">
+            <td width='20px;'></td>
+            <td>简称</td>
+            <td>地址</td>
+        </tr>
+        <tr ng-repeat="a in siteList">
+            <td width='20px;'>{{$index + 1}}</td>
+            <td>{{a.addressAbbr}}</td>
+            <td>{{a.address}}</td>
+        </tr>
+    </table>
+    <h4 class="detail_title">查勘员&emsp;&emsp;&emsp;<button class="button" ng-click="site(detail.disasterId,detail.areaDesc,detail.status,'disasterinspector','')">{{message2}}查勘员（{{inspector_counts}}位）</button></h4>
+    <table id="table2excel" cellspacing="0" ng-hide="inspectorList == ''" cellpadding='10' class="table" style="width:40vw;">
+        <tr class="table_1_tr">
+            <td width='20px;'></td>
+            <td>查勘姓名</td>
+            <td>联系方式</td>
+            <td>负责区域</td>
+        </tr>
+        <tr ng-repeat="a in inspectorList">
+            <td width='20px;'>{{$index + 1}}</td>
+            <td>{{a.userName}}</td>
+            <td>{{a.userMobile}}</td>
+            <td>{{a.responsibleArea}}</td>
+        </tr>
+    </table>
+    <h4 class="detail_title">司机&emsp;&emsp;&emsp;&emsp;<button class="button" ng-click="site(detail.disasterId,detail.areaDesc,detail.status,'disasterdriver',detail.driverNeedCnt)">{{message2}}司机（{{driver_counts}}位）</button></h4>
+    <table id="table2excel" cellspacing="0" ng-hide="driverList == ''" cellpadding='10' class="table" style="width:40vw;">
+        <tr class="table_1_tr">
+            <td width='20px;'></td>
+            <td>司机姓名</td>
+            <td>联系方式</td>
+            <td>状态</td>
+        </tr>
+        <tr ng-repeat="a in driverList">
+            <td width='20px;'>{{$index + 1}}</td>
+            <td>{{a.userName}}</td>
+            <td>{{a.userPhone}}</td>
+            <td>{{a.statusDesc}}</td>
+        </tr>
+    </table>
+</div>

@@ -1,0 +1,127 @@
+<div class="main" ng-controller="mainCtrl" ng-init="initData()">
+    <img src="img/bg.jpg" alt="" class="bg">
+    <div class="main_title_bar">
+        <img src="img/logo.png" alt="" class="logo">
+        <button alt="" class="message_logo" ng-click="read_message()"></button>
+        <span style="float:left;">{{companyName}}</span>
+        <span>欢迎您，{{adminName}}</span>
+        <a style="cursor:pointer" ng-click="logout()">退出登录</a>
+        <div class="message_center">
+            <p class="message_title">消息中心</p>
+            <div id="message_div">
+                <div class="message_content">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="left_menu">
+        <p  class="chat" ng-click="chat()" title="群聊">
+            <img src="img/qunliao.png" alt="">
+            <span class="right_span">群聊</span>
+        </p>
+        <p id="lm1" class="addorder" ui-sref='main.addorder' title="下单">
+            <img src="img/shiguxiadan.png" alt="">
+            <span class="right_span">下单</span>
+        </p>
+        <p id="lm7" ui-sref='main.addorder_nar' class='addorder_nar' title="下单">
+            <img src="img/xiadan.png" alt="">
+            <span class="right_span">下单</span>
+        </p>
+        <p id="lm2" ui-sref='main.orderlist' class='orderlist' title="查看订单">
+            <img src="img/orderlist1.png" alt="">
+            <span class="right_span">查看订单</span>
+        </p>
+        <p id="lm12" ui-sref='main.payment' class="payment" title="付款管理">
+            <img src="img/fukuan.png" alt="">
+            <span class="right_span">付款管理</span>
+        </p>
+        <p id="lm13" ui-sref='main.datastatistics' class='datastatistics' title="数据统计">
+            <img src="img/chakanyuan.png" alt="">
+            <span class="right_span">数据统计</span>
+        </p>
+        <p id="lm14" class='audit' title="审核管理" ui-sref='main.auditQ' ng-click="openSecond('lm14')">
+            <img src="img/ic-shenhe.png" alt="">
+            <span class="right_span">审核管理</span>
+        </p>
+        <div id="second_14">
+            <span class="child_span {{selectType == 1?'child_span_click':''}}" ui-sref='main.auditQ' ng-click="open(1)">
+                <img src="img/ic-baojia.png" alt="" >报价审核
+            </span>
+            <span class="child_span {{selectType == 2?'child_span_click':''}}" ui-sref='main.auditB' ng-click="open(2)">
+                <img src="img/ic-fapiao.png" alt="" >发票审核
+            </span>
+        </div>
+
+        <p id="lm3" ui-sref='main.evaluation' class='evaluation' title="查看评价">
+            <img src="img/eval1.png" alt="">
+            <span class="right_span">查看评价</span>
+        </p>
+        <p id="lm4" ui-sref='main.adddriver' class='adddriver' title="查看指派司机">
+            <img src="img/driver1.png" alt="">
+            <span class="right_span">查看指派司机</span>
+        </p>
+        <p id="lm5" ui-sref='main.fixaddress' class='fixaddress' title="查看固定目的地">
+            <img src="img/location1.png" alt="">
+            <span class="right_span">查看固定目的地</span>
+        </p>
+        <p id="lm6" ui-sref='main.team' class='team' title="指派调度管理">
+            <img src="img/shijiuchedui.png" alt="">
+            <span class="right_span">指派调度管理</span>
+        </p>
+        <p id="lm8" ng-click="goto()" class='disaster' title="大灾管理">
+            <img src="img/dazai-guanli.png" alt="">
+            <span class="right_span">大灾管理</span>
+            <a href="view/help.html" id="help" target="blank" title="大灾帮助文档"></a>
+        </p>
+        <p id="lm9" ui-sref='main.shop4S' class='shop4S' title="推修厂管理" ng-click="openSecond('lm9')">
+            <img src="img/tuixiuchang.png" alt="">
+            <span class="right_span">修理厂管理</span>
+        </p>
+        <div id="second_9">
+            <span class="shop4SInfo child_span {{selectType == 3?'child_span_click':''}}" ui-sref='main.shop4S' ng-click="open(3)">
+                <img src="img/tuixiuxinxi.png" alt="">推修厂信息
+            </span>
+            <span class="shop4SInfo child_span {{selectType == 6?'child_span_click':''}}" ui-sref='main.nocooperation' ng-click="open(6)">
+                <img src="img/tuixiuxinxi.png" alt="">无合作修理厂信息
+            </span>
+            <span class="brand child_span {{selectType == 4?'child_span_click':''}}" ui-sref='main.brand' ng-click="open(4)">
+                <img src="img/cheliangpinpai.png" alt="" >车辆品牌管理
+            </span>
+            <span  class="member child_span {{selectType == 5?'child_span_click':''}}" ui-sref='main.member' ng-click="open(5)">
+                <img src="img/vip.png" alt="" >会员店
+            </span>
+        </div>
+
+        <p id="lm15" ui-sref='main.shop4sorder' class='shop4sorder' title="推修厂订单">
+            <img src="img/tuixiuchang.png" alt="">
+            <span class="right_span">推修厂订单</span>
+        </p>
+        <p id="lm10" ui-sref='main.companyfleet' class='companyfleet' title="抢单车队管理">
+            <img src="img/qiangdanchedui.png" alt="">
+            <span class="right_span">抢单车队管理</span>
+        </p>
+        <p id="lm11" ui-sref='main.inspector' class='inspector' title="查勘员管理">
+            <img src="img/chakanyuan.png" alt="">
+            <span class="right_span">查勘员管理</span>
+        </p>
+        <p id="lm16" ui-sref='main.threecars' class='threecars' title="三者车信息">
+            <img src="img/3zheche.png" alt="">
+            <span class="right_span">三者车信息</span>
+        </p>
+        <p id="lm17" ui-sref='main.backtotal' class='backinfo' title="查勘回厂率">
+            <img src="img/huichang.png" alt="">
+            <span class="right_span">查勘回厂率</span>
+        </p>
+        <!-- <p id="lm16" ui-sref='main.member' class='inspector' title="会员店">
+            <img src="img/chakanyuan.png" alt="">
+            <span class="right_span">会员店</span>
+        </p>
+        <p id="lm17" ui-sref='main.brand' class='inspector' title="车辆品牌管理">
+            <img src="img/chakanyuan.png" alt="">
+            <span class="right_span">车辆品牌管理</span>
+        </p> -->
+
+    </div>
+    <div ui-view class="right_content {{isThrid == 'true'?'full_width':''}}"></div>
+</div>

@@ -1,0 +1,79 @@
+<div class="adddriver" ng-controller="inspectorCtrl" ng-init="initData()">
+    <h2>查勘员管理</h2>
+    <p class="search_div">
+        <button class="button" style="float:left" ng-click="addDriver()">
+            添加查勘员
+        </button>
+        <button class="button" ui-sref="main.batchinspector">批量导入</button>
+        <button class="button" ng-click="output()">导出excel</button>
+    </p>
+    <p class="search_div">
+        <input class="input" type="text" ng-model="keyword" style="width:320px;" placeholder="请输入查勘员姓名或手机号查询">
+        <button class="button" ng-click="search()" style="min-width:60px;">查询</button>
+        <button class="button" ng-click="searchALL()" style="min-width:60px;">显示全部</button>
+    </p>
+    <p>
+
+    </p>
+    <div class="addinspector_div">
+        <h2 class="alert_add_h2">添加查勘员</h2>
+        <img src="img/guanbi-dianji.png" alt="" class="close_img" ng-click="close()">
+        <p style="    text-align: left;    margin-left: 100px;width:300px">
+            姓&emsp;名：&emsp;
+            <input type="text" class="input" style="width: 70%;" ng-model="Name">
+        </p>
+        <p style="text-align: left;margin-left: 100px;width:300px">
+            手机号：&emsp;
+            <input type="text" class="input" style="width: 70%;" ng-model="phone">
+        </p>
+        <p>
+            <button class="button {{Name != '' && phone != '' ?'':'button_disabled'}}" ng-click="submit_add()" ng-disabled="Name != '' && phone != ''?'':'true'">确定</button>
+            <button class="button button_del" ng-click="close()">取消</button>
+        </p>
+    </div>
+    <div class="addinspector_div" ng-hide="edit_div" id="edit">
+        <h2 class="alert_add_h2">修改查勘员</h2>
+        <img src="img/guanbi-dianji.png" alt="" class="close_img" ng-click="close()">
+        <p style="    text-align: left;    margin-left: 100px;width:300px">
+            姓&emsp;名：&emsp;
+            <input type="text" class="input" style="width: 70%;" ng-model="editName">
+        </p>
+        <p>
+            <button class="button {{editName != ''  ?'':'button_disabled'}}" ng-click="submit_edit()" ng-disabled="editName != '' ?'':'true'">确定</button>
+            <button class="button button_del" ng-click="close()">取消</button>
+        </p>
+    </div>
+    <h2>{{tips}}</h2>
+    <table ng-hide="table" cellspacing="0" class="table">
+        <tr>
+            <th>查勘员姓名</th>
+            <th>查勘员手机号</th>
+            <th>查勘端版本</th>
+            <th>总下单数</th>
+            <th>总完成数</th>
+            <th>创建时间</th>
+            <th>操作</th>
+        </tr>
+        <tr ng-repeat="a in list">
+            <td>{{a.name}}</td>
+            <td>{{a.phone}}</td>
+            <td>{{a.deviceVersion}}</td>
+            <td>{{a.orderCounts}}</td>
+            <td>{{a.finishOrderCounts}}</td>
+            <td>{{a.createTime | ToLocal}}</td>
+            <td>
+                <span ng-hide="!a.bindDevice" class="button_span" ng-click="deletePhone(a)">解绑手机</span>
+                <span class="button_span" ng-click="delete(a)">离职</span>
+                <span class="button_span" ng-click="update(a)">修改</span>
+            </td>
+        </tr>
+    </table>
+
+    <div class="alert_bg" ng-click="close()"></div>
+    <p ng-hide="page_p" class="page_p">
+        <button class="page_btn" ng-hide="home" ng-click="Page('home')">首页 </button>
+        <button class="page_btn" ng-hide="up" ng-click="Page('up')">上一页 </button> {{current}}
+        <button class="page_btn" ng-hide="down" ng-click="Page('down')">下一页 </button>
+        <button class="page_btn" ng-hide="end" ng-click="Page('end')">尾页 </button> 总页数:{{pageCount}}
+    </p>
+</div> 

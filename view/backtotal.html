@@ -1,0 +1,75 @@
+<div class="adddriver" ng-controller="backtotalCtrl" ng-init="initData()">
+    <h2>回厂率统计</h2>
+    <p class="search_div">
+        出险日期&emsp;&emsp;开始：
+        <input type="date" id="startDay" class="input"> 结束：
+        <input type="date" id="endDay" class="input">
+        <button class="button" ng-click="search()" style="min-width:60px;">查询</button>
+        <button class="button output_button" ng-click="searchAll()">
+            显示全部
+        </button>
+        <button class="button output_button" ng-click="toexcel(status,caseNo)">
+            导出excel
+        </button>
+    </p>
+    <div>
+        <button class="inspector_type {{type == 'ACCIDENT'?'inspector_type_active':''}}" ng-click="changeType('ACCIDENT')">
+            施救
+        </button>
+        <button class="inspector_type {{type != 'ACCIDENT'?'inspector_type_active':''}}" ng-click="changeType('NOT_RESCURE')">
+            非施救
+        </button>
+        <div class="back_factory_total">
+            <span>
+                总计：{{type == 'ACCIDENT'?'施救回厂率':'非施救回厂率'}}&emsp;{{total.percentage}}%
+            </span>
+            <span>
+                共&emsp;{{total.counts}}&emsp;单
+            </span>
+            <span>
+                推修成功&emsp;{{total.pushFixCounts}}&emsp;单
+            </span>
+        </div>
+    </div>
+    <div class="list_table" ng-hide="table">
+        <div class="list_table_tr">
+            <div>
+                查勘员
+            </div>
+            <div>
+                {{type == 'ACCIDENT'?'施救回厂率（%）':'非施救回厂率（%）'}}
+            </div>
+            <div>
+                总单数（单）
+            </div>
+            <div>
+                推修成功（单）
+            </div>
+        </div>
+        <div ng-repeat="a in orderlist">
+            <div class="list_table_td">
+                <div>
+                    {{a.fullName}}
+                </div>
+                <div>
+                    {{a.percentage}}
+                </div>
+                <div class="div_link" ng-click="goto('',a.name)">
+                    {{a.counts}}
+                </div>
+                <div class="div_link" ng-click="goto('SUCCESS',a.name)">
+                    {{a.pushFixCounts}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div ui-view class="ui_view_1" ng-hide="none"></div> -->
+    <p ng-hide="page_p" class="page_p">
+        <button class="page_btn" ng-hide="home" ng-click="Page('home')">首页 </button>
+        <button class="page_btn" ng-hide="up" ng-click="Page('up')">上一页 </button>
+        <button class="page_btn current_btn" disabled>{{current}}</button>
+        <button class="page_btn" ng-hide="down" ng-click="Page('down')">下一页 </button>
+        <button class="page_btn" ng-hide="end" ng-click="Page('end')">尾页 </button> 总页数:{{pageCount}}
+        <!-- 传送到<input type="text" ng-model="input_jump" ng-keypress="isNum($event)"><button ng-click="jump()" class="button" style="min-width:50px;">传送</button> -->
+    </p>
+</div>

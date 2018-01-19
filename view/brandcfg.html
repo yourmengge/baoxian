@@ -1,0 +1,99 @@
+<div class="adddriver" ng-controller="brandcfgCtrl" ng-init="initData()">
+    <h2>车辆品牌配置</h2>
+    <button class="goback" ng-click="back()"></button>
+    <p>
+        当前车辆品牌：{{detail.name}}
+    </p>
+    <p class="search_div">
+        <button class="button" style="float:right" ng-click="add('')">添加车行</button>
+        <button class="button" style="float:right" ng-click="cfg('')">订单比例配置</button>
+
+        <input type="text" ng-model="keyword" placeholder="请输入车行全称" class="input" style="width:250px;" ng-model="keyword"> 直赔资质：
+        <select ng-change="search()" class="input" name="" style="width:100px;" ng-model="status" ng-options="a.id as a.name for a in statusTexts"
+            id=""></select>
+        <button class="button" ng-click="search()">查询</button>
+        <button class="button" ng-click="searchAll()">显示全部</button>
+    </p>
+    <div style="text-align:center;" ng-hide="shopList.length != 0">
+        <img src="img/img-none-zi.png" alt="">
+    </div>
+    <table cellspacing="0" cellpadding='10' class="table" ng-hide="shopList.length == 0">
+        <tr class="table_1_tr">
+            <td>
+                车行全称
+            </td>
+            <td>
+                直赔资质
+            </td>
+            <td>
+                订单配额
+            </td>
+            <td>
+                配额比例（%）
+            </td>
+            <td style="min-width:130px;">
+                操作
+            </td>
+        </tr>
+        <tr ng-repeat="a in shopList">
+            <td>
+                {{a.shop4sFullName}}
+            </td>
+            <td>
+                {{a.directCompensation | zhiPei}}
+            </td>
+            <td>
+                {{a.weight}}
+            </td>
+            <td>
+                {{a.percentage}}
+            </td>
+            <td>
+                <span class="button_span" style="min-width:50px;" ng-click="del(a)">移除</span>
+            </td>
+        </tr>
+    </table>
+    <div class="alert_bg" ng-click="close()"></div>
+    <div class="addinspector_div">
+        <h2 class="alert_add_h2">添加车行</h2>
+        <img src="img/guanbi-dianji.png" alt="" class="close_img" ng-click="close()">
+        <div style="    text-align: left;    margin-left: 100px;width:300px">
+            车行全称：
+            <input ng-change="get_member_list()" type="text" class="input" style="width: 70%;" ng-model="Name" placeholder="请输入车行全称">
+            <div class="input_div">
+                <p ng-repeat="b in list1" ng-click="select(b)" style="overflow:hidden;">
+                    {{b.fullName}}
+                </p>
+
+            </div>
+        </div>
+        <p>
+            <button class="button {{Name != ''?'':'button_disabled'}}" ng-click="submit_add()" ng-disabled="Name != '' && phone != ''?'':'true'">确定</button>
+            <button class="button button_del" ng-click="close()">取消</button>
+        </p>
+    </div>
+    <div class="weightCfg_div" style="width: 50%;left: 25%;">
+        <h2 class="alert_add_h2" style="padding-bottom: 20px;margin-bottom: 0px;border-bottom: solid 1px #ddd;">订单比例配置</h2>
+        <img src="img/guanbi-dianji.png" alt="" class="close_img" ng-click="close()">
+
+        <div class="cfg_middle">
+            <p>
+                <span>车行全称</span>
+                <span style="flex:0.6">订单配额</span>
+                <span style="flex:0.4">配额比例(%)</span>
+            </p>
+            <p style="text-align:center;" ng-repeat="a in list">
+                <span class="list_span">{{a.shop4sFullName}}</span>
+                <span style="flex:0.6">
+                    <input type="number" class="input weight_input" ng-model="a.weight" ng-change="inputNum($index,a.weight)">
+                </span>
+                <span style="flex:0.4;color:#b5b5b5;">{{a.percentage}}</span>
+            </p>
+        </div>
+        <div class="cfg_div_footer" ng-hide="bigList.length == 0">
+            <button style="    float: right;" class="button {{disabled?'button_disabled':''}}" ng-disabled="disabled?true:false" ng-click="update_cfg()">确定</button>
+
+        </div>
+
+    </div>
+</div>
