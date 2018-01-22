@@ -18,7 +18,8 @@ backinfo.controller('backinfoCtrl', ['$scope', 'APIService', function ($scope, A
             $scope.inspectorBackFilter = JSON.parse(sessionStorage.getItem('inspectorBackFilter2'));
             $scope.start = $scope.inspectorBackFilter.start;
             $scope.endDay = $scope.inspectorBackFilter.end;
-            $scope.keyword = $scope.inspectorBackFilter.inspector;
+            $scope.userId = $scope.inspectorBackFilter.inspector;
+            $scope.keyword = $scope.inspectorBackFilter.keyword;
             $scope.ordertype = $scope.inspectorBackFilter.type;
             $scope.jieguo = $scope.inspectorBackFilter.success;
             $scope.current = $scope.inspectorBackFilter.current;
@@ -42,8 +43,9 @@ backinfo.controller('backinfoCtrl', ['$scope', 'APIService', function ($scope, A
             end: $scope.endDay,
             type: $scope.ordertype,
             success: $scope.jieguo,
-            inspector: $scope.keyword,
-            current: $scope.current
+            inspector: $scope.userId,
+            current: $scope.current,
+            keyword: $scope.keyword
         }
         sessionStorage.setItem('inspectorBackFilter2', JSON.stringify(inspectorBackFilter));
     }
@@ -74,10 +76,14 @@ backinfo.controller('backinfoCtrl', ['$scope', 'APIService', function ($scope, A
         if ($scope.start != '') {
             var s = $scope.start.substr(0, 2) + '-' + $scope.start.substr(2, 2) + '-' + $scope.start.substr(4, 2)
             $('#startDay').val('20' + s)
+        } else {
+            $('#startDay').val('')
         }
         if ($scope.endDay != '') {
             var e = $scope.endDay.substr(0, 2) + '-' + $scope.endDay.substr(2, 2) + '-' + $scope.endDay.substr(4, 2)
             $('#endDay').val('20' + e)
+        } else {
+            $('#endDay').val('')
         }
 
     }
@@ -89,7 +95,7 @@ backinfo.controller('backinfoCtrl', ['$scope', 'APIService', function ($scope, A
     }
     $scope.get_order_list = function () {
         loading();
-        APIService.get_back_factory_list(10, ($scope.current - 1) * $scope.limit, $scope.start, $scope.endDay, $scope.ordertype, $scope.keyword, $scope.jieguo).then(function (res) {
+        APIService.get_back_factory_list(10, ($scope.current - 1) * $scope.limit, $scope.start, $scope.endDay, $scope.ordertype, $scope.keyword, $scope.jieguo,$scope.userId).then(function (res) {
             if (res.data.http_status == 200) {
                 closeloading();
                 $scope.orderList = res.data.items;
@@ -111,15 +117,19 @@ backinfo.controller('backinfoCtrl', ['$scope', 'APIService', function ($scope, A
         })
     }
     $scope.toexcel = function (status, caseNo) {
-        window.open(host + urlV1 + '/excel/third/back-factory/information/list/export?startDay=' + $scope.start + '&endDay=' + $scope.endDay + '&keyword=' + $scope.keyword + '&orderType=' + $scope.ordertype + '&pushResult=' + $scope.jieguo + '&Authorization=' + APIService.token + '&user-id=' + APIService.userId)
+        window.open(host + urlV1 + '/excel/third/back-factory/information/list/export?startDay=' + $scope.start + '&endDay=' + $scope.endDay + '&keyword=' + $scope.keyword + '&orderType=' + $scope.ordertype + '&pushResult=' + $scope.jieguo + '&createUserId=' + $scope.userId + '&Authorization=' + APIService.token + '&user-id=' + APIService.userId)
     }
     $scope.search = function () {
+        if($scope.keyword != ''){
+            $scope.userId = '';
+        }
         $scope.current = 1;
         $scope.saveFilter();
         $scope.get_order_list();
     }
 
     $scope.searchAll = function () {
+        $scope.userId = '';
         sessionStorage.removeItem('inspectorBackFilter2');
         $scope.init();
         $scope.get_order_list();
@@ -131,10 +141,14 @@ backinfo.controller('backinfoCtrl', ['$scope', 'APIService', function ($scope, A
         if (startDate != '') {
             $scope.start = startDate.split("-");
             $scope.start = $scope.start[0].substr(2, 3) + '' + $scope.start[1] + '' + $scope.start[2];
+        } else {
+            $scope.start = '';
         }
         if (endDate != '') {
             $scope.endDay = endDate.split("-");
             $scope.endDay = $scope.endDay[0].substr(2, 3) + '' + $scope.endDay[1] + '' + $scope.endDay[2];
+        } else {
+            $scope.endDay = '';
         }
     }
     $scope.detail = function (orderNo) {
@@ -164,7 +178,7 @@ backinfo.controller('backinfoCtrl', ['$scope', 'APIService', function ($scope, A
         $scope.saveFilter();
         $scope.page_show();
         loading();
-        APIService.paging(urlV1 + '/third/back-factory/information/list?startDay=' + $scope.start + '&endDay=' + $scope.endDay + '&keyword=' + $scope.keyword + '&orderType=' + $scope.ordertype + '&pushResult=' + $scope.jieguo, limit, type, $scope.pageCount, $scope.current).then(function (res) {
+        APIService.paging(urlV1 + '/third/back-factory/information/list?startDay=' + $scope.start + '&endDay=' + $scope.endDay + '&keyword=' + $scope.keyword + '&orderType=' + $scope.ordertype + '&pushResult=' + $scope.jieguo + '&createUserId=' + $scope.userId, limit, type, $scope.pageCount, $scope.current).then(function (res) {
             closeloading();
             if (res.data.http_status == 200) {
 

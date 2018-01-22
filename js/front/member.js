@@ -10,6 +10,13 @@ member.controller('memberCtrl', ['$scope', 'APIService', function ($scope, APISe
         $scope.limit = limit;
         $scope.status = '';
         $scope.Name = '';
+        var funcList = [];
+        funcList = sessionStorage.getItem('funcList').split(',');
+        if (contains(funcList, 1017)) {
+            $scope.zhipeiDiv = show;
+        } else {
+            $scope.zhipeiDiv = hide;
+        }
         $scope.get_shop4S_page();
     }
     //查询全部
@@ -115,7 +122,7 @@ member.controller('memberCtrl', ['$scope', 'APIService', function ($scope, APISe
     //页面跳转
     $scope.goto = function (type, a) {
         sessionStorage.setItem('shop4S_type', type)
-        sessionStorage.setItem('select_shop4sId', a.shop4sId)
+        sessionStorage.setItem('select_shop4sId', a.id)
         if (a == '') {
             sessionStorage.removeItem('shop4S_data');
         } else {

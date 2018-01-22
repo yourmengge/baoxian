@@ -2209,11 +2209,11 @@ audio {
 
 .input_div p {
     margin: 0;
-    height: 40px;
-    line-height: 40px;
+    line-height: 25px;
     border-bottom: solid 1px #d5d5d5;
     cursor: pointer;
     font-size: 12px;
+    padding: 8px 0;
 }
 
 .brand,

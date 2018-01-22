@@ -11,6 +11,13 @@ brandcfg.controller('brandcfgCtrl', ['$scope', 'APIService', function ($scope, A
         $scope.addShop4sId = ''
         $scope.detail = JSON.parse(sessionStorage.getItem('brand_data'));
         $scope.close();
+        var funcList = [];
+        funcList = sessionStorage.getItem('funcList').split(',');
+        if (contains(funcList, 1017)) {
+            $scope.zhipeiDiv = show;
+        } else {
+            $scope.zhipeiDiv = hide;
+        }
         $scope.get_shop4S_page();
     }
     //查询全部

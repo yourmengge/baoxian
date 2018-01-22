@@ -436,8 +436,8 @@ Road167.factory('APIService', function ($http) {
     }
 
     //回厂信息
-    service.get_back_factory_list = function (limit, offset, start, end, type, keyword, result) {
-        return service.get(host + urlV1 + '/third/back-factory/information/list?startDay=' + start + '&endDay=' + end + '&keyword=' + keyword + '&orderType=' + type + '&pushResult=' + result + '&$limit=' + limit + '&$offset=' + offset)
+    service.get_back_factory_list = function (limit, offset, start, end, type, keyword, result, userId) {
+        return service.get(host + urlV1 + '/third/back-factory/information/list?startDay=' + start + '&endDay=' + end + '&keyword=' + keyword + '&orderType=' + type + '&pushResult=' + result + '&createUserId=' + userId + '&$limit=' + limit + '&$offset=' + offset)
     }
 
     //获取回厂率统计

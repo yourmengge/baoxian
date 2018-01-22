@@ -1,5 +1,5 @@
 <div class="adddriver" ng-controller="backinfoCtrl" ng-init="initData()">
-    <h2>回厂信息</h2>
+    <h2>回厂订单列表</h2>
     <button class="goback" ng-click="back()"></button>
     <p class="search_div">
         出险时间&emsp;&emsp;开始：
@@ -63,7 +63,7 @@
                     {{a.accidentCarNo}}
                 </div>
                 <div>
-                    {{a.accidentTime | ToLocal}}
+                    {{a.accidentTime | ToDay}}
                 </div>
                 <div>
                     {{a.insuranceTypeDesc}}
