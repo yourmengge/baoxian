@@ -262,8 +262,14 @@ function isError(err) {
         }, 2000);
     }
     if (err.data.http_status == 400 || err.data.http_status == 403) {
-        layer.msg(err.data.message);
-        closeloading();
+        if (err.data.http_code == 'user.no.exist') {
+            layer.msg(err.data.message);
+            goto_view('login');
+        } else {
+            layer.msg(err.data.message);
+            closeloading();
+        }
+
     }
     if (err.data.http_status >= 500) {
         layer.msg('网络出现问题了，请刷新重试');
