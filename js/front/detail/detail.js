@@ -27,7 +27,7 @@ detail.controller('detailCtrl', ['$scope', 'APIService', function ($scope, APISe
         orderPic = [];
         accidentPic = [];
         fixPic = [];
-        //$scope.order = '1712200006'
+        //$scope.order = '1711160018'
         $scope.order = sessionStorage.getItem('orderNo');
         APIService.get_order_detail($scope.order, 'BASE').then(function (res) {
             if (res.data.http_status == 200) {

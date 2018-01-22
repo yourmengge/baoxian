@@ -325,10 +325,15 @@
         <!-- 施救影像 -->
         <div ng-hide="tabType != PICTURE_VIDEO" class="tabsDiv">
             <p>下单照片</p>
-            <img ng-repeat="a in allPictures.orderPictures" ng-src="{{a.zoomOutView}}" alt="" ng-click="openPic(a.path)">
+            <div class="img_div">
+                <img ng-repeat="a in allPictures.orderPictures" ng-src="{{a.zoomOutView}}" alt="" ng-click="openPic(a.path)">
+            </div>
+
 
             <p>下单视频</p>
-            <video ng-repeat="a in allPictures.videos" ng-src="{{a.path}}" controls></video>
+            <div class="img_div">
+                <video ng-repeat="a in allPictures.videos" ng-src="{{a.path}}" controls></video>
+            </div>
             <hr>
             <div ng-repeat="a in allPictures.assignDriverses">
                 <p>
@@ -400,52 +405,55 @@
                 </div>
             </div>
             <div class="img_div">
-                <img ng-repeat="a in detail.shop4sPictures" ng-src="{{a.zoomOutView}}" alt="" ng-click="openPic(a.path)">
+                <img ng-repeat="a in pushFix.shop4sPictures" ng-src="{{a.zoomOutView}}" alt="" ng-click="openPic(a.path)">
             </div>
             <div class="" style="margin-top:20px;">
                 <div class="flex_div_line">
-                    <div>回厂记录</div>
+                    <div class="car_div_title">回厂记录</div>
                 </div>
             </div>
-            <table class="detail_back_factory_table" cellspacing="0">
+            <table class="detail_back_factory_table" cellspacing="0" ng-hide="pushFix.backShopHistory.length == 0">
                 <tr>
-                    <td style="width:50px;">
+                    <th style="width:50px;">
                         序号
-                    </td>
-                    <td>
-                        下单时间
-                    </td>
-                    <td>
-                        车主手机号
-                    </td>
-                    <td>
-                        施救地点
-                    </td>
-                    <td>
-                        施救终点地点
-                    </td>
+                    </th>
+                    <th>
+                        确认人员
+                    </th>
+                    <th>
+                        确认结果
+                    </th>
+                    <th>
+                        回厂车行
+                    </th>
+                    <th>
+                        确认时间
+                    </th>
                 </tr>
-                <tr>
+                <tr ng-repeat="a in pushFix.backShopHistory">
                     <td>
-                        序号
+                        {{$index + 1}}
                     </td>
                     <td>
-                        下单时间
+                        {{a.createName}}
                     </td>
                     <td>
-                        车主手机号
+                        {{a.backType}}
+                        <span ng-hide="a.appointDate == null ?true:false">：</span>{{a.appointDate}}
                     </td>
                     <td>
-                        施救地点
+                        {{a.shop4sName}}
                     </td>
                     <td>
-                        施救终点地点
+                        {{a.createTime | ToLocal}}
                     </td>
                 </tr>
             </table>
-
-            <span class="car_div_title" style="color:#333;">通话记录</span>
-            <div class="list_table bodajilu" ng-hide="detail.dialInfo.length == 0">
+            <div ng-hide="pushFix.backShopHistory.length != 0" style="text-align:center;">
+                <img class="no_data" src="img/img-none-zi.png" alt="">
+            </div>
+            <span class="car_div_title">通话记录</span>
+            <div class="list_table bodajilu" ng-hide="pushFix.dialInfo.length == 0">
                 <div class="list_table_tr">
                     <div style="flex:0.3">
                     </div>
@@ -462,7 +470,7 @@
                         首次拨打时间
                     </div>
                 </div>
-                <div ng-repeat="a in detail.dialInfo">
+                <div ng-repeat="a in pushFix.dialInfo">
                     <div class="list_table_td">
                         <div ng-click="openDiv($index,a.dialType)" class="openDiv">
                             <img src="img/bihe-s.png" alt="" ng-hide="openDetail == $index">
@@ -481,33 +489,36 @@
                             {{a.firstDialTime | ToLocal}}
                         </div>
                     </div>
-                    <div class="list_table_detail bodajilu_detail" ng-hide="openDetail != $index">
-                        <div>
-                            拨打人员
-                        </div>
-                        <div>
-                            <p ng-repeat="b in bodalist">
+                    <div ng-hide="openDetail != $index">
+                        <div class="list_table_detail bodajilu_detail" ng-repeat="b in bodalist">
+                            <div>
+                                拨打人员
+                            </div>
+                            <div>
                                 {{b.createName}}
-                            </p>
-                        </div>
-                        <div>
-                            拨打时间
-                        </div>
-                        <div>
-                            <p ng-repeat="b in bodalist">
+
+                            </div>
+                            <div>
+                                拨打时间
+                            </div>
+                            <div>
                                 {{b.createTime | ToLocal}}
-                            </p>
+                            </div>
                         </div>
                     </div>
+
                 </div>
+            </div>
+            <div ng-hide="pushFix.dialInfo.length != 0" style="text-align:center;">
+                <img class="no_data" src="img/img-none-zi.png" alt="">
             </div>
         </div>
         <!-- 信息采集 -->
         <div ng-hide="tabType != LICENSE" class="tabsDiv">
-            <p class="car_div_title">
+            <p class="">
                 车主电话：{{detail.licenseInfo.carOwnerPhone}}
             </p>
-            <p class="car_div_title">
+            <p class="">
                 未采集证照：{{}}
             </p>
             <div class="card_div">
@@ -522,31 +533,52 @@
                                 <span>
                                     姓名：
                                 </span>
+
+                            </td>
+                            <td>
                                 {{detail.licenseInfo.idCardName}}
                             </td>
                             <td>
-                                <span>性别：</span>{{detail.licenseInfo.idCardSex}}
+                                <span>性别：</span>
+                            </td>
+                            <td>
+                                {{detail.licenseInfo.idCardSex}}
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <span>出生：</span>{{detail.licenseInfo.idCardBirth}}
+                                <span>出生：</span>
                             </td>
                             <td>
-                                <span>住址：</span>{{detail.licenseInfo.idCardAddr}}
+                                {{detail.licenseInfo.idCardBirth}}
+                            </td>
+                            <td>
+                                <span>住址：</span>
+                            </td>
+                            <td>
+                                {{detail.licenseInfo.idCardAddr}}
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <span>身份证号：</span>{{detail.licenseInfo.idCardNo}}
+                                <span>身份证号：</span>
+                            </td>
+                            <td>
+                                {{detail.licenseInfo.idCardNo}}
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <span>采集人员：</span>{{detail.licenseInfo.idCreateByDesc}}
+                                <span>采集人员：</span>
                             </td>
                             <td>
-                                <span>采集时间：</span>{{detail.licenseInfo.idCreateTime | ToLocal}}
+                                {{detail.licenseInfo.idCreateByDesc}}
+                            </td>
+                            <td>
+                                <span>采集时间：</span>
+                            </td>
+                            <td>
+                                {{detail.licenseInfo.idCreateTime | ToLocal}}
                             </td>
                         </tr>
                     </table>
@@ -558,37 +590,61 @@
                     <h4>
                         行驶证
                     </h4>
-                    <table style="width:50%">
+                    <table>
                         <tr>
                             <td>
-                                <span>所有人：</span>{{detail.licenseInfo.drivingLicenseName}}
+                                <span>所有人：</span>
                             </td>
                             <td>
-                                <span>住址：</span>{{detail.licenseInfo.drivingLicenseAddr}}
+                                {{detail.licenseInfo.drivingLicenseName}}
+                            </td>
+                            <td>
+                                <span>住址：</span>
+                            </td>
+                            <td>
+                                {{detail.licenseInfo.drivingLicenseAddr}}
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <span>车牌号码：</span>{{detail.licenseInfo.drivingLicenseNo}}
+                                <span>车牌号码：</span>
                             </td>
                             <td>
-                                <span>车辆类型：</span>{{detail.licenseInfo.drivingLicenseVehicleType}}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span>品牌型号：</span>{{detail.licenseInfo.drivingLicenseBrandModel}}
+                                {{detail.licenseInfo.drivingLicenseNo}}
                             </td>
                             <td>
-                                <span>车辆识别代号：</span>{{detail.licenseInfo.drivingLicenseVin}}
+                                <span>车辆类型：</span>
+                            </td>
+                            <td>
+                                {{detail.licenseInfo.drivingLicenseVehicleType}}
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <span>发动机号码：</span>{{detail.licenseInfo.drivingLicenseEngineNo}}
+                                <span>品牌型号：</span>
                             </td>
                             <td>
-                                <span>注册日期：</span>{{detail.licenseInfo.drivingLicenseRegistDate}}
+                                {{detail.licenseInfo.drivingLicenseBrandModel}}
+                            </td>
+                            <td>
+                                <span>车辆识别代号：</span>
+                            </td>
+                            <td>
+                                {{detail.licenseInfo.drivingLicenseVin}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>发动机号码：</span>
+                            </td>
+                            <td>
+                                {{detail.licenseInfo.drivingLicenseEngineNo}}
+                            </td>
+                            <td>
+                                <span>注册日期：</span>
+                            </td>
+                            <td>
+                                {{detail.licenseInfo.drivingLicenseRegistDate}}
                             </td>
                         </tr>
                         <tr>
@@ -599,10 +655,16 @@
                         </tr>
                         <tr>
                             <td>
-                                <span>采集人员：</span>{{detail.licenseInfo.drivingCreateByDesc}}
+                                <span>采集人员：</span>
                             </td>
                             <td>
-                                <span>采集时间：</span>{{detail.licenseInfo.drivingCreateTime | ToLocal}}
+                                {{detail.licenseInfo.drivingCreateByDesc}}
+                            </td>
+                            <td>
+                                <span>采集时间：</span>
+                            </td>
+                            <td>
+                                {{detail.licenseInfo.drivingCreateTime | ToLocal}}
                             </td>
                         </tr>
                     </table>
@@ -617,26 +679,44 @@
                     <table>
                         <tr>
                             <td>
-                                <span>姓名：</span>{{detail.licenseInfo.driverLicenseName}}
+                                <span>姓名：</span>
                             </td>
                             <td>
-                                <span>性别：</span>{{detail.licenseInfo.driverLicenseSex}}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span>住址：</span>{{detail.licenseInfo.driverLicenseAddr}}
+                                {{detail.licenseInfo.driverLicenseName}}
                             </td>
                             <td>
-                                <span> 证件号：</span>{{detail.licenseInfo.driverLicenseNo}}
+                                <span>性别：</span>
+                            </td>
+                            <td>
+                                {{detail.licenseInfo.driverLicenseSex}}
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <span>采集人员：</span>{{detail.licenseInfo.driverCreateByDesc}}
+                                <span>住址：</span>
                             </td>
                             <td>
-                                <span>采集时间：</span>{{detail.licenseInfo.driverCreateTime | ToLocal}}
+                                {{detail.licenseInfo.driverLicenseAddr}}
+                            </td>
+                            <td>
+                                <span> 证件号：</span>
+                            </td>
+                            <td>
+                                {{detail.licenseInfo.driverLicenseNo}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>采集人员：</span>
+                            </td>
+                            <td>
+                                {{detail.licenseInfo.driverCreateByDesc}}
+                            </td>
+                            <td>
+                                <span>采集时间：</span>
+                            </td>
+                            <td>
+                                {{detail.licenseInfo.driverCreateTime | ToLocal}}
                             </td>
                         </tr>
                     </table>
@@ -651,10 +731,16 @@
                     <table>
                         <tr>
                             <td>
-                                <span>采集人员：</span>{{detail.licenseInfo.insCreateByDesc}}
+                                <span>采集人员：</span>
                             </td>
                             <td>
-                                <span>采集时间：</span>{{detail.licenseInfo.insCreateTime | ToLocal}}
+                                {{detail.licenseInfo.insCreateByDesc}}
+                            </td>
+                            <td>
+                                <span>采集时间：</span>
+                            </td>
+                            <td>
+                                {{detail.licenseInfo.insCreateTime | ToLocal}}
                             </td>
                         </tr>
                     </table>
@@ -763,7 +849,9 @@
                 <div>{{a.verifyTime | ToLocal}}</div>
             </div>
         </div>
-
+        <div ng-hide="list.length != 0" style="text-align:center;">
+            <img class="no_data" src="img/img-none-zi.png" alt="">
+        </div>
     </div>
     <div class="change_list " id="fixchange">
         <h2 class="alert_add_h2">目的地变更记录</h2>
@@ -776,6 +864,9 @@
             <div>{{a.applyAddress}}</div>
             <div>修改时间：</div>
             <div>{{a.createTime | ToLocal}}</div>
+        </div>
+        <div ng-hide="list.length != 0" style="text-align:center;">
+            <img class="no_data" src="img/img-none-zi.png" alt="">
         </div>
     </div>
     <div class="closeBg" ng-click="closeBG()"></div>

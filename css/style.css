@@ -782,13 +782,14 @@ input[type=number]::-webkit-outer-spin-button {
 
 .img_div {
     width: 60vw;
-    padding: 5px 30px;
+    padding: 5px 0px;
 }
 
 .img_div img,
 .img_div video {
     width: 10vw;
-    padding: 20px;
+    padding-right: 20px;
+    padding-left: 5px;
     cursor: pointer;
 }
 
@@ -805,6 +806,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 .car_div_title {
     color: #333;
+    font-size: 22px;
 }
 
 .detail_map {
@@ -1763,7 +1765,7 @@ video {
     text-align: center;
     height: 50px;
     line-height: 50px;
-    font-size: 13px;
+    font-size: 14px;
     background: #a9ebff;
 }
 
@@ -2162,20 +2164,38 @@ audio {
 }
 
 .card_div img {
-    width: 20%;
+    /* width: 20%;
     float: left;
     min-width: 200px;
     padding: 40px;
+    height: 200px; */
+    width: 250px;
+    float: left;
+    min-width: 200px;
+    padding: 40px 20px 40px 0;
     height: 200px;
 }
 
 .card_text {
-    padding: 30px;
+    padding: 30px 0;
+}
+
+.card_text h4 {
+    margin: 7px;
 }
 
 .card_text table {
-    width: 50%;
+    width: 60%;
     height: 150px;
+}
+
+.card_text table tr td:nth-child(odd) {
+    width: 120px;
+}
+
+.card_text table tr td:nth-child(even) {
+    text-align: left;
+    width: 230px;
 }
 
 .input_div {
@@ -2332,13 +2352,36 @@ img {
 }
 
 .bodajilu {
-    margin: 30px;
-    width: 70%;
+    margin: 30px 0;
+    width: 87%;
+}
+
+.bodajilu .list_table_tr div {
+    background: #eee;
+}
+
+.bodajilu .list_table_td div:nth-child(1) {
+    border-left: solid 1px #eee;
+}
+
+.bodajilu .list_table_td div:nth-child(5) {
+    border-right: solid 1px #eee;
+}
+
+.bodajilu .list_table_td div {
+    border: none;
+    border-bottom: 1px solid #eee;
+}
+
+.bodajilu .list_table_td div:hover {
+    background: #f9f9f9;
 }
 
 .bodajilu_detail {
-    padding: 20px;
+    padding: 14px 60px;
     display: flex;
+    font-size: 14px;
+    border: solid 1px #eee;
 }
 
 .bodajilu_detail div {
@@ -2499,11 +2542,12 @@ img {
 }
 
 .detail_back_factory_table {
-    width: 87%;
+    width: 98%;
     text-align: center;
     /* margin-left: 100px; */
     color: #333;
     margin-top: 20px;
+    font-size: 15px;
     margin-bottom: 20px;
 }
 
@@ -2561,7 +2605,23 @@ img {
     text-align: center;
 }
 
+.no_data {
+    width: 20%;
+}
+
 @media screen and (max-width:1366px) {
+    .tabs_div button {
+        height: 33px;
+        font-size: 12px;
+        margin-top: 8px;
+    }
+    .tabsDiv {
+        font-size: 12px;
+    }
+    .car_div_title {
+        font-size: 16px;
+        font-weight: bold;
+    }
     .change_list {
         font-size: 12px;
     }
