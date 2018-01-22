@@ -62,6 +62,10 @@ detail.controller('detailCtrl', ['$scope', 'APIService', function ($scope, APISe
         })
     }
     //获取施救信息
+    $scope.weicaiji = '';
+    $scope.isWeicaijiNull = function (weicaiji, text) {
+        return weicaiji == '' ? text : '、' + text
+    }
     $scope.get_shijiu = function () {
         loading();
         APIService.get_order_detail($scope.order, $scope.tabType).then(function (res) {
@@ -97,6 +101,18 @@ detail.controller('detailCtrl', ['$scope', 'APIService', function ($scope, APISe
                         break;
                     case 'LICENSE':
                         $scope.detail.licenseInfo = res.data;
+                        if ($scope.detail.licenseInfo.idCardName == null) {
+                            $scope.weicaiji = $scope.isWeicaijiNull($scope.weicaiji, '身份证');
+                        }
+                        if ($scope.detail.licenseInfo.drivingLicenseName == null) {
+                            $scope.weicaiji = $scope.weicaiji + $scope.isWeicaijiNull($scope.weicaiji, '行驶证');
+                        }
+                        if ($scope.detail.licenseInfo.driverLicenseName == null) {
+                            $scope.weicaiji = $scope.weicaiji + $scope.isWeicaijiNull($scope.weicaiji, '驾驶证');
+                        }
+                        if ($scope.detail.licenseInfo.insCreateTime == null) {
+                            $scope.weicaiji = $scope.weicaiji + $scope.isWeicaijiNull($scope.weicaiji, '保单');
+                        }
                         break;
                     case 'DIRECT_COMPENSATION':
                         $scope.detail.authDirBilCancel = res.data;
