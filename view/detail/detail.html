@@ -473,8 +473,10 @@
                 <div ng-repeat="a in pushFix.dialInfo">
                     <div class="list_table_td">
                         <div ng-click="openDiv($index,a.dialType)" class="openDiv">
-                            <img src="img/bihe-s.png" alt="" ng-hide="openDetail == $index">
-                            <img src="img/xiala-s.png" alt="" ng-hide="openDetail != $index">
+                            <div ng-hide="a.dialCnt == 0" style="border: none;">
+                                <img src="img/bihe-s.png" alt="" ng-hide="openDetail == $index">
+                                <img src="img/xiala-s.png" alt="" ng-hide="openDetail != $index">
+                            </div>
                         </div>
                         <div>
                             {{dialTypeTexts[a.dialType]}}
