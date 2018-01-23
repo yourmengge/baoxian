@@ -163,11 +163,11 @@ detail.controller('detailCtrl', ['$scope', 'APIService', function ($scope, APISe
 
     }
     $scope.confirmation = function () {
-        APIService.get_order_detail($scope.order).then(function (res) {
+        APIService.get_order_detail($scope.order, 'DIRECT_COMPENSATION').then(function (res) {
             if (res.data.http_status == 200) {
                 closeloading();
                 $scope.detail = res.data;
-                if ($scope.detail.authDirBilCancel.verifyStatus != 900) {
+                if ($scope.detail.verifyStatus != 900) {
                     goto_view('main/confirmation')
                 } else {
                     layer.msg('直赔已取消')
