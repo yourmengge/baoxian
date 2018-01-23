@@ -1,0 +1,237 @@
+<div class="fixaddress" ng-controller="caijidetailCtrl" ng-init="initData()">
+    <h2>{{title}}</h2>
+    <div class="tabsDiv caijidetail">
+        <p class="">
+            车主电话：{{detail.licenseInfo.carOwnerPhone}}
+            <span style="margin-left:100px;">保险公司：</span>
+            {{detail.licenseInfo.insCreateTime | ToLocal}}
+        </p>
+        <p>
+            <span>采集人员：</span>
+            {{detail.licenseInfo.insCreateByDesc}}
+            <span style="margin-left:100px;">采集时间：</span>
+            {{detail.licenseInfo.insCreateTime | ToLocal}}
+        </p>
+        <p class="">
+            未采集证照：{{weicaiji}}
+        </p>
+        <div class="card_div" ng-hide="detail.licenseInfo.idCard == null">
+            <img ng-src="{{detail.licenseInfo.idCard.zoomOutView}}" alt="" ng-click="openPic(detail.licenseInfo.idCard.path)">
+            <div class="card_text">
+                <h4>
+                    身份证
+                </h4>
+                <table>
+                    <tr>
+                        <td>
+                            <span>
+                                姓名：
+                            </span>
+
+                        </td>
+                        <td>
+                            {{detail.licenseInfo.idCardName}}
+                        </td>
+                        <td>
+                            <span>性别：</span>
+                        </td>
+                        <td>
+                            {{detail.licenseInfo.idCardSex}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>出生：</span>
+                        </td>
+                        <td>
+                            {{detail.licenseInfo.idCardBirth}}
+                        </td>
+                        <td>
+                            <span>住址：</span>
+                        </td>
+                        <td>
+                            {{detail.licenseInfo.idCardAddr}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>身份证号：</span>
+                        </td>
+                        <td>
+                            {{detail.licenseInfo.idCardNo}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>采集人员：</span>
+                        </td>
+                        <td>
+                            {{detail.licenseInfo.idCreateByDesc}}
+                        </td>
+                        <td>
+                            <span>采集时间：</span>
+                        </td>
+                        <td>
+                            {{detail.licenseInfo.idCreateTime | ToLocal}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="card_div" ng-hide="detail.licenseInfo.drivingLicense == null">
+            <img ng-src="{{detail.licenseInfo.drivingLicense.zoomOutView}}" alt="" ng-click="openPic(detail.licenseInfo.drivingLicense.path)">
+            <div class="card_text">
+                <h4>
+                    行驶证
+                </h4>
+                <table>
+                    <tr>
+                        <td>
+                            <span>所有人：</span>
+                        </td>
+                        <td>
+                            {{detail.licenseInfo.drivingLicenseName}}
+                        </td>
+                        <td>
+                            <span>住址：</span>
+                        </td>
+                        <td>
+                            {{detail.licenseInfo.drivingLicenseAddr}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>车牌号码：</span>
+                        </td>
+                        <td>
+                            {{detail.licenseInfo.drivingLicenseNo}}
+                        </td>
+                        <td>
+                            <span>车辆类型：</span>
+                        </td>
+                        <td>
+                            {{detail.licenseInfo.drivingLicenseVehicleType}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>品牌型号：</span>
+                        </td>
+                        <td>
+                            {{detail.licenseInfo.drivingLicenseBrandModel}}
+                        </td>
+                        <td>
+                            <span>车辆识别代号：</span>
+                        </td>
+                        <td>
+                            {{detail.licenseInfo.drivingLicenseVin}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>发动机号码：</span>
+                        </td>
+                        <td>
+                            {{detail.licenseInfo.drivingLicenseEngineNo}}
+                        </td>
+                        <td>
+                            <span>注册日期：</span>
+                        </td>
+                        <td>
+                            {{detail.licenseInfo.drivingLicenseRegistDate}}
+                        </td>
+                    </tr>
+                    <tr>
+
+                        <td>
+                            <span>发证日期：</span>{{detail.licenseInfo.drivingLicenseCertifyDate}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>采集人员：</span>
+                        </td>
+                        <td>
+                            {{detail.licenseInfo.drivingCreateByDesc}}
+                        </td>
+                        <td>
+                            <span>采集时间：</span>
+                        </td>
+                        <td>
+                            {{detail.licenseInfo.drivingCreateTime | ToLocal}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="card_div" ng-hide="detail.licenseInfo.driverLicense == null">
+            <img ng-src="{{detail.licenseInfo.driverLicense.zoomOutView}}" alt="" ng-click="openPic(detail.licenseInfo.driverLicense.path)">
+            <div class="card_text">
+                <h4>
+                    驾驶证
+                </h4>
+                <table>
+                    <tr>
+                        <td>
+                            <span>姓名：</span>
+                        </td>
+                        <td>
+                            {{detail.licenseInfo.driverLicenseName}}
+                        </td>
+                        <td>
+                            <span>性别：</span>
+                        </td>
+                        <td>
+                            {{detail.licenseInfo.driverLicenseSex}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>住址：</span>
+                        </td>
+                        <td>
+                            {{detail.licenseInfo.driverLicenseAddr}}
+                        </td>
+                        <td>
+                            <span> 证件号：</span>
+                        </td>
+                        <td>
+                            {{detail.licenseInfo.driverLicenseNo}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span>采集人员：</span>
+                        </td>
+                        <td>
+                            {{detail.licenseInfo.driverCreateByDesc}}
+                        </td>
+                        <td>
+                            <span>采集时间：</span>
+                        </td>
+                        <td>
+                            {{detail.licenseInfo.driverCreateTime | ToLocal}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="card_div" ng-hide="detail.licenseInfo.insurancePolicy == null">
+            <img ng-src="{{detail.licenseInfo.insurancePolicy.zoomOutView}}" alt="" ng-click="openPic(detail.licenseInfo.insurancePolicy.path)">
+            <div class="card_text">
+                <h4>
+                    保单
+                </h4>
+
+            </div>
+        </div>
+        <div class="card_div" ng-hide="detail.licenseInfo.insurancePolicy == null">
+            <img ng-src="{{detail.licenseInfo.insurancePolicy.zoomOutView}}" alt="" ng-click="openPic(detail.licenseInfo.insurancePolicy.path)">
+            <div class="card_text">
+                <h4>
+                    人车合影
+                </h4>
+            </div>
+        </div>
+    </div>
+</div>
