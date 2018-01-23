@@ -3,6 +3,7 @@ var time = new Date();
 
 threecars.controller('threecarsCtrl', ['$scope', 'APIService', '$http', function ($scope, APIService, $http) {
     $scope.initData = function () {
+        $scope.init();
         $scope.table = show;
         $scope.openDetail = -1;
         $scope.tips = '';
@@ -26,6 +27,14 @@ threecars.controller('threecarsCtrl', ['$scope', 'APIService', '$http', function
         }
         $scope.get_order_list();
 
+    }
+    $scope.init = function () {
+        $scope.url = sessionStorage.getItem('threecars')
+        if ($scope.url === 'threecars') {
+            $scope.backType = 'inspector'
+        } else {
+            $scope.backType = 'push'
+        }
     }
     $scope.get_order_list = function () {
         APIService.get_three_cars_info(10, $('#startDay').val(), $('#endDay').val(), $scope.caseNo, ($scope.current - 1) * 10).then(function (res) {

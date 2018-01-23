@@ -1,10 +1,10 @@
 <div class="adddriver" ng-controller="threecarsCtrl" ng-init="initData()">
-    <h2>三者车信息</h2>
+    <h2>{{url == 'threecars'?'三者车':'车商采集'}}信息</h2>
     <p class="search_div">
         开始时间：
         <input type="date" id="startDay" class="input"> 结束时间：
         <input type="date" id="endDay" class="input">
-        <input class="input" type="text" ng-model="caseNo" style="width:220px;" placeholder="请输入查勘员">
+        <input class="input" type="text" ng-model="caseNo" style="width:220px;" placeholder="请输入{{url == 'threecars'?'查勘员':'车商人员'}}">
         <button class="button" ng-click="search()" style="min-width:60px;">查询</button>
         <button class="button output_button" ng-click="toexcel(status,caseNo)">
             导出excel
@@ -14,7 +14,7 @@
     <div class="list_table" ng-hide="table">
         <div class="list_table_tr">
             <div>
-                查勘员
+                {{url == 'threecars'?'查勘员':'车商人员'}}
             </div>
             <div>
                 采集时间
@@ -45,6 +45,9 @@
             </div>
             <div>
                 身份证号
+            </div>
+            <div ng-hide="url == 'threecars'">
+                操作
             </div>
         </div>
         <div ng-repeat="a in orderList">
@@ -81,6 +84,9 @@
                 </div>
                 <div>
                     {{a.idCardNo}}
+                </div>
+                <div ng-hide="url == 'threecars'">
+                    <span class="button_span" ng-click="detail(a)">查看</span>
                 </div>
             </div>
         </div>

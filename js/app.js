@@ -20,6 +20,10 @@ insurance.config(function ($stateProvider, $urlRouterProvider) {
             url: '/threecars',
             templateUrl: 'view/threecars.html'
         })
+        .state('main.threecarsS', {
+            url: '/threecarsS',
+            templateUrl: 'view/threecars.html'
+        })
         .state('main.backinfo', {
             url: '/backinfo',
             templateUrl: 'view/backinfo.html'
