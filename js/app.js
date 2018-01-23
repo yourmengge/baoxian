@@ -265,6 +265,7 @@ insurance.config(function ($stateProvider, $urlRouterProvider) {
 })
 
 function isError(err) {
+    closeloading();
     if (err.data.http_code == 'token.error' || err.data.http_code == 'userId.head.illeagl') {
         layer.msg('请重新登录');
         clearTimeout(t)
@@ -283,7 +284,7 @@ function isError(err) {
             goto_view('login');
         } else {
             layer.msg(err.data.message);
-            closeloading();
+            
         }
     }
     if (err.data.http_status >= 500) {

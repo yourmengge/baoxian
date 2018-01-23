@@ -128,7 +128,7 @@
         <div class="flex_div_line">
             <div>推修厂：</div>
             <div>{{detail.fixAddress}}
-                <p class="button_span div_link" style="margin-top: 25px;float: right;margin-right:50px;" ng-click="changeList(FIX_ADDRESS)">变更记录</p>
+                <p class="button_span div_link" style="margin-top: 25px;float: right;" ng-click="changeList(FIX_ADDRESS)">变更记录</p>
             </div>
             <!-- <div>经度：</div>
             <div>{{detail.fixLongitude}}</div>
@@ -278,7 +278,7 @@
                         </span>
 
                     </div>
-                    <div class="driver_status_div {{a.accidentFinishTime != null?'status_active':''}} {{a.fixReachTime != null?'':'driver_status_span'}}"
+                    <div class="driver_status_div {{a.accidentFinishTime != null?'status_active':''}} {{!(a.accidentFinishTime != null && a.taskEndTime == null)?'':'driver_status_span'}}"
                         ng-hide="a.carType == 1">
                         <p>
                             前往推修厂
@@ -355,7 +355,7 @@
                     </div>
                     <h4>拖送地点视频</h4>
                     <div class="img_div">
-                        <video ng-repeat="b in b.fixVideos" ng-src="{{b.path}}" controls="controls"></video>
+                        <video ng-repeat="b in a.fixVideos" ng-src="{{b.path}}" controls="controls"></video>
                     </div>
                 </div>
                 <hr>
@@ -523,7 +523,7 @@
             <p class="">
                 未采集证照：{{weicaiji}}
             </p>
-            <div class="card_div">
+            <div class="card_div" ng-hide="detail.licenseInfo.idCard == null">
                 <img ng-src="{{detail.licenseInfo.idCard.zoomOutView}}" alt="" ng-click="openPic(detail.licenseInfo.idCard.path)">
                 <div class="card_text">
                     <h4>
@@ -586,7 +586,7 @@
                     </table>
                 </div>
             </div>
-            <div class="card_div">
+            <div class="card_div" ng-hide="detail.licenseInfo.drivingLicense == null">
                 <img ng-src="{{detail.licenseInfo.drivingLicense.zoomOutView}}" alt="" ng-click="openPic(detail.licenseInfo.drivingLicense.path)">
                 <div class="card_text">
                     <h4>
@@ -672,7 +672,7 @@
                     </table>
                 </div>
             </div>
-            <div class="card_div">
+            <div class="card_div" ng-hide="detail.licenseInfo.driverLicense == null">
                 <img ng-src="{{detail.licenseInfo.driverLicense.zoomOutView}}" alt="" ng-click="openPic(detail.licenseInfo.driverLicense.path)">
                 <div class="card_text">
                     <h4>
@@ -724,7 +724,7 @@
                     </table>
                 </div>
             </div>
-            <div class="card_div">
+            <div class="card_div" ng-hide="detail.licenseInfo.insurancePolicy == null">
                 <img ng-src="{{detail.licenseInfo.insurancePolicy.zoomOutView}}" alt="" ng-click="openPic(detail.licenseInfo.insurancePolicy.path)">
                 <div class="card_text">
                     <h4>
@@ -837,11 +837,11 @@
                 <div>修改人员：</div>
                 <div style="flex: 0.3;">{{a.createUserDesc}}</div>
                 <div>收费方式：</div>
-                <div style="flex: 0.3;">{{a.chargeModeDesc}}</div>
+                <div style="flex: 0.4;">{{a.chargeModeDesc}}</div>
                 <div>修改时间：</div>
                 <div>{{a.createTime | ToLocal}}</div>
             </div>
-            <div class="changelist">
+            <div class="changelist" ng-hide="a.chargeMode == 1 || a.verifyStatus == 0">
                 <div style="flex: 0.2;"></div>
                 <div>审核人员：</div>
                 <div style="flex: 0.3;">{{a.verifyUserDesc}}</div>

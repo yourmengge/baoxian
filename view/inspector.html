@@ -24,7 +24,7 @@
         </p>
         <p style="text-align: left;margin-left: 100px;width:300px">
             手机号：&emsp;
-            <input type="text" class="input" style="width: 70%;" ng-model="phone">
+            <input type="text" class="input" style="width: 70%;" ng-model="phone" maxlength="11">
         </p>
         <p>
             <button class="button {{Name != '' && phone != '' ?'':'button_disabled'}}" ng-click="submit_add()" ng-disabled="Name != '' && phone != ''?'':'true'">确定</button>
@@ -38,8 +38,12 @@
             姓&emsp;名：&emsp;
             <input type="text" class="input" style="width: 70%;" ng-model="editName">
         </p>
+        <p style="text-align: left;margin-left: 100px;width:300px">
+            手机号：&emsp;
+            <input type="text" class="input" style="width: 70%;" ng-model="editPhone" maxlength="11"> 
+        </p>
         <p>
-            <button class="button {{editName != ''  ?'':'button_disabled'}}" ng-click="submit_edit()" ng-disabled="editName != '' ?'':'true'">确定</button>
+            <button class="button {{(editName != '' && editPhone != '')?'':'button_disabled'}}" ng-click="submit_edit()" ng-disabled="editName != '' ?'':'true'">确定</button>
             <button class="button button_del" ng-click="close()">取消</button>
         </p>
     </div>
@@ -76,4 +80,4 @@
         <button class="page_btn" ng-hide="down" ng-click="Page('down')">下一页 </button>
         <button class="page_btn" ng-hide="end" ng-click="Page('end')">尾页 </button> 总页数:{{pageCount}}
     </p>
-</div> 
+</div>

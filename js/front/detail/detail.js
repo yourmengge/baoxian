@@ -101,17 +101,20 @@ detail.controller('detailCtrl', ['$scope', 'APIService', function ($scope, APISe
                         break;
                     case 'LICENSE':
                         $scope.detail.licenseInfo = res.data;
-                        if ($scope.detail.licenseInfo.idCardName == null) {
+                        if ($scope.detail.licenseInfo.idCard == null) {
                             $scope.weicaiji = $scope.isWeicaijiNull($scope.weicaiji, '身份证');
                         }
-                        if ($scope.detail.licenseInfo.drivingLicenseName == null) {
+                        if ($scope.detail.licenseInfo.drivingLicense == null) {
                             $scope.weicaiji = $scope.weicaiji + $scope.isWeicaijiNull($scope.weicaiji, '行驶证');
                         }
-                        if ($scope.detail.licenseInfo.driverLicenseName == null) {
+                        if ($scope.detail.licenseInfo.driverLicense == null) {
                             $scope.weicaiji = $scope.weicaiji + $scope.isWeicaijiNull($scope.weicaiji, '驾驶证');
                         }
-                        if ($scope.detail.licenseInfo.insCreateTime == null) {
+                        if ($scope.detail.licenseInfo.insurancePolicy == null) {
                             $scope.weicaiji = $scope.weicaiji + $scope.isWeicaijiNull($scope.weicaiji, '保单');
+                        }
+                        if ($scope.weicaiji.split('、').length == 4) {
+                            $scope.weicaiji = '无采集证照'
                         }
                         break;
                     case 'DIRECT_COMPENSATION':
