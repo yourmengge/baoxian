@@ -299,7 +299,7 @@
                         </span>
 
                     </div>
-                    <div class="driver_status_div {{a.fixReachTime != null?'status_active':''}} {{a.fixReachTime == null?'':'driver_status_span'}}">
+                    <div class="driver_status_div {{a.taskEndTime != null?'status_active':''}} {{a.taskEndTime == null?'':'driver_status_span'}}">
                         <p>
                             施救完成
                         </p>
@@ -309,12 +309,12 @@
                         <div class="ringle">
 
                         </div>
-                        <span ng-hide="a.fixReachTime == null">
+                        <span ng-hide="a.taskEndTime == null">
                             <p>
-                                {{a.fixReachTime | ToLocal}}
+                                {{a.taskEndTime | ToLocal}}
                             </p>
                             <p>
-                                {{a.fixReachTime - a.accidentFinishTime | ToFenzhong}}
+                                {{a.taskEndTime - a.accidentFinishTime | ToFenzhong}}
                             </p>
                         </span>
 
