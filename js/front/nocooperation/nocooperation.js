@@ -88,6 +88,7 @@ nocooperation.controller('nocooperationCtrl', ['$scope', 'APIService', function 
             sessionStorage.setItem('shop4S_data', JSON.stringify(a));
             goto_view('main/addnocooperation')
         } else if (type == 'change') {
+            a.simpleName = '';
             sessionStorage.setItem('shop4S_data', JSON.stringify(a));
             goto_view('main/addshop4S')
         }
