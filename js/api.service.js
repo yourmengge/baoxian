@@ -431,18 +431,18 @@ Road167.factory('APIService', function ($http) {
     }
 
     //查勘回厂率
-    service.get_inspector_back_factory = function (limit, offset, start, end, type) {
-        return service.get(host + urlV1 + '/third/back-factory/inspector/count?startDay=' + start + '&endDay=' + end + '&orderType=' + type + '&$limit=' + limit + '&$offset=' + offset)
+    service.get_inspector_back_factory = function (limit, offset, start, end, type,backtype) {
+        return service.get(host + urlV1 + '/third/back-factory/' + backtype + '/count?startDay=' + start + '&endDay=' + end + '&orderType=' + type + '&$limit=' + limit + '&$offset=' + offset)
     }
 
     //回厂信息
-    service.get_back_factory_list = function (limit, offset, start, end, type, keyword, result, userId) {
-        return service.get(host + urlV1 + '/third/back-factory/information/list?startDay=' + start + '&endDay=' + end + '&keyword=' + keyword + '&orderType=' + type + '&pushResult=' + result + '&createUserId=' + userId + '&$limit=' + limit + '&$offset=' + offset)
+    service.get_back_factory_list = function (limit, offset, start, end, type, keyword, result, userId,backtype) {
+        return service.get(host + urlV1 + '/third/back-factory/information/list?startDay=' + start + '&endDay=' + end + '&keyword=' + keyword + '&orderType=' + type + '&pushResult=' + result + '&' + backtype + '=' + userId + '&$limit=' + limit + '&$offset=' + offset)
     }
 
     //获取回厂率统计
-    service.back_factory_total = function (start, end, type) {
-        return service.get(host + urlV1 + '/third/back-factory/inspector/total/count?startDay=' + start + '&endDay=' + end + '&orderType=' + type)
+    service.back_factory_total = function (start, end, type,backtype) {
+        return service.get(host + urlV1 + '/third/back-factory/' + backtype + '/total/count?startDay=' + start + '&endDay=' + end + '&orderType=' + type)
     }
 
     //添加查勘员

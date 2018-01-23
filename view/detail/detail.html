@@ -412,7 +412,7 @@
                     <div class="car_div_title">回厂记录</div>
                 </div>
             </div>
-            <table class="detail_back_factory_table" cellspacing="0" ng-hide="pushFix.backShopHistory.length == 0">
+            <table class="detail_back_factory_table" cellspacing="0" ng-hide="pushFix.backShopHistory | isListNull">
                 <tr>
                     <th style="width:50px;">
                         序号
@@ -449,11 +449,11 @@
                     </td>
                 </tr>
             </table>
-            <div ng-hide="pushFix.backShopHistory.length != 0" style="text-align:center;">
+            <div ng-hide="!(pushFix.backShopHistory | isListNull)" style="text-align:center;">
                 <img class="no_data" src="img/img-none-zi.png" alt="">
             </div>
             <span class="car_div_title">通话记录</span>
-            <div class="list_table bodajilu" ng-hide="pushFix.dialInfo.length == 0">
+            <div class="list_table bodajilu" ng-hide="pushFix.dialInfo | isListNull">
                 <div class="list_table_tr">
                     <div style="flex:0.3">
                     </div>
@@ -511,7 +511,7 @@
 
                 </div>
             </div>
-            <div ng-hide="pushFix.dialInfo.length != 0" style="text-align:center;">
+            <div ng-hide="!(pushFix.dialInfo | isListNull)" style="text-align:center;">
                 <img class="no_data" src="img/img-none-zi.png" alt="">
             </div>
         </div>

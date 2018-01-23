@@ -2,7 +2,7 @@
     <h2>回厂订单列表</h2>
     <button class="goback" ng-click="back()"></button>
     <p class="search_div">
-        出险时间&emsp;&emsp;开始：
+        {{url == 'backtotal'?'出险日期':'确认时间'}}&emsp;&emsp;开始：
         <input type="date" id="startDay" class="input"> 结束：
         <input type="date" id="endDay" class="input">
         <br>

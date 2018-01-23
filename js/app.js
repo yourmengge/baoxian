@@ -32,6 +32,10 @@ insurance.config(function ($stateProvider, $urlRouterProvider) {
             url: '/addnocooperation',
             templateUrl: 'view/nocooperation/addnocooperation.html'
         })
+        .state('main.backtotalS', {
+            url: '/backtotalS',
+            templateUrl: 'view/backtotal.html'
+        })
         .state('main.backtotal', {
             url: '/backtotal',
             templateUrl: 'view/backtotal.html'
@@ -288,6 +292,8 @@ function isError(err) {
     }
 }
 
+
+
 function getString(url) {
     var type = url.split('=');
     return type[1];
@@ -342,6 +348,13 @@ function DateFormat(type, date) {
             break;
     }
 }
+
+insurance.filter('isListNull', function () {
+    function isListNull(list) {
+        return (list == null || list.length == 0) ? true : false;
+    }
+    return isListNull;
+});
 insurance.filter('zhiPei', function () {
     function ToLocal(text) {
         if (text) {

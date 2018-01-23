@@ -1,7 +1,7 @@
 <div class="adddriver" ng-controller="backtotalCtrl" ng-init="initData()">
-    <h2>回厂率统计</h2>
+    <h2>{{title}}</h2>
     <p class="search_div">
-        出险日期&emsp;&emsp;开始：
+        {{url == 'backtotal'?'出险日期':'确认时间'}}&emsp;&emsp;开始：
         <input type="date" id="startDay" class="input"> 结束：
         <input type="date" id="endDay" class="input">
         <button class="button" ng-click="search()" style="min-width:60px;">查询</button>
@@ -34,7 +34,7 @@
     <div class="list_table" ng-hide="table">
         <div class="list_table_tr">
             <div>
-                查勘员
+                    {{url == 'backtotal'?'查勘员':'推修厂'}}
             </div>
             <div>
                 {{type == 'ACCIDENT'?'施救回厂率（%）':'非施救回厂率（%）'}}

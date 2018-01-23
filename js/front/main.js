@@ -64,6 +64,9 @@ main.controller('mainCtrl', ['$scope', 'APIService', function ($scope, APIServic
             $scope.open(3)
         }
     }
+    $scope.backtotal = function (text) {
+        sessionStorage.setItem('backtotal', text)
+    }
     $scope.open = function (type) {
         sessionStorage.removeItem('shop4s_filter')
         if (type == 1) {

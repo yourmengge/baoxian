@@ -16,7 +16,7 @@
         </div>
     </div>
     <div class="left_menu">
-        <p  class="chat" ng-click="chat()" title="群聊">
+        <p class="chat" ng-click="chat()" title="群聊">
             <img src="img/qunliao.png" alt="">
             <span class="right_span">群聊</span>
         </p>
@@ -46,10 +46,10 @@
         </p>
         <div id="second_14">
             <span class="child_span {{selectType == 1?'child_span_click':''}}" ui-sref='main.auditQ' ng-click="open(1)">
-                <img src="img/ic-baojia.png" alt="" >报价审核
+                <img src="img/ic-baojia.png" alt="">报价审核
             </span>
             <span class="child_span {{selectType == 2?'child_span_click':''}}" ui-sref='main.auditB' ng-click="open(2)">
-                <img src="img/ic-fapiao.png" alt="" >发票审核
+                <img src="img/ic-fapiao.png" alt="">发票审核
             </span>
         </div>
 
@@ -83,13 +83,13 @@
                 <img src="img/tuixiuxinxi.png" alt="">推修厂信息
             </span>
             <span class="shop4SInfo child_span {{selectType == 6?'child_span_click':''}}" ui-sref='main.nocooperation' ng-click="open(6)">
-                <img src="img/tuixiuxinxi.png" alt="">无合作修理厂信息
+                <img src="img/ic-wuhezuo.png" alt="">无合作修理厂信息
             </span>
             <span class="brand child_span {{selectType == 4?'child_span_click':''}}" ui-sref='main.brand' ng-click="open(4)">
-                <img src="img/cheliangpinpai.png" alt="" >车辆品牌管理
+                <img src="img/cheliangpinpai.png" alt="">车辆品牌管理
             </span>
-            <span  class="member child_span {{selectType == 5?'child_span_click':''}}" ui-sref='main.member' ng-click="open(5)">
-                <img src="img/vip.png" alt="" >会员店
+            <span class="member child_span {{selectType == 5?'child_span_click':''}}" ui-sref='main.member' ng-click="open(5)">
+                <img src="img/vip.png" alt="">会员店
             </span>
         </div>
 
@@ -109,9 +109,13 @@
             <img src="img/3zheche.png" alt="">
             <span class="right_span">三者车信息</span>
         </p>
-        <p id="lm17" ui-sref='main.backtotal' class='backinfo' title="查勘回厂率">
+        <p id="lm17" ui-sref='main.backtotal' class='backinfo' title="查勘回厂率" ng-click="backtotal('backtotal')">
             <img src="img/huichang.png" alt="">
             <span class="right_span">查勘回厂率</span>
+        </p>
+        <p id="lm18" ui-sref='main.backtotalS' class='backinfoS' title="推修厂回厂率" ng-click="backtotal('backtotalS')">
+            <img src="img/huichang.png" alt="">
+            <span class="right_span">推修厂回厂率</span>
         </p>
         <!-- <p id="lm16" ui-sref='main.member' class='inspector' title="会员店">
             <img src="img/chakanyuan.png" alt="">

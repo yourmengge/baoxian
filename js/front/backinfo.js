@@ -3,6 +3,12 @@ backinfo.controller('backinfoCtrl', ['$scope', 'APIService', function ($scope, A
     var time = new Date();
     $scope.initData = function () {
         $scope.init();
+        $scope.url = sessionStorage.getItem('backtotal')
+        if ($scope.url === 'backtotal') {
+            $scope.backType = 'inspector'
+        } else {
+            $scope.backType = 'push'
+        }
         //   console.log($scope.inspectorBackFilter);
         $scope.get_order_list();
     }
@@ -95,7 +101,7 @@ backinfo.controller('backinfoCtrl', ['$scope', 'APIService', function ($scope, A
     }
     $scope.get_order_list = function () {
         loading();
-        APIService.get_back_factory_list(10, ($scope.current - 1) * $scope.limit, $scope.start, $scope.endDay, $scope.ordertype, $scope.keyword, $scope.jieguo,$scope.userId).then(function (res) {
+        APIService.get_back_factory_list(10, ($scope.current - 1) * $scope.limit, $scope.start, $scope.endDay, $scope.ordertype, $scope.keyword, $scope.jieguo,$scope.userId,$scope.backType).then(function (res) {
             if (res.data.http_status == 200) {
                 closeloading();
                 $scope.orderList = res.data.items;
@@ -117,7 +123,7 @@ backinfo.controller('backinfoCtrl', ['$scope', 'APIService', function ($scope, A
         })
     }
     $scope.toexcel = function (status, caseNo) {
-        window.open(host + urlV1 + '/excel/third/back-factory/information/list/export?startDay=' + $scope.start + '&endDay=' + $scope.endDay + '&keyword=' + $scope.keyword + '&orderType=' + $scope.ordertype + '&pushResult=' + $scope.jieguo + '&createUserId=' + $scope.userId + '&Authorization=' + APIService.token + '&user-id=' + APIService.userId)
+        window.open(host + urlV1 + '/excel/third/back-factory/information/list/export?startDay=' + $scope.start + '&endDay=' + $scope.endDay + '&keyword=' + $scope.keyword + '&orderType=' + $scope.ordertype + '&pushResult=' + $scope.jieguo + '&' + $scope.backType + '=' + $scope.userId + '&Authorization=' + APIService.token + '&user-id=' + APIService.userId)
     }
     $scope.search = function () {
         if($scope.keyword != ''){
@@ -178,7 +184,7 @@ backinfo.controller('backinfoCtrl', ['$scope', 'APIService', function ($scope, A
         $scope.saveFilter();
         $scope.page_show();
         loading();
-        APIService.paging(urlV1 + '/third/back-factory/information/list?startDay=' + $scope.start + '&endDay=' + $scope.endDay + '&keyword=' + $scope.keyword + '&orderType=' + $scope.ordertype + '&pushResult=' + $scope.jieguo + '&createUserId=' + $scope.userId, limit, type, $scope.pageCount, $scope.current).then(function (res) {
+        APIService.paging(urlV1 + '/third/back-factory/information/list?startDay=' + $scope.start + '&endDay=' + $scope.endDay + '&keyword=' + $scope.keyword + '&orderType=' + $scope.ordertype + '&pushResult=' + $scope.jieguo + '&' + $scope.backType + '=' + $scope.userId, limit, type, $scope.pageCount, $scope.current).then(function (res) {
             closeloading();
             if (res.data.http_status == 200) {
 

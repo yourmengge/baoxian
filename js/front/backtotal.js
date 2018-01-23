@@ -2,8 +2,16 @@ var backtotal = angular.module('backtotal', ['Road167']);
 backtotal.controller('backtotalCtrl', ['$scope', 'APIService', function ($scope, APIService) {
     $scope.initData = function () {
         $scope.init();
-        $scope.get_inspector_back_factory();
+        $scope.url = sessionStorage.getItem('backtotal')
+        if ($scope.url === 'backtotal') {
+            $scope.title = '回厂率统计'
+            $scope.backType = 'inspector'
+        } else {
+            $scope.title = '推修厂回厂率'
+            $scope.backType = 'push'
+        }
         $scope.back_factory_total();
+        $scope.get_inspector_back_factory();
     }
     $scope.init = function () {
         $scope.start = '';
@@ -20,7 +28,9 @@ backtotal.controller('backtotalCtrl', ['$scope', 'APIService', function ($scope,
         }
         $scope.offset = ($scope.current - 1) * $scope.limit;
         $scope.reset_date();
+
     }
+
     var inspectorBackFilter = {
         start: $scope.start,
         end: $scope.endDay,
@@ -72,7 +82,7 @@ backtotal.controller('backtotalCtrl', ['$scope', 'APIService', function ($scope,
 
     }
     $scope.back_factory_total = function () {
-        APIService.back_factory_total($scope.start, $scope.endDay, $scope.type).then(function (res) {
+        APIService.back_factory_total($scope.start, $scope.endDay, $scope.type, $scope.backType).then(function (res) {
             if (res.data.http_status == 200) {
                 $scope.total = res.data;
             } else {
@@ -81,7 +91,7 @@ backtotal.controller('backtotalCtrl', ['$scope', 'APIService', function ($scope,
         })
     }
     $scope.toexcel = function (status, caseNo) {
-        window.open(host + urlV1 + '/excel/third/back-factory/inspector/count/export?startDay=' + $scope.start + '&endDay=' + $scope.endDay + '&orderType=' + $scope.type + '&Authorization=' + APIService.token + '&user-id=' + APIService.userId)
+        window.open(host + urlV1 + '/excel/third/back-factory/' + $scope.backType + '/count/export?startDay=' + $scope.start + '&endDay=' + $scope.endDay + '&orderType=' + $scope.type + '&Authorization=' + APIService.token + '&user-id=' + APIService.userId)
     }
     $scope.search = function () {
         $scope.current = 1;
@@ -111,7 +121,7 @@ backtotal.controller('backtotalCtrl', ['$scope', 'APIService', function ($scope,
     }
     $scope.get_inspector_back_factory = function () {
         loading();
-        APIService.get_inspector_back_factory($scope.limit, $scope.offset, $scope.start, $scope.endDay, $scope.type).then(function (res) {
+        APIService.get_inspector_back_factory($scope.limit, $scope.offset, $scope.start, $scope.endDay, $scope.type, $scope.backType).then(function (res) {
             closeloading();
             if (res.data.http_status == 200) {
                 // console.log(res)
@@ -166,7 +176,7 @@ backtotal.controller('backtotalCtrl', ['$scope', 'APIService', function ($scope,
         inspectorBackFilter.current = $scope.current;
         $scope.saveFilter();
         loading();
-        APIService.paging(urlV1 + '/third/back-factory/inspector/count?startDay=' + $scope.start + '&endDay=' + $scope.endDay + '&orderType=' + $scope.type, $scope.limit, type, $scope.pageCount, $scope.current).then(function (res) {
+        APIService.paging(urlV1 + '/third/back-factory/' + $scope.backType + '/count?startDay=' + $scope.start + '&endDay=' + $scope.endDay + '&orderType=' + $scope.type, $scope.limit, type, $scope.pageCount, $scope.current).then(function (res) {
             if (res.data.http_status == 200) {
                 closeloading();
                 $scope.orderlist = res.data.items;
