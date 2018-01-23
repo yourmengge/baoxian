@@ -5,9 +5,9 @@ backinfo.controller('backinfoCtrl', ['$scope', 'APIService', function ($scope, A
         $scope.init();
         $scope.url = sessionStorage.getItem('backtotal')
         if ($scope.url === 'backtotal') {
-            $scope.backType = 'inspector'
+            $scope.backType = 'createUserId'
         } else {
-            $scope.backType = 'push'
+            $scope.backType = 'pushShop4sId'
         }
         //   console.log($scope.inspectorBackFilter);
         $scope.get_order_list();
