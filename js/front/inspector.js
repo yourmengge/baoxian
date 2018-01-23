@@ -86,11 +86,13 @@ inspector.controller('inspectorCtrl', ['$scope', 'APIService', function ($scope,
         $scope.edit_div = show;
         $('#edit').css('display', 'block');
         $scope.editName = data.name;
+        $scope.editPhone = data.phone;
         $scope.userId = data.userId;
     }
     $scope.submit_edit = function () {
         APIService.update_user_name($scope.userId, {
-            name: $scope.editName
+            name: $scope.editName,
+            phone: $scope.editPhone
         }).then(function (res) {
             if (res.data.http_status == 200) {
                 layer.msg('修改成功');
