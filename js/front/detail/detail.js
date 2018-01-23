@@ -62,7 +62,7 @@ detail.controller('detailCtrl', ['$scope', 'APIService', function ($scope, APISe
         })
     }
     //获取施救信息
-    $scope.weicaiji = '';
+    
     $scope.isWeicaijiNull = function (weicaiji, text) {
         return weicaiji == '' ? text : '、' + text
     }
@@ -100,6 +100,7 @@ detail.controller('detailCtrl', ['$scope', 'APIService', function ($scope, APISe
                         $scope.pushFix = res.data;
                         break;
                     case 'LICENSE':
+                    $scope.weicaiji = '';
                         $scope.detail.licenseInfo = res.data;
                         if ($scope.detail.licenseInfo.idCard == null) {
                             $scope.weicaiji = $scope.isWeicaijiNull($scope.weicaiji, '身份证');

@@ -284,7 +284,7 @@ function isError(err) {
             goto_view('login');
         } else {
             layer.msg(err.data.message);
-            
+
         }
     }
     if (err.data.http_status >= 500) {
@@ -428,7 +428,7 @@ insurance.filter('ToFenzhong', function () {
         if (shijianchuo == null) {
             return null;
         } else {
-            return parseInt(shijianchuo / 60000) <= 0 ? '1分钟' : parseInt(shijianchuo / 60000) + '分钟';
+            return parseInt(shijianchuo / 60000) <= 0 ? parseInt(shijianchuo % 60000) / 1000 + '秒' : parseInt(shijianchuo / 60000) + '分钟';
         }
     }
     return ToLocal;
