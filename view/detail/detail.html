@@ -520,7 +520,7 @@
             <p class="">
                 车主电话：{{detail.licenseInfo.carOwnerPhone}}
             </p>
-            <p class="">
+            <p class="" ng-hide="weicaiji == ''">
                 未采集证照：{{weicaiji}}
             </p>
             <div class="card_div" ng-hide="detail.licenseInfo.idCard == null">
@@ -861,7 +861,7 @@
         <div class="changelist" ng-repeat="a in list">
             <div style="flex: 0.5;">{{$index + 1}}、</div>
             <div>修改人员：</div>
-            <div style="flex: 0.3;">{{a.applyRoleDesc}}</div>
+            <div style="flex: 0.3;">{{a.applyUserDesc}}</div>
             <div>目的地点：</div>
             <div>{{a.applyAddress}}</div>
             <div>修改时间：</div>
