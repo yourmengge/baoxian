@@ -173,7 +173,7 @@ nocooperation.controller('nocooperationCtrl', ['$scope', 'APIService', function 
     $scope.delete = function () {
         if ($scope.checked.length == 0) {
             alert('未选中任何推修厂')
-        } else {
+        } else if (confirm('确定是否删除选中的修理厂')) {
             var data = 'id=';
             if ($scope.checked.length == 1) {
                 data = data + $scope.checked[0];
@@ -204,21 +204,22 @@ nocooperation.controller('nocooperationCtrl', ['$scope', 'APIService', function 
 
     }
     $scope.deleteOne = function (id) {
-        APIService.delete_shop4S('id=' + id).then(function (res) {
-            if (res.data.http_status == 200) {
-                layer.msg('删除成功');
-                setTimeout(function () {
-                    if ($scope.shopList.length == 1) {
-                        $scope.current = $scope.current - 1
-                        $scope.save_filter();
-                    }
-                    $scope.initData();
-                }, 2000);
-            } else {
-                isError(res);
-            }
-        })
-
+        if (confirm('确定是否删除该修理厂')) {
+            APIService.delete_shop4S('id=' + id).then(function (res) {
+                if (res.data.http_status == 200) {
+                    layer.msg('删除成功');
+                    setTimeout(function () {
+                        if ($scope.shopList.length == 1) {
+                            $scope.current = $scope.current - 1
+                            $scope.save_filter();
+                        }
+                        $scope.initData();
+                    }, 2000);
+                } else {
+                    isError(res);
+                }
+            })
+        }
     }
     $scope.save_filter = function () {
         shop4s_filter.keyword = $scope.keyword;
