@@ -1,18 +1,20 @@
 <div class="fixaddress" ng-controller="caijidetailCtrl" ng-init="initData()">
     <h2>{{title}}</h2>
+    <button class="goback" ng-click="back()"></button>
     <div class="tabsDiv caijidetail">
         <p class="">
-            车主电话：{{detail.licenseInfo.carOwnerPhone}}
-            <span style="margin-left:100px;">保险公司：</span>
-            {{detail.licenseInfo.insCreateTime | ToLocal}}
+            车主电话：
+            <span style="width:300px">{{detail.licenseInfo.carOwnerPhone}}</span>
+            <span style="margin-left:100px;" ng-hide="type == ''" >保险公司：{{detail.licenseInfo.companyName}}</span>
+            
         </p>
         <p>
             <span>采集人员：</span>
-            {{detail.licenseInfo.insCreateByDesc}}
-            <span style="margin-left:100px;">采集时间：</span>
-            {{detail.licenseInfo.insCreateTime | ToLocal}}
+            <span style="width:300px">{{detail.licenseInfo.createByDesc}}</span>
+            <span style="margin-left:100px;">采集时间：{{detail.licenseInfo.createTime | ToLocal}}</span>
+            
         </p>
-        <p class="">
+        <p class="" ng-hide="weicaiji == ''">
             未采集证照：{{weicaiji}}
         </p>
         <div class="card_div" ng-hide="detail.licenseInfo.idCard == null">
@@ -144,7 +146,10 @@
                     <tr>
 
                         <td>
-                            <span>发证日期：</span>{{detail.licenseInfo.drivingLicenseCertifyDate}}
+                            <span>发证日期：</span>
+                        </td>
+                        <td>
+                            {{detail.licenseInfo.drivingLicenseCertifyDate}}
                         </td>
                     </tr>
                     <tr>
@@ -225,8 +230,8 @@
 
             </div>
         </div>
-        <div class="card_div" ng-hide="detail.licenseInfo.insurancePolicy == null">
-            <img ng-src="{{detail.licenseInfo.insurancePolicy.zoomOutView}}" alt="" ng-click="openPic(detail.licenseInfo.insurancePolicy.path)">
+        <div class="card_div" ng-hide="detail.licenseInfo.userCar == null">
+            <img ng-src="{{detail.licenseInfo.userCar.zoomOutView}}" alt="" ng-click="openPic(detail.licenseInfo.userCar.path)">
             <div class="card_text">
                 <h4>
                     人车合影

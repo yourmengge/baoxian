@@ -431,17 +431,17 @@ Road167.factory('APIService', function ($http) {
     }
 
     //查勘回厂率
-    service.get_inspector_back_factory = function (limit, offset, start, end, type,backtype) {
+    service.get_inspector_back_factory = function (limit, offset, start, end, type, backtype) {
         return service.get(host + urlV1 + '/third/back-factory/' + backtype + '/count?startDay=' + start + '&endDay=' + end + '&orderType=' + type + '&$limit=' + limit + '&$offset=' + offset)
     }
 
     //回厂信息
-    service.get_back_factory_list = function (limit, offset, start, end, type, keyword, result, userId,backtype) {
+    service.get_back_factory_list = function (limit, offset, start, end, type, keyword, result, userId, backtype) {
         return service.get(host + urlV1 + '/third/back-factory/information/list?startDay=' + start + '&endDay=' + end + '&keyword=' + keyword + '&orderType=' + type + '&pushResult=' + result + '&' + backtype + '=' + userId + '&$limit=' + limit + '&$offset=' + offset)
     }
 
     //获取回厂率统计
-    service.back_factory_total = function (start, end, type,backtype) {
+    service.back_factory_total = function (start, end, type, backtype) {
         return service.get(host + urlV1 + '/third/back-factory/' + backtype + '/total/count?startDay=' + start + '&endDay=' + end + '&orderType=' + type)
     }
 
@@ -598,8 +598,13 @@ Road167.factory('APIService', function ($http) {
     }
 
     //获取三者车信息
-    service.get_three_cars_info = function (limit, sDate, eDate, keyword, offset) {
-        return service.get(host + urlV1 + '/order/license/list?startDate=' + sDate + '&endDate=' + eDate + '&keyword=' + keyword + '&$limit=' + limit + '&$offset=' + offset)
+    service.get_three_cars_info = function (limit, sDate, eDate, keyword, type, offset) {
+        return service.get(host + urlV1 + '/license/page?startDate=' + sDate + '&endDate=' + eDate + '&keyword=' + keyword + type + '&$limit=' + limit + '&$offset=' + offset)
+    }
+
+    //获取三者车采集详情
+    service.get_therr_cars_detail = function (id) {
+        return service.get(host + urlV1 + '/license/' + id)
     }
 
     //取消直赔

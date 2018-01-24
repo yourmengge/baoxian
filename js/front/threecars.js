@@ -29,22 +29,25 @@ threecars.controller('threecarsCtrl', ['$scope', 'APIService', '$http', function
 
     }
     $scope.init = function () {
+        $scope.limit = 10;
         $scope.url = sessionStorage.getItem('threecars')
         if ($scope.url === 'threecars') {
             $scope.backType = 'inspector'
+            $scope.type = ''
         } else {
             $scope.backType = 'push'
+            $scope.type = '&qryShop4s=true'
         }
     }
     $scope.get_order_list = function () {
-        APIService.get_three_cars_info(10, $('#startDay').val(), $('#endDay').val(), $scope.caseNo, ($scope.current - 1) * 10).then(function (res) {
+        APIService.get_three_cars_info($scope.limit, $('#startDay').val(), $('#endDay').val(), $scope.caseNo, $scope.type, ($scope.current - 1) * $scope.limit).then(function (res) {
             if (res.data.http_status == 200) {
                 closeloading();
                 $scope.orderList = res.data.items;
                 //分页部分
 
-                $scope.pageCount = Math.ceil(res.data.count / limit);
-                if (res.data.count <= limit) {
+                $scope.pageCount = Math.ceil(res.data.count / $scope.limit);
+                if (res.data.count <= $scope.limit) {
                     $scope.page_p = hide;
                 } else {
                     $scope.page_p = show;
@@ -58,6 +61,10 @@ threecars.controller('threecarsCtrl', ['$scope', 'APIService', '$http', function
             }
         })
     }
+    $scope.caijidetail = function (data) {
+        sessionStorage.setItem('threecarsId', data.id)
+        goto_view('main/caijidetail')
+    }
     $scope.reset_date = function () {
         var s = $scope.start.substr(0, 2) + '-' + $scope.start.substr(2, 2) + '-' + $scope.start.substr(4, 2)
         var e = $scope.endDay.substr(0, 2) + '-' + $scope.endDay.substr(2, 2) + '-' + $scope.endDay.substr(4, 2)
@@ -65,7 +72,7 @@ threecars.controller('threecarsCtrl', ['$scope', 'APIService', '$http', function
         $('#endDay').val('20' + e)
     }
     $scope.toexcel = function (status, caseNo) {
-        window.open(host + urlV1 + '/order/license/list/export?&$limit=999&startDate=' + $('#startDay').val() + '&endDate=' + $('#endDay').val() + '&keyword=' + $scope.caseNo + '&Authorization=' + APIService.token + '&user-id=' + APIService.userId)
+        window.open(host + urlV1 + '/license/page/export?&$limit=999&startDate=' + $('#startDay').val() + '&endDate=' + $('#endDay').val() + '&keyword=' + $scope.caseNo + $scope.type + '&Authorization=' + APIService.token + '&user-id=' + APIService.userId)
     }
     $scope.search = function () {
         $scope.current = 1;
@@ -73,7 +80,7 @@ threecars.controller('threecarsCtrl', ['$scope', 'APIService', '$http', function
 
         $scope.openDetail = -1;
         loading();
-        APIService.get_three_cars_info(10, $('#startDay').val(), $('#endDay').val(), $scope.caseNo, ($scope.current - 1) * 10).then(function (res) {
+        APIService.get_three_cars_info($scope.limit, $('#startDay').val(), $('#endDay').val(), $scope.caseNo, $scope.type, ($scope.current - 1) * $scope.limit).then(function (res) {
             if (res.data.http_status == 200) {
                 closeloading();
                 if (res.data.count == 0) {
@@ -147,7 +154,7 @@ threecars.controller('threecarsCtrl', ['$scope', 'APIService', '$http', function
         $scope.save_filter();
         $scope.page_show();
         loading();
-        APIService.paging(urlV1 + urlOrder + '/license/list?startDate=' + $('#startDay').val() + '&endDate=' + $('#endDay').val() + '&keyword=' + $scope.caseNo, limit, type, $scope.pageCount, $scope.current).then(function (res) {
+        APIService.paging(urlV1 + '/license/page?startDate=' + $('#startDay').val() + '&endDate=' + $('#endDay').val() + '&keyword=' + $scope.caseNo + $scope.type, $scope.limit, type, $scope.pageCount, $scope.current).then(function (res) {
             closeloading();
             if (res.data.http_status == 200) {
 
