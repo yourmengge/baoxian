@@ -62,7 +62,6 @@ detail.controller('detailCtrl', ['$scope', 'APIService', function ($scope, APISe
         })
     }
     //获取施救信息
-
     $scope.isWeicaijiNull = function (weicaiji, text) {
         return weicaiji == '' ? text : '、' + text
     }
