@@ -4,8 +4,9 @@
         开始时间：
         <input type="date" id="startDay" class="input"> 结束时间：
         <input type="date" id="endDay" class="input">
-        <input class="input" type="text" ng-model="caseNo" style="width:220px;" placeholder="请输入{{url == 'threecars'?'查勘员':'车商人员'}}">
+        <input class="input" type="text" ng-model="caseNo" style="width:220px;" placeholder="请输入{{url == 'threecars'?'查勘员':'车商人员'}}或车牌号">
         <button class="button" ng-click="search()" style="min-width:60px;">查询</button>
+        <button class="button" ng-click="searchAll()" style="min-width:60px;">显示全部</button>
         <button class="button output_button" ng-click="toexcel(status,caseNo)">
             导出excel
         </button>

@@ -40,11 +40,21 @@ caijidetail.controller('caijidetailCtrl', ['$scope', 'APIService', function ($sc
                 if ($scope.detail.licenseInfo.insurancePolicy == null) {
                     $scope.weicaiji = $scope.weicaiji + $scope.isWeicaijiNull($scope.weicaiji, '保单');
                 }
-                if ($scope.detail.licenseInfo.userCar == null) {
-                    $scope.weicaiji = $scope.weicaiji + $scope.isWeicaijiNull($scope.weicaiji, '人车合影');
-                }
-                if ($scope.weicaiji.split('、').length == 5) {
-                    $scope.weicaiji = '无采集证照'
+                if ($scope.url === 'threecars') {
+                    // if ($scope.detail.licenseInfo.userCar == null) {
+                    //     $scope.weicaiji = $scope.weicaiji + $scope.isWeicaijiNull($scope.weicaiji, '人车合影');
+                    // }
+                    if ($scope.weicaiji.split('、').length == 4) {
+                        $scope.weicaiji = '无采集证照'
+                    }
+                } else {
+                    if ($scope.detail.licenseInfo.userCar == null) {
+                        $scope.weicaiji = $scope.weicaiji + $scope.isWeicaijiNull($scope.weicaiji, '人车合影');
+                    }
+                    if ($scope.weicaiji.split('、').length == 5) {
+                        $scope.weicaiji = '无采集证照'
+                    }
+
                 }
 
             } else {

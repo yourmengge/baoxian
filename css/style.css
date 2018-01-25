@@ -313,10 +313,12 @@ button {
     border-radius: 3px;
     margin: 2px;
     cursor: pointer;
+    margin-left: 10px;
 }
 
 .output_button {
     width: 100px;
+    float: right;
 }
 
 .search_button {
@@ -350,7 +352,7 @@ textarea {
 }
 
 .addorder table {
-    height: 40vh;
+    /* height: 40vh; */
 }
 
 .font_red {
@@ -464,6 +466,7 @@ textarea {
 
 .addorder {
     padding: 45px;
+    padding-top: 0px;
 }
 
 .fixaddress_div {
@@ -844,6 +847,7 @@ input[type=number]::-webkit-outer-spin-button {
     width: 130px;
     height: 30px;
     line-height: 30px;
+    margin-right: 10px;
 }
 
 .hide {
@@ -2198,6 +2202,10 @@ audio {
     width: 230px;
 }
 
+.button_cancel {
+    background: #ff4546;
+}
+
 .input_div {
     width: 70%;
     margin-left: 28%;
@@ -2606,11 +2614,19 @@ img {
     text-align: center;
 }
 
+.changelist div:nth-child(odd) {
+    flex: 0.6
+}
+
+.changelist div:nth-child(even) {
+    text-align: left;
+}
+
 .no_data {
     width: 20%;
 }
 
-.caijidetail{
+.caijidetail {
     padding-left: 10px;
 }
 

@@ -324,9 +324,6 @@ function ToLocalTime(shijianchuo) {
     var y = time.getFullYear();
     var m = time.getMonth() + 1;
     var d = time.getDate();
-    var h = time.getHours();
-    var mm = time.getMinutes();
-    var s = time.getSeconds();
     var nowtime = y + '-' + add0(m) + '-' + add0(d);
     return nowtime;
 }

@@ -27,7 +27,7 @@
             <div>订单来源：</div>
             <div>{{detail.createRoleDesc}} {{detail.createName}}</div>
             <div>订单类型：</div>
-            <div>{{detail.orderTypeDesc}}&emsp;{{detail.rescueTypeDesc}}</div>
+            <div>{{detail.orderTypeDesc}}</div>
             <div>救援车类型：</div>
             <div>{{detail.carTypeDesc}}</div>
             <!-- <div>标的/三者：</div>
@@ -112,7 +112,7 @@
         </div>
     </div>
     <h4 class="detail_title">地图位置
-        <button class="button" ng-click="location(detail)">地图定位</button>
+        <button class="button" ng-click="location(detail)" style="margin-left: 35px;">地图定位</button>
     </h4>
     <div class="detail_div">
         <div class="flex_div_line">
@@ -833,20 +833,22 @@
         <img src="img/guanbi-dianji.png" alt="" class="close_img" ng-click="close()">
         <div ng-repeat="a in list">
             <div class="changelist">
+                <div style="flex: 0.1;"></div>
                 <div style="flex: 0.2;">{{$index + 1}}、</div>
                 <div>修改人员：</div>
-                <div style="flex: 0.3;">{{a.createUserDesc}}</div>
+                <div>{{a.createUserDesc}}</div>
                 <div>收费方式：</div>
-                <div style="flex: 0.4;">{{a.chargeModeDesc}}</div>
+                <div>{{a.chargeModeDesc}}</div>
                 <div>修改时间：</div>
                 <div>{{a.createTime | ToLocal}}</div>
             </div>
             <div class="changelist" ng-hide="a.chargeMode == 1 || a.verifyStatus == 0">
+                <div style="flex: 0.1;"></div>
                 <div style="flex: 0.2;"></div>
                 <div>审核人员：</div>
-                <div style="flex: 0.3;">{{a.verifyUserDesc}}</div>
+                <div>{{a.verifyUserDesc}}</div>
                 <div>审核状态：</div>
-                <div style="flex: 0.3;">{{a.verifyStatusDesc}}</div>
+                <div>{{a.verifyStatusDesc}}</div>
                 <div>审核时间：</div>
                 <div>{{a.verifyTime | ToLocal}}</div>
             </div>
@@ -859,9 +861,10 @@
         <h2 class="alert_add_h2">目的地变更记录</h2>
         <img src="img/guanbi-dianji.png" alt="" class="close_img" ng-click="close()">
         <div class="changelist" ng-repeat="a in list">
-            <div style="flex: 0.5;">{{$index + 1}}、</div>
+            <div style="flex: 0.1;"></div>
+            <div style="flex: 0.2;">{{$index + 1}}、</div>
             <div>修改人员：</div>
-            <div style="flex: 0.3;">{{a.applyUserDesc}}</div>
+            <div>{{a.applyUserDesc}}</div>
             <div>目的地点：</div>
             <div>{{a.applyAddress}}</div>
             <div>修改时间：</div>

@@ -59,6 +59,7 @@ addnocooperation.controller('addnocooperationCtrl', ['$scope', 'APIService', "$h
 
     //确定按钮
     $scope.submit_button = function () {
+        $scope.data.type = 2;
         if (sessionStorage.getItem('shop4S_type') == 'addshop4s') {
             $scope.add_shop4S($scope.data, address);
         } else {

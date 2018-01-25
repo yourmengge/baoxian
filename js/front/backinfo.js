@@ -35,11 +35,11 @@ backinfo.controller('backinfoCtrl', ['$scope', 'APIService', function ($scope, A
     $scope.switchImg = function (type) {
         switch (type) {
             case -1:
-                return '../img/shibai.png';
+                return 'img/shibai.png';
             case 0:
-                return '../img/daiqueren.png';
+                return 'img/daiqueren.png';
             default:
-                return '../img/chenggong.png';
+                return 'img/chenggong.png';
         }
     }
     $scope.saveFilter = function () {

@@ -1,4 +1,6 @@
 var backtotal = angular.module('backtotal', ['Road167']);
+var time = new Date();
+    s = new Date();
 backtotal.controller('backtotalCtrl', ['$scope', 'APIService', function ($scope, APIService) {
     $scope.initData = function () {
         $scope.init();
@@ -13,9 +15,13 @@ backtotal.controller('backtotalCtrl', ['$scope', 'APIService', function ($scope,
         $scope.back_factory_total();
         $scope.get_inspector_back_factory();
     }
+    $scope.initTime = function () {
+        $('#startDay').val(ToLocalTime(s.setDate(1)));
+        $('#endDay').val(ToLocalTime(time.getTime()));
+        $scope.get_date();
+    }
     $scope.init = function () {
-        $scope.start = '';
-        $scope.endDay = '';
+        $scope.initTime();
         $scope.limit = limit;
         $scope.type = 'ACCIDENT';
         $scope.current = 1;

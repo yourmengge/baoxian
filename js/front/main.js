@@ -20,6 +20,7 @@ main.controller('mainCtrl', ['$scope', 'APIService', function ($scope, APIServic
         sessionStorage.removeItem('inspectorFilter');
         sessionStorage.removeItem('inspectorBackFilter');
         sessionStorage.removeItem('inspectorBackFilter2');
+        sessionStorage.removeItem('filter_three');
     })
     $scope.sdk = new WSDK();
     $scope.history_message = {};

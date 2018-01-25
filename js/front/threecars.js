@@ -111,6 +111,10 @@ threecars.controller('threecarsCtrl', ['$scope', 'APIService', '$http', function
             }
         })
     }
+    $scope.searchAll = function(){
+        sessionStorage.removeItem('filter_three');
+        $scope.initData();
+    }
     $scope.save_filter = function () {
         $scope.get_date();
         filter.endDate = $scope.endDay;
