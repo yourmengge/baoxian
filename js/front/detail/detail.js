@@ -23,11 +23,18 @@ detail.controller('detailCtrl', ['$scope', 'APIService', function ($scope, APISe
             $scope.text = '施救车队'
             $scope.driverText = '派遣'
         }
+        var funcList = []
+        funcList = sessionStorage.getItem('funcList').split(',')
+        if (contains(funcList, 1017)) {
+            $scope.zhipeiDiv = show;
+        } else {
+            $scope.zhipeiDiv = hide;
+        }
         loading();
         orderPic = [];
         accidentPic = [];
         fixPic = [];
-        //$scope.order = '1711160018'
+        //$scope.order = '1710230024'
         $scope.order = sessionStorage.getItem('orderNo');
         APIService.get_order_detail($scope.order, 'BASE').then(function (res) {
             if (res.data.http_status == 200) {
@@ -177,7 +184,7 @@ detail.controller('detailCtrl', ['$scope', 'APIService', function ($scope, APISe
         })
     }
     $scope.dialTypeTexts = [
-        '', '报案人', '查勘姓名', '司机姓名'
+        '', '报案人', '查勘员', '司机'
     ]
     $scope.back = function () {
         window.history.go(-1);

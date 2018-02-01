@@ -26,6 +26,9 @@
             <div>
                 车主电话
             </div>
+            <div ng-hide="url == 'threecars'">
+                保险公司
+            </div>
             <div>
                 车牌号码
             </div>
@@ -64,6 +67,9 @@
                 </div>
                 <div>
                     {{a.carOwnerPhone}}
+                </div>
+                <div ng-hide="url == 'threecars'">
+                    {{a.companyName}}
                 </div>
                 <div>
                     {{a.drivingLicenseNo}}

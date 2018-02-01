@@ -2190,7 +2190,6 @@ audio {
 
 .card_text table {
     width: 60%;
-    height: 150px;
 }
 
 .card_text table tr td:nth-child(odd) {
@@ -2629,7 +2628,13 @@ img {
 .caijidetail {
     padding-left: 10px;
 }
-
+.caijidetail_div{
+    height: 40px;
+    width: 100%;
+}
+.caijidetail_div div{
+    float: left;
+}
 @media screen and (max-width:1366px) {
     .tabs_div button {
         height: 33px;

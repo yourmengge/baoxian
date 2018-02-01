@@ -104,6 +104,8 @@
             <div colspan="2" style="width:300px;">
                 <span style="color:#999999;" ng-hide="!detail.noNeedCompensate">*损失小，客户不打算理赔</span>
             </div>
+            <div></div>
+            <div></div>
 
         </div>
         <div class="flex_div_line" ng-hide="detail.status != 8 && detail.status != 81 && detail.status != 82">
@@ -168,7 +170,7 @@
         <button class="{{tabType == LICENSE ? 'tabs_btn_active':''}}" ng-click="tabs(LICENSE)">
             信息采集
         </button>
-        <button class="{{tabType == DIRECT_COMPENSATION? 'tabs_btn_active':''}}" ng-click="tabs(DIRECT_COMPENSATION)">
+        <button ng-hide="zhipeiDiv" class="{{tabType == DIRECT_COMPENSATION? 'tabs_btn_active':''}}" ng-click="tabs(DIRECT_COMPENSATION)">
             赔付信息
         </button>
     </div>

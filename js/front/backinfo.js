@@ -19,6 +19,7 @@ backinfo.controller('backinfoCtrl', ['$scope', 'APIService', function ($scope, A
         $scope.current = 1;
         $scope.start = '';
         $scope.endDay = '';
+        $scope.userId = 0;
         $scope.limit = limit;
         if (sessionStorage.getItem('inspectorBackFilter2') != undefined) {
             $scope.inspectorBackFilter = JSON.parse(sessionStorage.getItem('inspectorBackFilter2'));
@@ -34,9 +35,9 @@ backinfo.controller('backinfoCtrl', ['$scope', 'APIService', function ($scope, A
     }
     $scope.switchImg = function (type) {
         switch (type) {
-            case -1:
+            case '失败':
                 return 'img/shibai.png';
-            case 0:
+            case '待确认':
                 return 'img/daiqueren.png';
             default:
                 return 'img/chenggong.png';
@@ -135,7 +136,7 @@ backinfo.controller('backinfoCtrl', ['$scope', 'APIService', function ($scope, A
     }
 
     $scope.searchAll = function () {
-        $scope.userId = '';
+        $scope.userId = 0;
         sessionStorage.removeItem('inspectorBackFilter2');
         $scope.init();
         $scope.get_order_list();

@@ -2,18 +2,18 @@
     <h2>{{title}}</h2>
     <button class="goback" ng-click="back()"></button>
     <div class="tabsDiv caijidetail">
-        <p class="">
-            车主电话：
-            <span style="width:300px">{{detail.licenseInfo.carOwnerPhone}}</span>
-            <span style="margin-left:100px;" ng-hide="type == ''" >保险公司：{{detail.licenseInfo.companyName}}</span>
-            
-        </p>
-        <p>
-            <span>采集人员：</span>
-            <span style="width:300px">{{detail.licenseInfo.createByDesc}}</span>
-            <span style="margin-left:100px;">采集时间：{{detail.licenseInfo.createTime | ToLocal}}</span>
-            
-        </p>
+        <div class="caijidetail_div">
+            <div>车主电话：</div>
+            <div style="width:350px">{{detail.licenseInfo.carOwnerPhone}}</div>
+            <div style="margin-left:50px;" ng-hide="type == ''">保险公司：{{detail.licenseInfo.companyName}}</div>
+
+        </div>
+        <div class="caijidetail_div">
+            <div>采集人员：</div>
+            <div style="width:350px">{{detail.licenseInfo.createByDesc}}</div>
+            <div style="margin-left:50px;">采集时间：{{detail.licenseInfo.createTime | ToLocal}}</div>
+
+        </div>
         <p class="" ng-hide="weicaiji == ''">
             未采集证照：{{weicaiji}}
         </p>

@@ -133,7 +133,7 @@ main.controller('mainCtrl', ['$scope', 'APIService', function ($scope, APIServic
             $('.shop4SInfo').css('display', 'block')
             $('.brand').css('display', 'block')
             $('.member').css('display', 'block')
-
+            $('.threecarsS').css('display', 'block')
             $('.shop4S').css('display', 'block')
             $('.orderlist').css('display', 'block')
             $('#' + sessionStorage.getItem('lmId')).addClass('left_menu_click').siblings().removeClass('left_menu_click');
