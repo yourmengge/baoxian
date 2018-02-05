@@ -315,8 +315,11 @@
                             <p>
                                 {{a.taskEndTime | ToLocal}}
                             </p>
-                            <p>
+                            <p ng-hide="a.carType == 1">
                                 {{a.taskEndTime - a.accidentFinishTime | ToFenzhong}}
+                            </p>
+                            <p ng-hide="a.carType != 1">
+                                {{a.taskEndTime - a.accidentReachTime | ToFenzhong}}
                             </p>
                         </span>
 
@@ -767,7 +770,7 @@
                 <div class="flex_div_line" ng-hide="hideZhipei" style="height:50px;line-height:50px">
                     <div>赔付类型：</div>
                     <div>{{detail.authDirBilCancel.directCompensationDesc}}</div>
-                    <div style="width:auto;margin-left:-250px;">
+                    <div style="width:auto;margin-left:-150px;">
                         <button style="margin-left: 50px;" class="button" ng-click="confirmation()" ng-hide="hideButton">直赔确认书</button>
                         <button class="button" ng-click="cancel()" ng-hide="hideCancelButton">取消直赔</button>
                     </div>
