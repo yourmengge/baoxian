@@ -11,7 +11,8 @@ Road167.factory('APIService', function ($http) {
             url: url,
             headers: {
                 "Authorization": service.token,
-                "user-id": service.userId
+                "user-id": service.userId,
+                "client": 'web'
             }
         })
 
@@ -23,7 +24,8 @@ Road167.factory('APIService', function ($http) {
             data: data,
             headers: {
                 "Authorization": service.token,
-                "user-id": service.userId
+                "user-id": service.userId,
+                "client": 'web'
             }
         })
     };
@@ -34,7 +36,8 @@ Road167.factory('APIService', function ($http) {
             data: data,
             headers: {
                 "Authorization": service.token,
-                "user-id": service.userId
+                "user-id": service.userId,
+                "client": 'web'
             }
         })
     };
@@ -45,7 +48,8 @@ Road167.factory('APIService', function ($http) {
             data: data,
             headers: {
                 "Authorization": service.token,
-                "user-id": service.userId
+                "user-id": service.userId,
+                "client": 'web'
             }
         })
     };
@@ -56,7 +60,8 @@ Road167.factory('APIService', function ($http) {
             url: url,
             headers: {
                 "Authorization": service.token,
-                "user-id": service.userId
+                "user-id": service.userId,
+                "client": 'web'
             }
         })
     };

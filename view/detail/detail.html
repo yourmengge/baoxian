@@ -77,14 +77,20 @@
             <div style="max-width: 30px;">
                 <audio ng-src="{{detail.remarkOfVoice}}" controls></audio>
             </div> -->
+            <div>标的车牌：</div>
+            <div>{{detail.subjectCarNo}}</div>
+            <div colspan="2" style="width:300px;">
+                <span style="color:#999999;" ng-hide="!detail.noNeedCompensate">*损失小，客户不打算理赔</span>
+            </div>
+
+        </div>
+        <div class="flex_div_line">
             <div>推修类型：</div>
             <div>{{detail.pushFixTypeDesc}}</div>
             <div>推修备注：</div>
             <div>
                 <audio ng-src="{{detail.pushFixRemark}}" controls></audio>
             </div>
-        </div>
-        <div class="flex_div_line">
             <div>下单备注：</div>
             <div>
                 <audio ng-src="{{detail.remarkOfVoice}}" controls></audio>
@@ -101,11 +107,6 @@
             <div>
                 {{detail.accidentTime | ToDay}}
             </div> -->
-            <div colspan="2" style="width:300px;">
-                <span style="color:#999999;" ng-hide="!detail.noNeedCompensate">*损失小，客户不打算理赔</span>
-            </div>
-            <div></div>
-            <div></div>
 
         </div>
         <div class="flex_div_line" ng-hide="detail.status != 8 && detail.status != 81 && detail.status != 82">
@@ -167,7 +168,7 @@
         <button class="{{tabType == PUSH_FIX? 'tabs_btn_active':''}}" ng-click="tabs(PUSH_FIX)">
             推修信息
         </button>
-        <button class="{{tabType == LICENSE ? 'tabs_btn_active':''}}" ng-click="tabs(LICENSE)">
+        <button class="{{tabType == LICENSE ? 'tabs_btn_active':''}}" ng-click="tabs(LICENSE)" ng-hide="detail.insuranceType != 2">
             信息采集
         </button>
         <button ng-hide="zhipeiDiv" class="{{tabType == DIRECT_COMPENSATION? 'tabs_btn_active':''}}" ng-click="tabs(DIRECT_COMPENSATION)">
