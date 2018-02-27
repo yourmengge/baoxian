@@ -77,11 +77,12 @@
             <div style="max-width: 30px;">
                 <audio ng-src="{{detail.remarkOfVoice}}" controls></audio>
             </div> -->
-            <div>标的车牌：</div>
-            <div>{{detail.subjectCarNo}}</div>
-            <div colspan="2" style="width:300px;">
+            <div ng-hide="detail.insuranceType == 1">标的车牌：</div>
+            <div ng-hide="detail.insuranceType == 1">{{detail.subjectCarNo}}</div>
+            <div style="width:300px;">
                 <span style="color:#999999;" ng-hide="!detail.noNeedCompensate">*损失小，客户不打算理赔</span>
             </div>
+            <div></div>
 
         </div>
         <div class="flex_div_line">

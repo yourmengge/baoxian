@@ -2495,7 +2495,7 @@ img {
 }
 
 .flex_div_line div:nth-child(even) {
-    width: 340px;
+    width: 20%;
     text-align: left;
     padding-right: 10px;
 }
