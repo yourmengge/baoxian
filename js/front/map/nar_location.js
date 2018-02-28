@@ -45,7 +45,10 @@ nar_location.controller('nar_locationCtrl', ['$scope', 'APIService', function ($
         }
         if (sessionStorage.getItem('shop4S_type') == 'change') {
             $scope.searchName = sessionStorage.getItem('nocooperationAddress')
-            $scope.findPlace()
+            if($scope.searchName != ''){
+                $scope.findPlace()
+            }
+            
         }
 
     }
