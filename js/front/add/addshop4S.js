@@ -48,9 +48,9 @@ addshop4S.controller('addshop4SCtrl', ['$scope', 'APIService', "$http", function
             $scope.data = JSON.parse(sessionStorage.getItem('shop4S_data'))
             $scope.title = '修改推修厂'
         } else if ($scope.shop4s_type == 'change') {
-            $scope.data = {
-                fullName: ''
-            }
+            // $scope.data = {
+            //     fullName: ''
+            // }
             $scope.data.fullName = JSON.parse(sessionStorage.getItem('shop4S_data')).fullName;
             $scope.title = '转为推修厂'
         }
