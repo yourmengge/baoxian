@@ -47,7 +47,7 @@ nar_location.controller('nar_locationCtrl', ['$scope', 'APIService', function ($
             $scope.searchName = sessionStorage.getItem('nocooperationAddress') == 'null' ? '' : sessionStorage.getItem('nocooperationAddress')
 
             if ($scope.searchName != '') {
-                $scope.findPlace()
+          //      $scope.findPlace()
             } else {
                 function myFun(result) {
                     var cityName = result.name;
