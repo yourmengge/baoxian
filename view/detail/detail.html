@@ -77,11 +77,12 @@
             <div style="max-width: 30px;">
                 <audio ng-src="{{detail.remarkOfVoice}}" controls></audio>
             </div> -->
-            <div>标的车牌：</div>
-            <div>{{detail.subjectCarNo}}</div>
-            <div colspan="2" style="width:300px;">
+            <div ng-hide="detail.insuranceType == 1">标的车牌：</div>
+            <div ng-hide="detail.insuranceType == 1">{{detail.subjectCarNo}}</div>
+            <div style="width:300px;">
                 <span style="color:#999999;" ng-hide="!detail.noNeedCompensate">*损失小，客户不打算理赔</span>
             </div>
+            <div style="width:0;"></div>
 
         </div>
         <div class="flex_div_line">
@@ -204,6 +205,7 @@
                 <p>
                     <span style="font-size:24px;margin-right:20px;">{{a.carRemark}}</span>
                     <span>司机：{{a.driverName}} &emsp;{{a.phone}}</span>
+                    <button ng-hide="a.taskFlag != 0" class="button" ng-click="track(a,detail)">查看轨迹</button>
                 </p>
                 <div class="driver_status">
                     <div class="driver_status_div status_active {{a.createTime != null?'':'driver_status_span'}}">

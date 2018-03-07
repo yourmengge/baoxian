@@ -44,8 +44,22 @@ nar_location.controller('nar_locationCtrl', ['$scope', 'APIService', function ($
             $scope.sessionStorageName = 'nocoopertation'
         }
         if (sessionStorage.getItem('shop4S_type') == 'change') {
-            $scope.searchName = sessionStorage.getItem('nocooperationAddress')
-            $scope.findPlace()
+            $scope.searchName = sessionStorage.getItem('nocooperationAddress') == 'null' ? '' : sessionStorage.getItem('nocooperationAddress')
+
+            if ($scope.searchName != '') {
+          //      $scope.findPlace()
+            } else {
+                function myFun(result) {
+                    var cityName = result.name;
+                    map.centerAndZoom(new BMap.Point(result.center.lng, result.center.lat), 13);
+                    // if (this.getStatus() == BMAP_STATUS_SUCCESS) {
+                    //     
+                    // }
+                }
+                var myCity = new BMap.LocalCity();
+                myCity.get(myFun);
+            }
+
         }
 
     }
