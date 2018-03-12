@@ -243,7 +243,7 @@
 
 
                     </div>
-                    <div class="driver_status_div {{a.departureTime != null?'status_active':''}} {{a.accidentReachTime != null?'':'driver_status_span'}}">
+                    <div class="driver_status_div {{a.departureTime != null?'status_active':''}} {{(a.departureTime != null && a.accidentReachTime == null)?'driver_status_span':''}}">
                         <p>
                             出发
                         </p>
@@ -263,7 +263,7 @@
                         </span>
 
                     </div>
-                    <div class="driver_status_div {{a.accidentReachTime != null?'status_active':''}} {{a.accidentFinishTime != null?'':'driver_status_span'}}">
+                    <div class="driver_status_div {{a.accidentReachTime != null?'status_active':''}} {{(a.accidentReachTime != null && a.accidentFinishTime == null)?'driver_status_span':''}}">
                         <p>
                             到达现场
                         </p>
