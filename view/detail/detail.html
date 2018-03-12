@@ -205,7 +205,7 @@
                 <p>
                     <span style="font-size:24px;margin-right:20px;">{{a.carRemark}}</span>
                     <span>司机：{{a.driverName}} &emsp;{{a.phone}}</span>
-                    <button ng-hide="a.taskFlag != 0" class="button" ng-click="track(a,detail)">查看轨迹</button>
+                    <button ng-hide="a.departureTime == null" class="button" ng-click="track(a,detail)">查看轨迹</button>
                 </p>
                 <div class="driver_status">
                     <div class="driver_status_div status_active {{a.createTime != null?'':'driver_status_span'}}">
@@ -243,7 +243,7 @@
 
 
                     </div>
-                    <div class="driver_status_div {{a.departureTime != null?'status_active':''}} {{a.accidentReachTime != null?'':'driver_status_span'}}">
+                    <div class="driver_status_div {{a.departureTime != null?'status_active':''}} {{(a.departureTime != null && a.accidentReachTime == null)?'driver_status_span':''}}">
                         <p>
                             出发
                         </p>
@@ -263,7 +263,7 @@
                         </span>
 
                     </div>
-                    <div class="driver_status_div {{a.accidentReachTime != null?'status_active':''}} {{a.accidentFinishTime != null?'':'driver_status_span'}}">
+                    <div class="driver_status_div {{a.accidentReachTime != null?'status_active':''}} {{(a.accidentReachTime != null && a.accidentFinishTime == null)?'driver_status_span':''}}">
                         <p>
                             到达现场
                         </p>
@@ -393,7 +393,7 @@
                     <div>{{pushFix.shop4sNameFinal}}</div>
                     <div>回厂类型：</div>
                     <div>{{pushFix.backTypeDesc}}</div>
-                    <div>回厂日期：</div>
+                    <div>预约日期：</div>
                     <div>{{pushFix.appointDate | ToDay}}</div>
                 </div>
             </div>
@@ -447,7 +447,8 @@
                     </td>
                     <td>
                         {{a.backType}}
-                        <span ng-hide="a.appointDate == null ?true:false">：</span>{{a.appointDate}}
+                        <span ng-click="openImg(a.picList)" ng-hide="a.picList.length == 0" class="button_span div_link">查看回厂照片</span>
+                        <span ng-hide="a.appointDate == null ?true:false">：{{a.appointDate}}</span>
                     </td>
                     <td>
                         {{a.shop4sName}}
@@ -839,26 +840,47 @@
     <div class="change_list " id="changemode">
         <h2 class="alert_add_h2">收费方式变更记录</h2>
         <img src="img/guanbi-dianji.png" alt="" class="close_img" ng-click="close()">
-        <div ng-repeat="a in list">
-            <div class="changelist">
-                <div style="flex: 0.1;"></div>
-                <div style="flex: 0.2;">{{$index + 1}}、</div>
-                <div>修改人员：</div>
-                <div>{{a.createUserDesc}}</div>
-                <div>收费方式：</div>
-                <div>{{a.chargeModeDesc}}</div>
-                <div>修改时间：</div>
-                <div>{{a.createTime | ToLocal}}</div>
+        <div ng-repeat="a in list" style="margin-top:40px;">
+            <div ng-hide="{{hiddenView(a.preChargeMode,a.chargeMode) == 2}}">
+                <div class="changelist">
+                    <div>
+                        审核状态：
+                    </div>
+                    <div class="{{a.verifyStatusDesc == '审核通过'?'font_green':'font_red'}}">
+                        {{a.verifyStatusDesc}}
+                    </div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div class="changelist">
+                    <div>申请内容：</div>
+                    <div>收取现金转为免垫付</div>
+                    <div>申请人员：</div>
+                    <div>{{a.createUserDesc}}</div>
+                    <div>申请时间：</div>
+                    <div>{{a.createTime | ToLocal}}</div>
+                </div>
+                <div class="changelist">
+
+                    <div>审核人员：</div>
+                    <div>{{a.verifyUserDesc}}</div>
+                    <div>审核备注：</div>
+                    <div>{{a.verifyRemark}}</div>
+                    <div>审核时间：</div>
+                    <div>{{a.verifyTime | ToLocal}}</div>
+                </div>
             </div>
-            <div class="changelist" ng-hide="a.chargeMode == 1 || a.verifyStatus == 0">
-                <div style="flex: 0.1;"></div>
-                <div style="flex: 0.2;"></div>
-                <div>审核人员：</div>
-                <div>{{a.verifyUserDesc}}</div>
-                <div>审核状态：</div>
-                <div>{{a.verifyStatusDesc}}</div>
-                <div>审核时间：</div>
-                <div>{{a.verifyTime | ToLocal}}</div>
+            <div ng-hide="{{hiddenView(a.preChargeMode,a.chargeMode) == 1}}">
+                <div class="changelist">
+                    <div>修改内容：</div>
+                    <div>免垫付转为收取现金</div>
+                    <div>修改人员：</div>
+                    <div>{{a.createUserDesc}}</div>
+                    <div>修改时间：</div>
+                    <div>{{a.createTime | ToLocal}}</div>
+                </div>
             </div>
         </div>
         <div ng-hide="list.length != 0" style="text-align:center;">
@@ -868,18 +890,62 @@
     <div class="change_list " id="fixchange">
         <h2 class="alert_add_h2">推修厂变更记录</h2>
         <img src="img/guanbi-dianji.png" alt="" class="close_img" ng-click="close()">
-        <div class="changelist" ng-repeat="a in list">
-            <div style="flex: 0.1;"></div>
-            <div style="flex: 0.2;">{{$index + 1}}、</div>
-            <div>修改人员：</div>
-            <div>{{a.applyUserDesc}}</div>
-            <div>目的地点：</div>
-            <div>{{a.applyAddress}}</div>
-            <div>修改时间：</div>
-            <div>{{a.createTime | ToLocal}}</div>
+        <div ng-repeat="a in list">
+            <div ng-hide="{{a.applyUserDesc === a.verifyUserDesc}}" class="{{$index != list.length - 1?'border_bottom':''}}">
+                <div class="changelist">
+                    <div>审核状态：</div>
+                    <div class="{{a.verifyStatusDesc == '审核通过'?'font_green':'font_red'}}">{{a.verifyStatusDesc}}</div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div class="changelist">
+                    <div>申请内容：</div>
+                    <div>{{a.applyAddress}}</div>
+                    <div>申请人员：</div>
+                    <div>{{a.applyUserDesc}}</div>
+                    <div>申请时间：</div>
+                    <div>{{a.createTime | ToLocal}}</div>
+                </div>
+                <div class="changelist">
+                    <div>审核人员：</div>
+                    <div>{{a.verifyUserDesc}}</div>
+                    <div>审核备注：</div>
+                    <div>
+                        <audio ng-src="{{i.verifyRemarkOfVoice}}" controls></audio>
+                    </div>
+                    <div>审核时间：</div>
+                    <div>{{a.verifyTime | ToLocal}}</div>
+                </div>
+            </div>
+            <div ng-hide="{{a.applyUserDesc !== a.verifyUserDesc}}" class="{{$index != list.length - 1?'border_bottom':''}}">
+                <div class="changelist">
+                    <div>修改内容：</div>
+                    <div>{{a.applyUserDesc}}</div>
+                    <div>修改人员：</div>
+                    <div>{{a.applyAddress}}</div>
+                    <div>修改时间：</div>
+                    <div>{{a.createTime | ToLocal}}</div>
+                </div>
+            </div>
         </div>
         <div ng-hide="list.length != 0" style="text-align:center;">
             <img class="no_data" src="img/img-none-zi.png" alt="">
+        </div>
+    </div>
+    <div class="change_list image_swiper ">
+        <p class="swiper_images_title">车辆回厂照片</p>
+        <img src="img/guanbi-dianji.png" alt="" style="margin-top: 0px;" class="close_img" ng-click="close()">
+        <div class="swiper-container" style="margin-top:60px">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide swiper_images" ng-repeat="a in backPic">
+                    <img ng-src="{{a.zoomOutView}}">
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
         </div>
     </div>
     <div class="closeBg" ng-click="closeBG()"></div>

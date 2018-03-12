@@ -233,7 +233,7 @@ button {
 }
 
 .red {
-    background: #f00 !important;
+    background: #c31f20 !important;
 }
 
 .left_menu p img {
@@ -794,6 +794,7 @@ input[type=number]::-webkit-outer-spin-button {
     padding-right: 20px;
     padding-left: 5px;
     cursor: pointer;
+    margin-bottom: 20px;
 }
 
 .img_div img:hover {
@@ -822,6 +823,14 @@ input[type=number]::-webkit-outer-spin-button {
     z-index: 100;
     left: 15vw;
 }
+.image_swiper{
+    max-height: 500px !important;
+    text-align: center;
+    margin-top: 5vh;
+}
+.swiper_images img{
+    height: 80%;
+}
 
 .goback {
     float: right;
@@ -833,6 +842,15 @@ input[type=number]::-webkit-outer-spin-button {
     border: none;
     z-index: 0;
     top: -69px;
+}
+
+.swiper_images_title{
+    float: left;
+    position: absolute;
+    color: #333;
+    font-size: 22px;
+    margin-left: 20px;
+    margin-top: 10px;
 }
 
 .goback:active {
@@ -2597,15 +2615,20 @@ img {
     margin-left: 10%;
     height: auto;
     box-shadow: 0 0 5px 1px #333;
-    min-height: 300px;
     overflow-y: auto;
     padding: 15px 10px;
+    min-height: 200px;
 }
 
 .changelist {
     display: flex;
     padding: 7px 5px;
     width: 97%;
+}
+
+.border_bottom{
+    border-bottom: solid 1px #e5e5e5;
+    margin-bottom: 10px;
 }
 
 .changelist div {

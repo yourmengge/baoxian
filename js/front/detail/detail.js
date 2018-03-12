@@ -11,6 +11,7 @@ detail.controller('detailCtrl', ['$scope', 'APIService', function ($scope, APISe
         $scope.CHARGE_MODE = 'CHARGE_MODE',
         $scope.FIX_ADDRESS = 'FIX_ADDRESS'
     $scope.initData = function () {
+
         $scope.openDetail = -1;
         $scope.tabType = $scope.ASSIGN_DRIVER;
         $scope.zhipeiremark = '';
@@ -34,7 +35,7 @@ detail.controller('detailCtrl', ['$scope', 'APIService', function ($scope, APISe
         orderPic = [];
         accidentPic = [];
         fixPic = [];
-        //$scope.order = '1710230024'
+        //$scope.order = '1711160018'
         $scope.order = sessionStorage.getItem('orderNo');
         APIService.get_order_detail($scope.order, 'BASE').then(function (res) {
             if (res.data.http_status == 200) {
@@ -278,7 +279,9 @@ detail.controller('detailCtrl', ['$scope', 'APIService', function ($scope, APISe
         $('.addinspector_div').css('display', 'none')
         $('#fixchange').css('display', 'none')
         $('#changemode').css('display', 'none')
+        $('.image_swiper').css('display', 'none');
         $scope.zhipeiremark = '';
+        $scope.backPic = []
     }
     $scope.cancel = function () {
         $('.alert_bg').css('display', 'block')
@@ -306,7 +309,13 @@ detail.controller('detailCtrl', ['$scope', 'APIService', function ($scope, APISe
             layer.msg('请输入取消备注')
         }
     }
-
+    $scope.hiddenView = function (pre, now) {
+        if (pre === 1 && now === 2) {
+            return 1;
+        } else if (pre === 2 && now === 1) {
+            return 2;
+        }
+    }
     $scope.track = function (data, order) {
         sessionStorage.setItem('driver_detail', JSON.stringify(data));
         sessionStorage.setItem('order_detail', JSON.stringify(order));
@@ -316,5 +325,29 @@ detail.controller('detailCtrl', ['$scope', 'APIService', function ($scope, APISe
         sessionStorage.setItem('fixaddress_orderNo', orderNo)
         sessionStorage.setItem('select_type', 'update')
         goto_view('main/updateFix')
+    }
+
+    $scope.openImg = function (data) {
+        $('.alert_bg').css('display', 'block');
+        $('.image_swiper').css('display', 'block');
+        $scope.backPic = data;
+        loading()
+        setTimeout(() => {
+            var mySwiper = new Swiper('.swiper-container', {
+                autoplay: false,
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                // pagination: {
+                //     el: '.swiper-pagination',
+                //     clickable :true,
+                //     type: 'progress',
+                // },
+            });
+            console.log(data)
+            closeloading();
+        }, 1500);
+
     }
 }])
