@@ -39,7 +39,7 @@
         <div class="flex_div_line">
             <div>收费方式：</div>
             <div>{{detail.chargeModeDesc}}
-                <span class="button_span div_link" ng-click="changeList(CHARGE_MODE)">变更记录</span>
+                <span ng-hide="detail.chargeMode == 0" class="button_span div_link" ng-click="changeList(CHARGE_MODE)">变更记录</span>
             </div>
             <div>订单费用：</div>
             <div>{{detail.platformPayments | Price}}</div>
@@ -393,8 +393,8 @@
                     <div>{{pushFix.shop4sNameFinal}}</div>
                     <div>回厂类型：</div>
                     <div>{{pushFix.backTypeDesc}}</div>
-                    <div>预约日期：</div>
-                    <div>{{pushFix.appointDate | ToDay}}</div>
+                    <div ng-hide="pushFix.backType != 1">预约日期：</div>
+                    <div ng-hide="pushFix.backType != 1">{{pushFix.appointDate | ToDay}}</div>
                 </div>
             </div>
             <div class="">
