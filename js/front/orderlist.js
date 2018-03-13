@@ -17,6 +17,8 @@ orderlist.controller('orderlistCtrl', ['$scope', 'APIService', '$http', function
         $scope.caseNo = '';
         $scope.current = 1;
         $scope.peifu = ''
+        $scope.timetype = '';
+        $scope.resultType = '';
         $scope.insuranceType = '';
         var funcList = []
         funcList = sessionStorage.getItem('funcList').split(',')
@@ -29,7 +31,7 @@ orderlist.controller('orderlistCtrl', ['$scope', 'APIService', '$http', function
 
     $scope.initData = function () {
         $scope.init();
-        $scope.get_order_total();
+        // $scope.get_order_total();
         loading();
         $scope.whichRole = sessionStorage.getItem('whichRole')
         if (sessionStorage.getItem('filter') != undefined) {
@@ -38,9 +40,11 @@ orderlist.controller('orderlistCtrl', ['$scope', 'APIService', '$http', function
             $scope.endDay = a.endDate;
             $scope.status = a.status;
             $scope.caseNo = a.keyword;
+            $scope.timetype = a.timetype;
             $scope.ordertype = a.ordertype;
             $scope.peifu = a.peifu;
             $scope.WuCha = a.wucha;
+            $scope.resultType = a.resultType;
             $scope.insuranceType = a.insuranceType;
             if (a.order_current != '') {
                 $scope.current = a.order_current;
@@ -93,14 +97,14 @@ orderlist.controller('orderlistCtrl', ['$scope', 'APIService', '$http', function
         $('#startDay').val('20' + s)
         $('#endDay').val('20' + e)
     }
-    $scope.openDiv = function (index) {
-        if ($scope.openDetail == index) {
-            $scope.openDetail = -1;
-        } else {
-            $scope.openDetail = index;
-        }
+    // $scope.openDiv = function (index) {
+    //     if ($scope.openDetail == index) {
+    //         $scope.openDetail = -1;
+    //     } else {
+    //         $scope.openDetail = index;
+    //     }
 
-    }
+    // }
     $scope.editOrder = function (data) {
         goto_view('main/editorder');
         $scope.save_filter();
@@ -210,8 +214,10 @@ orderlist.controller('orderlistCtrl', ['$scope', 'APIService', '$http', function
         filter.keyword = $scope.caseNo;
         filter.startDate = $scope.start;
         filter.status = $scope.status;
+        filter.resultType = $scope.resultType;
         filter.ordertype = $scope.ordertype;
         filter.peifu = $scope.peifu;
+        filter.timetype = $scope.timetype;
         filter.order_current = $scope.current;
         filter.wucha = $scope.WuCha;
         filter.insuranceType = $scope.insuranceType
@@ -287,6 +293,29 @@ orderlist.controller('orderlistCtrl', ['$scope', 'APIService', '$http', function
             $scope.up = show;
         }
     }
+    $scope.timeTypeTexts = [{
+        id: '',
+        name: '下单时间'
+    }, {
+        id: 'THIRD_CAR',
+        name: '出险时间'
+    }]
+    $scope.resultTypeTexts = [{
+        id: '',
+        name: '全部'
+    }, {
+        id: 'THIRD_CAR',
+        name: '成功'
+    }, {
+        id: 'THIRD_CAR',
+        name: '准确'
+    }, {
+        id: 'THIRD_CAR',
+        name: '待确认'
+    }, {
+        id: 'THIRD_CAR',
+        name: '失败'
+    }]
     $scope.insuranceTypeTexts = [{
         id: '',
         name: '全部'
@@ -308,79 +337,79 @@ orderlist.controller('orderlistCtrl', ['$scope', 'APIService', '$http', function
         name: '非直赔'
     }]
     $scope.statusTexts = [{
-            id: 0,
-            name: '全部订单'
-        },
-        {
-            id: 1,
-            name: '待接单'
-        },
-        {
-            id: 2,
-            name: '待分配'
-        },
-        {
-            id: 3,
-            name: '进行中'
-        },
-        {
-            id: 4,
-            name: '已完成'
-        },
-        {
-            id: 8,
-            name: '查勘取消'
-        },
-        {
-            id: 81,
-            name: '保险人员取消'
-        },
-        {
-            id: 9,
-            name: '历史未完成'
-        }
+        id: 0,
+        name: '全部订单'
+    },
+    {
+        id: 1,
+        name: '待接单'
+    },
+    {
+        id: 2,
+        name: '待分配'
+    },
+    {
+        id: 3,
+        name: '进行中'
+    },
+    {
+        id: 4,
+        name: '已完成'
+    },
+    {
+        id: 8,
+        name: '查勘取消'
+    },
+    {
+        id: 81,
+        name: '保险人员取消'
+    },
+    {
+        id: 9,
+        name: '历史未完成'
+    }
     ]
     $scope.WuChaTexts = [{
-            id: '',
-            name: '全部'
-        },
-        {
-            id: '300',
-            name: '大于300米'
-        },
-        {
-            id: '400',
-            name: '大于400米'
-        },
-        {
-            id: '500',
-            name: '大于500米'
-        },
-        {
-            id: '600',
-            name: '大于600米'
-        },
-        {
-            id: '700',
-            name: '700米以上'
-        }
+        id: '',
+        name: '全部'
+    },
+    {
+        id: '300',
+        name: '大于300米'
+    },
+    {
+        id: '400',
+        name: '大于400米'
+    },
+    {
+        id: '500',
+        name: '大于500米'
+    },
+    {
+        id: '600',
+        name: '大于600米'
+    },
+    {
+        id: '700',
+        name: '700米以上'
+    }
     ]
     $scope.orderTypeTexts = [{
-            id: '',
-            name: '全部'
-        },
-        {
-            id: 1,
-            name: '事故订单'
-        },
-        {
-            id: 2,
-            name: '非事故订单'
-        },
-        {
-            id: 3,
-            name: '非施救'
-        }
+        id: '',
+        name: '全部'
+    },
+    {
+        id: 1,
+        name: '事故订单'
+    },
+    {
+        id: 2,
+        name: '非事故订单'
+    },
+    {
+        id: 3,
+        name: '非施救'
+    }
     ]
     $scope.searchAll = function () {
         sessionStorage.removeItem('filter');

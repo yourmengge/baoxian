@@ -318,7 +318,77 @@ function goto_view(v) {
         b: 2
     };
 }
-
+function reloadMenuList() {
+    var menuList = [{
+        name: '订单信息',
+        id: 'orderInfo',
+        secondList: [{
+            name: '订单列表',
+            url: 'main/orderlist'
+        }, {
+            name: '定损处理',
+            url: 'orderlist'
+        }, {
+            name: '查勘回厂率',
+            url: 'main/backtotal'
+        }, {
+            name: '推修厂回厂率',
+            url: 'main/backtotalS'
+        }, {
+            name: '评价信息',
+            url: 'main/evaluation'
+        }],
+        isActive: false
+    }, {
+        name: '查勘员管理',
+        id: 'main/inspector',
+        secondList: [],
+        isActive: false
+    }, {
+        name: '修理厂管理',
+        id: 'orderInfo',
+        secondList: [{
+            name: '推修厂',
+            url: 'main/shop4S'
+        }, {
+            name: '修理厂',
+            url: 'main/nocooperation'
+        }, {
+            name: '车辆品牌',
+            url: 'main/brand'
+        }],
+        isActive: false
+    }, {
+        name: '车辆管理',
+        id: 'orderInfo',
+        secondList: [{
+            name: '车队列表',
+            url: 'main/companyfleet'
+        }, {
+            name: '效率统计',
+            url: 'main/datastatistics'
+        }],
+        isActive: false
+    }, {
+        name: '信息采集',
+        id: 'orderInfo',
+        secondList: [{
+            name: '三者信息',
+            url: 'main/threecars'
+        }, {
+            name: '车商采集',
+            url: 'main/threecarsS'
+        }],
+        isActive: false
+    }, {
+        name: '大灾管理',
+        id: 'main/disaster',
+        secondList: [],
+        isActive: false
+    }]
+    sessionStorage.setItem('menuList', JSON.stringify(menuList));
+    return menuList;
+}
 function ToLocalTime(shijianchuo) {
     var time = new Date(shijianchuo);
     var y = time.getFullYear();
@@ -327,7 +397,9 @@ function ToLocalTime(shijianchuo) {
     var nowtime = y + '-' + add0(m) + '-' + add0(d);
     return nowtime;
 }
-
+function getUrl(url) {
+    return url.split('/')[url.split('/').length - 1];
+}
 function ToTime(shijianchuo) {
     var time = new Date(shijianchuo);
     var y = time.getFullYear();

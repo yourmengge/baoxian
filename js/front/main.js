@@ -1,27 +1,5 @@
 var main = angular.module('main', ['Road167']);
-
 main.controller('mainCtrl', ['$scope', 'APIService', function ($scope, APIService) {
-    $('.left_menu p').click(function () {
-        $(this).addClass('left_menu_click').siblings().removeClass('left_menu_click');
-        sessionStorage.setItem('lmId', $(this).attr('id'));
-        if ($(this).attr('id') != 'lm14' && $(this).attr('id') != 'lm9') {
-            $("#second_14").hide()
-            $("#second_9").hide()
-            sessionStorage.removeItem('second_type')
-        }
-
-        if ($(this).attr('id') == 'lm9') {
-            $("#second_9").show()
-        }
-
-        sessionStorage.setItem('jiexi_success', '');
-        sessionStorage.removeItem('filter')
-        sessionStorage.removeItem('disaster_filter');
-        sessionStorage.removeItem('inspectorFilter');
-        sessionStorage.removeItem('inspectorBackFilter');
-        sessionStorage.removeItem('inspectorBackFilter2');
-        sessionStorage.removeItem('filter_three');
-    })
     $scope.sdk = new WSDK();
     $scope.history_message = {};
     var nextkey = '';
@@ -29,8 +7,6 @@ main.controller('mainCtrl', ['$scope', 'APIService', function ($scope, APIServic
         APIService.user_logout().then(function (res) {
             if (res.data.result_status == 0) {
                 layer.msg('退出成功');
-                // sessionStorage.removeItem('nar_address');
-                // sessionStorage.removeItem('nar_address_fixaddress');
                 a = [];
                 goto_view('login')
                 setTimeout(function () {
@@ -45,141 +21,47 @@ main.controller('mainCtrl', ['$scope', 'APIService', function ($scope, APIServic
 
         $scope.sdk = null;
     }
-    $scope.selectType = 1;
-    $scope.goto = function () {
-        goto_view('main/disaster')
-    }
+
     $scope.back = function () {
         window.history.back();
     }
-    $scope.openSecond = function (text) {
-        if (text === 'lm14') {
-            $('#second_14').show();
-            $('#second_9').hide();
-            sessionStorage.setItem('second_type', 'lm14')
-            $scope.open(1)
-        } else if (text === 'lm9') {
-            $('#second_9').show();
-            $('#second_14').hide();
-            sessionStorage.setItem('second_type', 'lm9')
-            $scope.open(3)
-        }
-    }
-
-    $scope.backtotal = function (text) {
-        sessionStorage.setItem('backtotal', text)
-    }
-
-    $scope.threecars = function (text) {
-        sessionStorage.setItem('threecars', text)
-    }
-
-    $scope.open = function (type) {
-        sessionStorage.removeItem('shop4s_filter')
-        if (type == 1) {
-            sessionStorage.setItem('audit_type', 'QUOTE')
-        } else if (type == 2) {
-            sessionStorage.setItem('audit_type', 'BILL')
-        } else if (type == 3) {
-            sessionStorage.setItem('audit_type', 'info')
-        } else if (type == 4) {
-            sessionStorage.setItem('audit_type', 'brand')
-        } else if (type == 5) {
-            sessionStorage.setItem('audit_type', 'member')
-        } else if (type == 6) {
-            sessionStorage.setItem('audit_type', 'nocooperation')
-        }
-        $scope.selectType = type;
-
-    }
     $scope.initData = function () {
         $scope.initChat();
-
+        $scope.menuList = JSON.parse(sessionStorage.getItem('menuList'));
         $scope.not_read_counts = 0;
-        switch (sessionStorage.getItem('audit_type')) {
-            case 'QUOTE':
-                $scope.selectType = 1;
-                break;
-            case 'BILL':
-                $scope.selectType = 2;
-                break;
-            case 'info':
-                $scope.selectType = 3;
-                break;
-            case 'brand':
-                $scope.selectType = 4;
-                break;
-            case 'member':
-                $scope.selectType = 5;
-                break;
-            case 'nocooperation':
-                $scope.selectType = 6;
-                break;
-            default:
-                break;
-        }
         $scope.whichRole = sessionStorage.getItem('whichRole');
-        $('.left_menu p').css('display', 'none')
         $scope.companyName = sessionStorage.getItem('companyName');
         $scope.adminName = sessionStorage.getItem('adminName');
         if ($scope.whichRole == 'liSuan') {
-            $('.orderlist').css('display', 'block');
-            $('.child_span').css('display', 'none')
+
         } else if ($scope.whichRole == 'third') { //如果只只查看三者车的账号，隐藏左边栏
 
         } else if ($scope.whichRole == 'shop4sAdmin') { //车商人员
-            $('.child_span').css('display', 'none')
-            $('.chat').css('display', 'block')
-            $('.shop4SInfo').css('display', 'block')
-            $('.brand').css('display', 'block')
-            $('.member').css('display', 'block')
-            $('.threecarsS').css('display', 'block')
-            $('.shop4S').css('display', 'block')
-            $('.orderlist').css('display', 'block')
-            $('#' + sessionStorage.getItem('lmId')).addClass('left_menu_click').siblings().removeClass('left_menu_click');
-            if (sessionStorage.getItem('lmId') != 'lm9') {
-                $("#second_9").hide()
-            } else {
-                $("#second_9").show()
-            }
+
         } else if ($scope.whichRole == 'admin') {
-
-            $('#' + sessionStorage.getItem('lmId')).addClass('left_menu_click').siblings().removeClass('left_menu_click');
-
             APIService.get_menu().then(function (res) {
                 if (res.data.http_status == 200) {
-                    if (res.data.items != null) {
-                        for (let i = 0; i < res.data.items.length; i++) {
-                            $('.left_menu .' + res.data.items[i].url).css('display', 'block')
-                        }
-
-                    }
                     //17045账号登录，隐藏抢单车队
                     if (sessionStorage.getItem('userId') == "21966") {
-                        $('.left_menu .companyfleet').css('display', 'none')
-                    }
-                    if (sessionStorage.getItem('second_type') != undefined) {
-                        if (sessionStorage.getItem('second_type') == 'lm14') {
-                            $('#second_14').show();
-                            $('#second_9').hide();
-                            sessionStorage.setItem('second_type', 'lm14')
-                        } else if (sessionStorage.getItem('second_type') == 'lm9') {
-                            $('#second_9').show();
-                            $('#second_14').hide();
-                        }
-                    } else {
-                        $('#second_14').hide();
-                        $('#second_9').hide();
-                    }
 
+                    }
                 } else {
                     isError(res)
                 }
             })
-
         }
-
-
+    }
+    $scope.openFirst = function (data, index) {
+        $scope.menuList[index].isActive = !$scope.menuList[index].isActive;
+        sessionStorage.setItem('menuList', JSON.stringify($scope.menuList));
+        if (data.secondList.length == 0) {
+            goto_view(data.id)
+        }else if($scope.menuList[index].isActive){
+            goto_view(data.secondList[0].url)
+        }
+    }
+    $scope.gotoView = function (url) {
+        goto_view(url)
     }
     $scope.read_message = function () {
         $('.message_center').toggle();

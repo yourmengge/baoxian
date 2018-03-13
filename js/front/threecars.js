@@ -30,7 +30,8 @@ threecars.controller('threecarsCtrl', ['$scope', 'APIService', '$http', function
     }
     $scope.init = function () {
         $scope.limit = 10;
-        $scope.url = sessionStorage.getItem('threecars')
+        // $scope.url = sessionStorage.getItem('threecars')
+        $scope.url = getUrl(location.href)
         if ($scope.url === 'threecars') {
             $scope.backType = 'inspector'
             $scope.type = ''

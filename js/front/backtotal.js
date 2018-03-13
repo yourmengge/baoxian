@@ -4,7 +4,7 @@ var time = new Date();
 backtotal.controller('backtotalCtrl', ['$scope', 'APIService', function ($scope, APIService) {
     $scope.initData = function () {
         $scope.init();
-        $scope.url = sessionStorage.getItem('backtotal')
+        $scope.url = getUrl(location.href)
         if ($scope.url === 'backtotal') {
             $scope.title = '回厂率统计'
             $scope.backType = 'inspector'

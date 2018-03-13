@@ -1,4 +1,4 @@
-<div class="main" ng-controller="mainCtrl" ng-init="initData()">
+<!-- <div class="main" ng-controller="mainCtrl" ng-init="initData()">
     <img src="img/bg.jpg" alt="" class="bg">
     <div class="main_title_bar">
         <img src="img/logo.png" alt="" class="logo">
@@ -121,14 +121,22 @@
             <img src="img/icon_tuixiuchang.png" alt="">
             <span class="right_span">推修厂回厂率</span>
         </p>
-        <!-- <p id="lm16" ui-sref='main.member' class='inspector' title="会员店">
-            <img src="img/chakanyuan.png" alt="">
-            <span class="right_span">会员店</span>
-        </p>
-        <p id="lm17" ui-sref='main.brand' class='inspector' title="车辆品牌管理">
-            <img src="img/chakanyuan.png" alt="">
-            <span class="right_span">车辆品牌管理</span>
-        </p> -->
+    </div>
+    <div ui-view class="right_content {{isThrid == 'true'?'full_width':''}}"></div>
+</div> -->
+<div class="main" ng-controller="mainCtrl" ng-init="initData()">
+    <div class="main_title_bar">
+        <img src="img/logo.png" alt="" class="logo">
+    </div>
+    <div class="left_menu">
+        <div ng-repeat="a in menuList">
+            <div class="first_menu" ng-click="openFirst(a,$index)">
+                {{a.name}}
+            </div>
+            <div ng-hide="a.secondList == [] || !a.isActive" class="second_menu" ng-repeat="b in a.secondList" ng-click="gotoView(b.url)">
+                {{b.name}}
+            </div>
+        </div>
 
     </div>
     <div ui-view class="right_content {{isThrid == 'true'?'full_width':''}}"></div>
