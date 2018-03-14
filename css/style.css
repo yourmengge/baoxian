@@ -1452,7 +1452,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .red_font {
-    color: #f00;
+    color: #f00 !important;
 }
 
 .map_driver_detail {
@@ -2675,6 +2675,70 @@ img {
 .caijidetail_div div{
     float: left;
 }
+
+.orderlist{
+    overflow-x: auto;
+    width: 100%;
+    padding-bottom: 10px;
+}
+.orderlist table{
+    width: 2000px;
+    text-align: center;
+    cursor: pointer;
+    margin-left: 50px;
+    border-right: solid 1px #a9ebff;
+}
+.orderlist table tr:nth-child(1){
+    height: 60px;
+    background: #a9ebff;
+}
+.orderlist table tr:nth-child(1):hover{
+    background: #a9ebff;
+}
+.orderlist table tr{
+    height: 50px;
+}
+.orderlist table tr td{
+    border: solid 1px #a9ebff;
+    border-top: none;
+    border-right: none;
+}
+.index_blank{
+    height: 59px !important;
+    background: #a9ebff;
+}
+.orderlist table tr:hover{
+    background: #f5f5f5;
+}
+.orderlist .index_div{
+    position: absolute;
+    width: 50px;
+    text-align: center;
+    line-height: 49px;
+    z-index: 100;
+    background: #fff;
+    cursor: pointer;
+    border-left: solid 1px #a9ebff;
+    border-right: solid 1px #a9ebff;
+   
+}
+.orderlist .index_div div{
+    height: 49px;
+    border-bottom: solid 1px #a9ebff;
+}
+.directType{
+    
+}
+/* .orderlist::-webkit-scrollbar-thumb {
+    background-color: #a9ebff;
+    background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%, transparent 75%, transparent);
+}
+.orderlist::-webkit-scrollbar {
+    height: 18px;
+}
+.orderlist::-webkit-scrollbar-track-piece {
+    background: #f5f5f5;
+}  */
 @media screen and (max-width:1366px) {
     .tabs_div button {
         height: 33px;

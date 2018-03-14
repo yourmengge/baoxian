@@ -105,7 +105,8 @@ orderlist.controller('orderlistCtrl', ['$scope', 'APIService', '$http', function
     //     }
 
     // }
-    $scope.editOrder = function (data) {
+    $scope.editOrder = function (data,event) {
+        event.stopPropagation();
         goto_view('main/editorder');
         $scope.save_filter();
         sessionStorage.setItem('editorder', JSON.stringify(data));
@@ -415,7 +416,8 @@ orderlist.controller('orderlistCtrl', ['$scope', 'APIService', '$http', function
         sessionStorage.removeItem('filter');
         $scope.initData();
     }
-    $scope.cancel = function (orderNo) {
+    $scope.cancel = function (orderNo, event) {
+        event.stopPropagation();
         if (confirm('确定要取消订单吗')) {
             loading();
             APIService.cancel_order(orderNo).then(function (res) {

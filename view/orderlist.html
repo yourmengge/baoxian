@@ -84,7 +84,7 @@
             </td>
         </tr>
     </table> -->
-    <div class="list_table" ng-hide="table">
+    <!-- <div class="list_table" ng-hide="table">
         <div class="list_table_tr">
             <div style="flex: 0.3;">
                 <img src="img/bihe-s.png" alt="" ng-hide="openDetail == $index" style="opacity: 0;">
@@ -194,12 +194,6 @@
                         <td ng-hide="zhipei">
                             {{a.directTypeDesc}}
                         </td>
-                        <!-- <td>
-                            车行简称：
-                        </td>
-                        <td>
-                            
-                        </td> -->
                         <td>
                             报案电话：
                         </td>
@@ -217,8 +211,87 @@
             </div>
 
         </div>
+    </div> -->
+    <div class="orderlist">
+        <div class="index_div">
+            <div class="index_blank"></div>
+            <div ng-repeat="a in orderList">{{$index + 1}}</div>
+        </div>
+        <table cellspacing="0">
+            <tr>
+                <th>
+                    订单状态
+                </th>
+                <th>
+                    推修结果
+                </th>
+                <th>
+                    订单类型
+                </th>
+                <th>
+                    查勘员
+                </th>
+                <th>
+                    车牌号
+                </th>
+                <th>
+                    下单时间
+                </th>
+                <th>
+                    出险日期
+                </th>
+                <th>
+                    报案人
+                </th>
+                <th>
+                    报案电话
+                </th>
+                <th>
+                    施救单位
+                </th>
+                <th>
+                    施救地点
+                </th>
+                <th>
+                    推修车行
+                </th>
+                <th>
+                    回厂车行
+                </th>
+                <th>
+                    确认时间
+                </th>
+                <th>
+                    终点误差（米）
+                </th>
+                <th>
+                    操作
+                </th>
+            </tr>
+            <tr ng-repeat="a in orderList" ng-click="detail(a.orderNo)">
+                <td>{{a.statusDesc}}</td>
+                <td>{{a.statusDesc}}</td>
+                <td>{{a.orderTypeDesc}} <a class="directType {{a.directTypeDesc}}">直</a> </td>
+                <td>{{a.inspectorName}}</td>
+                <td>{{a.accidentCarNo}}{{a.insuranceTypeDesc}}</td>
+                <td>{{a.createTime | ToLocal}}</td>
+                <td>{{a.statusDesc}}</td>
+                <td>{{a.accidentDriverName}}</td>
+                <td>{{a.accidentDriverPhone}}</td>
+                <td>{{a.grabFleetName}}</td>
+                <td>{{a.accidentAddress}}</td>
+                <td>{{a.statusDesc}}</td>
+                <td>{{a.statusDesc}}</td>
+                <td>{{a.shop4sConfirmTime | ToLocal}}</td>
+                <td>{{a.fixDiffDistance}}</td>
+                <td>
+                    <span class="button_span" style="min-width:50px;" ng-hide="a.status >= 4 || whichRole == 'liSuan' || whichRole == 'shop4sAdmin'"  ng-click="editOrder(a,$event)">修改</span>
+                    <span class="button_span red_font" style="min-width:50px;" ng-click="cancel(a.orderNo,$event)"  ng-hide="a.status >= 4 || whichRole == 'liSuan' || whichRole == 'shop4sAdmin'">取消</span>
+                </td>
+            </tr>
+        </table>
+
     </div>
-    <!-- <div ui-view class="ui_view_1" ng-hide="none"></div> -->
     <p ng-hide="page_p" class="page_p">
         <button class="page_btn" ng-hide="home" ng-click="Page('home')">首页 </button>
         <button class="page_btn" ng-hide="up" ng-click="Page('up')">上一页 </button>
