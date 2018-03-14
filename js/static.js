@@ -1,10 +1,10 @@
 var
-//     host = 'https://dev.road167.com/extrication';
-// url = 'https://dev.road167.com';
-// appkey = '23637239'
-host = 'https://t.road167.com/extrication';
-url = 'https://t.road167.com';
-appkey = '23726639'
+    host = 'https://dev.road167.com/extrication';
+url = 'https://dev.road167.com';
+appkey = '23637239'
+// host = 'https://t.road167.com/extrication';
+// url = 'https://t.road167.com';
+// appkey = '23726639'
 // host = 'https://www.road167.com/extrication';
 // url = 'https://www.road167.com';
 // appkey = '23638436'
