@@ -122,7 +122,7 @@ driverlocation.controller('driverlocationCtrl', ['$scope', 'APIService', functio
         $scope.detail_doing = 0;
         $scope.detail_done = 0;
         $scope.detail_cancel = 0;
-        $scope.disasterId = sessionStorage.getItem('disasterId_site');
+        $scope.disasterId = sessionStorage.getItem('disasterId');
         $scope.initMap('allmap');
         $scope.get_driver_track_list($scope.disasterId, '', 'ALL', limit);
         $scope.title = sessionStorage.getItem('disaster_title')
