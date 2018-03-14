@@ -6,16 +6,22 @@
         {{title}} <span style="margin-left:40px;color:#f00" ng-hide="status != 2">
         *司机需求量：{{driverNeedcount}}
     </span>
-        <button ng-hide="status == 2" class="button" ui-sref='main.driverlocation'>查看司机位置</button>
+        <!-- <button ng-hide="status == 2" class="button" ui-sref='main.driverlocation'>查看司机位置</button> -->
         <button class="button" ng-hide="status == 2" ng-click="add()">添加司机</button>
         <button class="refrash" style="float:none;" ui-sref='main.review' ng-hide="status == 2">司机退出审核</button>
 
     </h4>
     <div class="alert_bg" ng-click="close()"></div>
 
-    <p id="selected"><button class="selected_button selected_button_click" ng-click="change_search('driver')">普通查询</button><button class="selected_button"
-            ng-click="change_search('fleet')">车队查询</button></p>
-    <p>{{type}}搜索：<input type="text" ng-model="key" class="input" style="width:250px" placeholder="{{message}}">&emsp;&emsp;&emsp;状态：
+    <!-- <p id="selected"><button class="selected_button selected_button_click" ng-click="change_search('driver')">普通查询</button><button class="selected_button"
+            ng-click="change_search('fleet')">车队查询</button></p> -->
+    <!-- <p>{{type}}搜索：<input type="text" ng-model="key" class="input" style="width:250px" placeholder="{{message}}">&emsp;&emsp;&emsp;状态：
+        <select style="width:100px" class="input" name="" ng-model="searchStatus" id="" ng-options="a.id as a.name for a in statusTexts"></select>
+        <button class="button search_button" ng-click="search()">查询</button>
+        <button class="button search_button" ng-click="searchAll()">查看全部</button>
+    </p> -->
+    <p>车队：<input type="text" ng-model="key1" class="input" style="width:250px" placeholder="支持车队名字和调度手机号码模糊查询">&emsp;&emsp;&emsp;
+        司机：<input type="text" ng-model="key2" class="input" style="width:250px" placeholder="支持司机姓名和手机号码模糊查询">&emsp;&emsp;&emsp;状态：
         <select style="width:100px" class="input" name="" ng-model="searchStatus" id="" ng-options="a.id as a.name for a in statusTexts"></select>
         <button class="button search_button" ng-click="search()">查询</button>
         <button class="button search_button" ng-click="searchAll()">查看全部</button>

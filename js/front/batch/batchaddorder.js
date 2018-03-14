@@ -10,12 +10,13 @@ batchaddorder.controller('batchaddorderCtrl', ['$scope', 'APIService', "$http", 
     $scope.initData = function () {
         $scope.table = hide;
         $scope.list = '';
-        $scope.companyNo = sessionStorage.getItem('companyNo').split('-')[0]
-        if($scope.companyNo == 6){
-            $scope.url = 'http://test.road167.com/insurance/picctemplate.xls'
-        }else{
-            $scope.url = 'http://test.road167.com/insurance/template.xls'
-        }
+        $scope.url = 'https://t.road167.com/insurance/picctemplate.xls'
+        // $scope.companyNo = sessionStorage.getItem('companyNo').split('-')[0]
+        // if($scope.companyNo == 6){
+        //     $scope.url = 'http://test.road167.com/insurance/picctemplate.xls'
+        // }else{
+        //     $scope.url = 'http://test.road167.com/insurance/template.xls'
+        // }
         $scope.title = sessionStorage.getItem('disaster_title')
         $scope.disasterId = sessionStorage.getItem('disasterId_site');
     }
@@ -68,15 +69,18 @@ batchaddorder.controller('batchaddorderCtrl', ['$scope', 'APIService', "$http", 
         }
     })
     $scope.submit_order_list = function () {
-        APIService.submit_order_list($scope.remarkId).then(function (res) {
-            if (res.data.http_status == 200) {
-                layer.msg('批量导入成功');
-                setTimeout(function() {
-                    location.reload();
-                }, 2000);
-            } else {
-                isError(res);
-            }
-        })
+        if (confirm('确认是否下单')) {
+            APIService.submit_order_list($scope.remarkId).then(function (res) {
+                if (res.data.http_status == 200) {
+                    layer.msg('批量导入成功');
+                    setTimeout(function () {
+                        location.reload();
+                    }, 2000);
+                } else {
+                    isError(res);
+                }
+            })
+        }
+
     }
 }])

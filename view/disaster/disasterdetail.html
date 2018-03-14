@@ -76,8 +76,8 @@
             <td>{{a.responsibleArea}}</td>
         </tr>
     </table>
-    <h4 class="detail_title">司机&emsp;&emsp;&emsp;&emsp;<button class="button" ng-click="site(detail.disasterId,detail.areaDesc,detail.status,'disasterdriver',detail.driverNeedCnt)">{{message2}}司机（{{driver_counts}}位）</button></h4>
-    <table id="table2excel" cellspacing="0" ng-hide="driverList == ''" cellpadding='10' class="table" style="width:40vw;">
+    <h4 class="detail_title">司机&emsp;&emsp;&emsp;&emsp;<button class="button" ng-click="site(detail.disasterId,detail.areaDesc,detail.status,'disasterdriver',detail.driverNeedCnt)">{{message2}}司机（{{driver_counts}}位）</button> <button ng-hide="driver_counts == 0" class="button" ui-sref='main.driverlocation'>查看司机位置</button></h4>
+    <table id="table2excel" cellspacing="0" ng-hide="detail.status == 2 || detail.status == 0" cellpadding='10' class="table" style="width:40vw;">
         <tr class="table_1_tr">
             <td width='20px;'></td>
             <td>司机姓名</td>
