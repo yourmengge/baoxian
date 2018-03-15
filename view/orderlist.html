@@ -22,7 +22,7 @@
     </p> -->
     <p class="search_div">
         时间类型：
-        <select ng-change="search()" class="input" name="" style="width:100px;" ng-model="timetype" ng-options="a.id as a.name for a in timeTypeTexts"
+        <select class="input" ng-change="search()" name="" style="width:100px;" ng-model="timetype" ng-options="a.id as a.name for a in timeTypeTexts"
             id=""></select>
         开始：
         <input type="date" id="startDay" class="input"> 结束：
@@ -41,7 +41,7 @@
             id=""></select>
         <br>
         <br> 推修结果：
-        <select ng-change="search()" class="input" name="" style="width:100px;" ng-model="resultType" ng-options="a.id as a.name for a in resultTypeTexts"
+        <select ng-change="search()" class="input" name="" style="width:100px;" ng-model="pushResult" ng-options="a.id as a.name for a in resultTypeTexts"
             id=""></select>
         目的地点误差：
         <select ng-change="search()" class="input" name="" style="width:100px;" ng-model="WuCha" ng-options="a.id as a.name for a in WuChaTexts"
@@ -212,7 +212,7 @@
 
         </div>
     </div> -->
-    <div class="orderlist">
+    <div class="orderlist" ng-hide="orderList.length == 0">
         <div class="index_div">
             <div class="index_blank"></div>
             <div ng-repeat="a in orderList">{{$index + 1}}</div>

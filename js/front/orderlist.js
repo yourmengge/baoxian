@@ -17,9 +17,10 @@ orderlist.controller('orderlistCtrl', ['$scope', 'APIService', '$http', function
         $scope.caseNo = '';
         $scope.current = 1;
         $scope.peifu = ''
-        $scope.timetype = '';
+        $scope.timetype = '1';
         $scope.resultType = '';
         $scope.insuranceType = '';
+        $scope.pushResult = '';
         var funcList = []
         funcList = sessionStorage.getItem('funcList').split(',')
         if (contains(funcList, 1017)) {
@@ -44,11 +45,13 @@ orderlist.controller('orderlistCtrl', ['$scope', 'APIService', '$http', function
             $scope.ordertype = a.ordertype;
             $scope.peifu = a.peifu;
             $scope.WuCha = a.wucha;
+            $scope.pushResult = a.pushResult;
             $scope.resultType = a.resultType;
             $scope.insuranceType = a.insuranceType;
             if (a.order_current != '') {
                 $scope.current = a.order_current;
             }
+            $scope.get_date();
             $scope.reset_date();
         }
         $scope.get_order_list();
@@ -69,8 +72,42 @@ orderlist.controller('orderlistCtrl', ['$scope', 'APIService', '$http', function
             }
         })
     }
+    $scope.get_date = function () {
+        var startDate = $('#startDay').val();
+        var endDate = $('#endDay').val();
+        if (startDate != '') {
+            $scope.start = startDate.split("-");
+            if($scope.timetype == 1){
+                $scope.start = $scope.start[0].substr(2, 3) + '' + $scope.start[1] + '' + $scope.start[2];
+                $scope.accidentDateStart = '';
+            }else{
+                $scope.accidentDateStart = $scope.start[0].substr(2, 3) + '' + $scope.start[1] + '' + $scope.start[2];
+                $scope.start = '';
+            }
+            
+        } else {
+            $scope.start = ''
+        }
+        if (endDate != '') {
+            $scope.endDay = endDate.split("-");
+            if($scope.timetype == 1){
+                $scope.endDay = $scope.endDay[0].substr(2, 3) + '' + $scope.endDay[1] + '' + $scope.endDay[2];
+                $scope.accidentDateEnd = '';
+            }else{
+                $scope.accidentDateEnd = $scope.endDay[0].substr(2, 3) + '' + $scope.endDay[1] + '' + $scope.endDay[2];
+                $scope.endDay = ''
+            }
+            
+        } else {
+            $scope.endDay = ''
+        }
+    }
+    // $scope.dateType = function () {
+    //     $scope.save_filter();
+       
+    // }
     $scope.get_order_list = function () {
-        APIService.get_order_list(10, $scope.start, $scope.endDay, $scope.status, $scope.caseNo, $scope.ordertype, $scope.WuCha, $scope.insuranceType, $scope.peifu, ($scope.current - 1) * 10).then(function (res) {
+        APIService.get_order_list(10, $scope.start, $scope.endDay, $scope.status, $scope.caseNo, $scope.ordertype, $scope.WuCha, $scope.insuranceType, $scope.peifu, $scope.accidentDateStart, $scope.accidentDateEnd, $scope.pushResult, ($scope.current - 1) * 10).then(function (res) {
             if (res.data.http_status == 200) {
                 closeloading();
                 $scope.orderList = res.data.orderList;
@@ -92,8 +129,14 @@ orderlist.controller('orderlistCtrl', ['$scope', 'APIService', '$http', function
         })
     }
     $scope.reset_date = function () {
-        var s = $scope.start.substr(0, 2) + '-' + $scope.start.substr(2, 2) + '-' + $scope.start.substr(4, 2)
-        var e = $scope.endDay.substr(0, 2) + '-' + $scope.endDay.substr(2, 2) + '-' + $scope.endDay.substr(4, 2)
+        if($scope.timetype == 1){
+            var s = $scope.start.substr(0, 2) + '-' + $scope.start.substr(2, 2) + '-' + $scope.start.substr(4, 2)
+            var e = $scope.endDay.substr(0, 2) + '-' + $scope.endDay.substr(2, 2) + '-' + $scope.endDay.substr(4, 2)
+        }else{
+            var s = $scope.accidentDateStart.substr(0, 2) + '-' + $scope.accidentDateStart.substr(2, 2) + '-' + $scope.accidentDateStart.substr(4, 2)
+            var e = $scope.accidentDateEnd.substr(0, 2) + '-' + $scope.accidentDateEnd.substr(2, 2) + '-' + $scope.accidentDateEnd.substr(4, 2)
+        }
+
         $('#startDay').val('20' + s)
         $('#endDay').val('20' + e)
     }
@@ -105,7 +148,7 @@ orderlist.controller('orderlistCtrl', ['$scope', 'APIService', '$http', function
     //     }
 
     // }
-    $scope.editOrder = function (data,event) {
+    $scope.editOrder = function (data, event) {
         event.stopPropagation();
         goto_view('main/editorder');
         $scope.save_filter();
@@ -117,7 +160,14 @@ orderlist.controller('orderlistCtrl', ['$scope', 'APIService', '$http', function
     }
     $scope.toexcel = function (status, caseNo) {
         $scope.get_date();
-        window.open(host + urlV1 + '/order/export/third?status=' + $scope.status + '&orderType=' + $scope.ordertype + '&$limit=999&startDay=' + $scope.start + '&endDay=' + $scope.endDay + '&keyword=' + $scope.caseNo + '&fixDiffDistance=' + $scope.WuCha + '&insuranceType=' + $scope.insuranceType + '&DirectType=' + $scope.peifu + '&Authorization=' + APIService.token + '&user-id=' + APIService.userId)
+        // window.open(host + urlV1 + '/order/export/third?status=' + $scope.status + '&orderType=' + $scope.ordertype + '&$limit=999&startDay=' + $scope.start + '&endDay=' +
+        //     $scope.endDay + '&keyword=' + $scope.caseNo + '&fixDiffDistance=' + $scope.WuCha + '&insuranceType=' + $scope.insuranceType + '&DirectType=' + $scope.peifu
+        //     + '&accidentDateStart=' + $scope.accidentDateStart + '&accidentDateEnd=' + $scope.accidentDateEnd + '&pushResult='
+        //     + $scope.pushResult + '&Authorization=' + APIService.token + '&user-id=' + APIService.userId)
+        console.log(host + urlV1 + '/order/export/third?status=' + $scope.status + '&orderType=' + $scope.ordertype + '&$limit=999&startDay=' + $scope.start + '&endDay=' +
+        $scope.endDay + '&keyword=' + $scope.caseNo + '&fixDiffDistance=' + $scope.WuCha + '&insuranceType=' + $scope.insuranceType + '&DirectType=' + $scope.peifu
+        + '&accidentDateStart=' + $scope.accidentDateStart + '&accidentDateEnd=' + $scope.accidentDateEnd + '&pushResult='
+        + $scope.pushResult + '&Authorization=' + APIService.token + '&user-id=' + APIService.userId)
         //window.open('http://dev.road167.com:8080/extrication/v1/order/export');
         // APIService.export().then(function (res) {
         //     console.log(res.data);
@@ -178,7 +228,7 @@ orderlist.controller('orderlistCtrl', ['$scope', 'APIService', '$http', function
 
         $scope.openDetail = -1;
         loading();
-        APIService.get_order_list(10, $scope.start, $scope.endDay, $scope.status, $scope.caseNo, $scope.ordertype, $scope.WuCha, $scope.insuranceType, $scope.peifu, ($scope.current - 1) * 10).then(function (res) {
+        APIService.get_order_list(10, $scope.start, $scope.endDay, $scope.status, $scope.caseNo, $scope.ordertype, $scope.WuCha, $scope.insuranceType, $scope.peifu, $scope.accidentDateStart, $scope.accidentDateEnd, $scope.pushResult, ($scope.current - 1) * 10).then(function (res) {
             if (res.data.http_status == 200) {
                 closeloading();
                 if (res.data.orderCounts == 0) {
@@ -215,31 +265,18 @@ orderlist.controller('orderlistCtrl', ['$scope', 'APIService', '$http', function
         filter.keyword = $scope.caseNo;
         filter.startDate = $scope.start;
         filter.status = $scope.status;
-        filter.resultType = $scope.resultType;
+        filter.pushResult = $scope.pushResult;
         filter.ordertype = $scope.ordertype;
         filter.peifu = $scope.peifu;
         filter.timetype = $scope.timetype;
+        filter.accidentDateStart = $scope.accidentDateStart
+        filter.accidentDateEnd = $scope.accidentDateEnd
         filter.order_current = $scope.current;
         filter.wucha = $scope.WuCha;
         filter.insuranceType = $scope.insuranceType
         sessionStorage.setItem('filter', JSON.stringify(filter));
     }
-    $scope.get_date = function () {
-        var startDate = $('#startDay').val();
-        var endDate = $('#endDay').val();
-        if (startDate != '') {
-            $scope.start = startDate.split("-");
-            $scope.start = $scope.start[0].substr(2, 3) + '' + $scope.start[1] + '' + $scope.start[2];
-        } else {
-            $scope.start = ''
-        }
-        if (endDate != '') {
-            $scope.endDay = endDate.split("-");
-            $scope.endDay = $scope.endDay[0].substr(2, 3) + '' + $scope.endDay[1] + '' + $scope.endDay[2];
-        } else {
-            $scope.endDay = ''
-        }
-    }
+
     $scope.detail = function (orderNo) {
         $scope.save_filter();
         sessionStorage.setItem('orderNo', orderNo);
@@ -269,14 +306,17 @@ orderlist.controller('orderlistCtrl', ['$scope', 'APIService', '$http', function
             $scope.save_filter();
             $scope.page_show();
             loading();
-            APIService.paging(urlV1 + urlThird + urlOrder + '?startDay=' + $scope.start + '&endDay=' + $scope.endDay + '&status=' + $scope.status + '&orderType=' + $scope.ordertype + '&keyword=' + $scope.caseNo + '&fixDiffDistance=' + $scope.WuCha + '&insuranceType=' + $scope.insuranceType + '&DirectType=' + $scope.peifu, limit, type, $scope.pageCount, $scope.current).then(function (res) {
-                if (res.data.http_status == 200) {
-                    closeloading();
-                    $scope.orderList = res.data.orderList;
-                } else {
-                    isError(res)
-                }
-            })
+            APIService.paging(urlV1 + urlThird + urlOrder + '?startDay=' + $scope.start + '&endDay=' + $scope.endDay + '&status=' + $scope.status +
+                '&orderType=' + $scope.ordertype + '&keyword=' + $scope.caseNo + '&fixDiffDistance=' + $scope.WuCha + '&insuranceType=' + $scope.insuranceType
+                + '&DirectType=' + $scope.peifu + '&accidentDateStart=' + $scope.accidentDateStart + '&accidentDateEnd=' + $scope.accidentDateEnd + '&pushResult='
+                + $scope.pushResult, limit, type, $scope.pageCount, $scope.current).then(function (res) {
+                    if (res.data.http_status == 200) {
+                        closeloading();
+                        $scope.orderList = res.data.orderList;
+                    } else {
+                        isError(res)
+                    }
+                })
         } else {
             layer.msg('开始时间应在结束时间之前');
         }
@@ -295,10 +335,10 @@ orderlist.controller('orderlistCtrl', ['$scope', 'APIService', '$http', function
         }
     }
     $scope.timeTypeTexts = [{
-        id: '',
+        id: '1',
         name: '下单时间'
     }, {
-        id: 'THIRD_CAR',
+        id: '2',
         name: '出险时间'
     }]
     $scope.resultTypeTexts = [{
@@ -401,11 +441,7 @@ orderlist.controller('orderlistCtrl', ['$scope', 'APIService', '$http', function
     },
     {
         id: 1,
-        name: '事故订单'
-    },
-    {
-        id: 2,
-        name: '非事故订单'
+        name: '施救'
     },
     {
         id: 3,
