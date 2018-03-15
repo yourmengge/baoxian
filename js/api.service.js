@@ -147,8 +147,8 @@ Road167.factory('APIService', function ($http) {
 
     //获取订单列表
     service.get_order_list = function (limit, startDay, endDay, status, caseno, ordertype, wucha, insuranceType, peifu, accidentDateStart, accidentDateEnd, pushResult,offset) {
-        return service.get(host + urlV1 + urlThird + urlOrder + '?$limit=' + limit + '&$offset=' + offset + '&startDay=' + startDay + '&endDay=' + endDay + '&status=' + status + '&keyword=' + caseno + '&orderType=' + ordertype + '&fixDiffDistance=' + wucha + '&insuranceType=' + insuranceType + '&DirectType=' + peifu
-            + '&accidentDateStart=' + accidentDateStart + '&accidentDateEnd=' + accidentDateEnd + '&pushResult=' + pushResult);
+        return service.get(host + urlV1 + urlThird + urlOrder + '?$limit=' + limit + '&$offset=' + offset + '&startDay=' + startDay + '&endDay=' + endDay + '&OrderStatus2=' + status + '&keyword=' + caseno + '&orderType=' + ordertype + '&fixDiffDistance=' + wucha + '&insuranceType=' + insuranceType + '&DirectType=' + peifu
+            + '&accidentDateStart=' + accidentDateStart + '&accidentDateEnd=' + accidentDateEnd + '&PushResult=' + pushResult);
     }
 
     //获取三者车列表

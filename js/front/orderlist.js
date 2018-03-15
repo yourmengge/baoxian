@@ -11,7 +11,7 @@ orderlist.controller('orderlistCtrl', ['$scope', 'APIService', '$http', function
         $('#startDay').val(ToLocalTime(today - 2678400000));
         $('#endDay').val(ToLocalTime(today));
         $scope.get_date();
-        $scope.status = 0;
+        $scope.status = $scope.statusTexts[0].id;
         $scope.ordertype = '';
         $scope.WuCha = '';
         $scope.caseNo = '';
@@ -77,34 +77,34 @@ orderlist.controller('orderlistCtrl', ['$scope', 'APIService', '$http', function
         var endDate = $('#endDay').val();
         if (startDate != '') {
             $scope.start = startDate.split("-");
-            if($scope.timetype == 1){
+            if ($scope.timetype == 1) {
                 $scope.start = $scope.start[0].substr(2, 3) + '' + $scope.start[1] + '' + $scope.start[2];
                 $scope.accidentDateStart = '';
-            }else{
+            } else {
                 $scope.accidentDateStart = $scope.start[0].substr(2, 3) + '' + $scope.start[1] + '' + $scope.start[2];
                 $scope.start = '';
             }
-            
+
         } else {
             $scope.start = ''
         }
         if (endDate != '') {
             $scope.endDay = endDate.split("-");
-            if($scope.timetype == 1){
+            if ($scope.timetype == 1) {
                 $scope.endDay = $scope.endDay[0].substr(2, 3) + '' + $scope.endDay[1] + '' + $scope.endDay[2];
                 $scope.accidentDateEnd = '';
-            }else{
+            } else {
                 $scope.accidentDateEnd = $scope.endDay[0].substr(2, 3) + '' + $scope.endDay[1] + '' + $scope.endDay[2];
                 $scope.endDay = ''
             }
-            
+
         } else {
             $scope.endDay = ''
         }
     }
     // $scope.dateType = function () {
     //     $scope.save_filter();
-       
+
     // }
     $scope.get_order_list = function () {
         APIService.get_order_list(10, $scope.start, $scope.endDay, $scope.status, $scope.caseNo, $scope.ordertype, $scope.WuCha, $scope.insuranceType, $scope.peifu, $scope.accidentDateStart, $scope.accidentDateEnd, $scope.pushResult, ($scope.current - 1) * 10).then(function (res) {
@@ -129,10 +129,10 @@ orderlist.controller('orderlistCtrl', ['$scope', 'APIService', '$http', function
         })
     }
     $scope.reset_date = function () {
-        if($scope.timetype == 1){
+        if ($scope.timetype == 1) {
             var s = $scope.start.substr(0, 2) + '-' + $scope.start.substr(2, 2) + '-' + $scope.start.substr(4, 2)
             var e = $scope.endDay.substr(0, 2) + '-' + $scope.endDay.substr(2, 2) + '-' + $scope.endDay.substr(4, 2)
-        }else{
+        } else {
             var s = $scope.accidentDateStart.substr(0, 2) + '-' + $scope.accidentDateStart.substr(2, 2) + '-' + $scope.accidentDateStart.substr(4, 2)
             var e = $scope.accidentDateEnd.substr(0, 2) + '-' + $scope.accidentDateEnd.substr(2, 2) + '-' + $scope.accidentDateEnd.substr(4, 2)
         }
@@ -160,14 +160,10 @@ orderlist.controller('orderlistCtrl', ['$scope', 'APIService', '$http', function
     }
     $scope.toexcel = function (status, caseNo) {
         $scope.get_date();
-        // window.open(host + urlV1 + '/order/export/third?status=' + $scope.status + '&orderType=' + $scope.ordertype + '&$limit=999&startDay=' + $scope.start + '&endDay=' +
-        //     $scope.endDay + '&keyword=' + $scope.caseNo + '&fixDiffDistance=' + $scope.WuCha + '&insuranceType=' + $scope.insuranceType + '&DirectType=' + $scope.peifu
-        //     + '&accidentDateStart=' + $scope.accidentDateStart + '&accidentDateEnd=' + $scope.accidentDateEnd + '&pushResult='
-        //     + $scope.pushResult + '&Authorization=' + APIService.token + '&user-id=' + APIService.userId)
-        console.log(host + urlV1 + '/order/export/third?status=' + $scope.status + '&orderType=' + $scope.ordertype + '&$limit=999&startDay=' + $scope.start + '&endDay=' +
-        $scope.endDay + '&keyword=' + $scope.caseNo + '&fixDiffDistance=' + $scope.WuCha + '&insuranceType=' + $scope.insuranceType + '&DirectType=' + $scope.peifu
-        + '&accidentDateStart=' + $scope.accidentDateStart + '&accidentDateEnd=' + $scope.accidentDateEnd + '&pushResult='
-        + $scope.pushResult + '&Authorization=' + APIService.token + '&user-id=' + APIService.userId)
+        window.open(host + urlV1 + '/order/export/third?OrderStatus2=' + $scope.status + '&orderType=' + $scope.ordertype + '&$limit=999&startDay=' + $scope.start + '&endDay=' +
+            $scope.endDay + '&keyword=' + $scope.caseNo + '&fixDiffDistance=' + $scope.WuCha + '&insuranceType=' + $scope.insuranceType + '&DirectType=' + $scope.peifu
+            + '&accidentDateStart=' + $scope.accidentDateStart + '&accidentDateEnd=' + $scope.accidentDateEnd + '&PushResult='
+            + $scope.pushResult + '&Authorization=' + APIService.token + '&user-id=' + APIService.userId)
         //window.open('http://dev.road167.com:8080/extrication/v1/order/export');
         // APIService.export().then(function (res) {
         //     console.log(res.data);
@@ -306,9 +302,9 @@ orderlist.controller('orderlistCtrl', ['$scope', 'APIService', '$http', function
             $scope.save_filter();
             $scope.page_show();
             loading();
-            APIService.paging(urlV1 + urlThird + urlOrder + '?startDay=' + $scope.start + '&endDay=' + $scope.endDay + '&status=' + $scope.status +
+            APIService.paging(urlV1 + urlThird + urlOrder + '?startDay=' + $scope.start + '&endDay=' + $scope.endDay + '&OrderStatus2=' + $scope.status +
                 '&orderType=' + $scope.ordertype + '&keyword=' + $scope.caseNo + '&fixDiffDistance=' + $scope.WuCha + '&insuranceType=' + $scope.insuranceType
-                + '&DirectType=' + $scope.peifu + '&accidentDateStart=' + $scope.accidentDateStart + '&accidentDateEnd=' + $scope.accidentDateEnd + '&pushResult='
+                + '&DirectType=' + $scope.peifu + '&accidentDateStart=' + $scope.accidentDateStart + '&accidentDateEnd=' + $scope.accidentDateEnd + '&PushResult='
                 + $scope.pushResult, limit, type, $scope.pageCount, $scope.current).then(function (res) {
                     if (res.data.http_status == 200) {
                         closeloading();
@@ -345,16 +341,16 @@ orderlist.controller('orderlistCtrl', ['$scope', 'APIService', '$http', function
         id: '',
         name: '全部'
     }, {
-        id: 'THIRD_CAR',
+        id: 'SUCCESS',
         name: '成功'
     }, {
-        id: 'THIRD_CAR',
+        id: 'SAME',
         name: '准确'
     }, {
-        id: 'THIRD_CAR',
+        id: 'BE_CONFIRMED',
         name: '待确认'
     }, {
-        id: 'THIRD_CAR',
+        id: 'FAIL',
         name: '失败'
     }]
     $scope.insuranceTypeTexts = [{
@@ -378,38 +374,29 @@ orderlist.controller('orderlistCtrl', ['$scope', 'APIService', '$http', function
         name: '非直赔'
     }]
     $scope.statusTexts = [{
-        id: 0,
+        id: 'THIRD_ALL',
         name: '全部订单'
     },
     {
-        id: 1,
+        id: 'THIRD_ORDER',
         name: '待接单'
     },
     {
-        id: 2,
+        id: 'THIRD_ALLOCATE',
         name: '待分配'
     },
     {
-        id: 3,
+        id: 'THIRD_DOING',
         name: '进行中'
     },
     {
-        id: 4,
+        id: 'THIRD_FINISH',
         name: '已完成'
     },
     {
-        id: 8,
-        name: '查勘取消'
-    },
-    {
-        id: 81,
-        name: '保险人员取消'
-    },
-    {
-        id: 9,
-        name: '历史未完成'
-    }
-    ]
+        id: 'THIRD_CANCEL',
+        name: '已取消'
+    }]
     $scope.WuChaTexts = [{
         id: '',
         name: '全部'
@@ -448,6 +435,48 @@ orderlist.controller('orderlistCtrl', ['$scope', 'APIService', '$http', function
         name: '非施救'
     }
     ]
+    $scope.switchColor = function (text) {
+        switch (text) {
+            case '待接单':
+                return 'font_yellow'
+            case '待分配':
+                return 'font_yellow'
+            case '进行中':
+                return 'font_green'
+            case '已完成':
+                return '';
+            case '已取消':
+                return 'font_gray'
+            case '历史未完成':
+                return 'font_gray'
+            default:
+                break;
+        }
+    }
+    $scope.switchImg = function (type) {
+        switch (type) {
+            case 0:
+                return 'img/icon_daiqueren.png'
+            case 1:
+                return 'img/icon_yiwancheng.png'
+            case 2:
+                return 'img/icon_zhunque.png'
+            case -1:
+                return 'img/icon_shibai.png'
+            default:
+                return '';
+        }
+    }
+    $scope.switchCarType = function (type) {
+        switch (type) {
+            case 1:
+                return 'img/icon_sanzhe.png'
+            case 2:
+                return 'img/icon_biaodi.png'
+            default:
+                break;
+        }
+    }
     $scope.searchAll = function () {
         sessionStorage.removeItem('filter');
         $scope.initData();

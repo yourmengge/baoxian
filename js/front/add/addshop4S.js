@@ -22,7 +22,8 @@ addshop4S.controller('addshop4SCtrl', ['$scope', 'APIService', "$http", function
             "simpleName": '',
             "address": '',
             "longitude": '',
-            "latitude": ''
+            "latitude": '',
+            'allowedDiff': ''
         }
         // $scope.data.noPushFixCode = false;
         if (JSON.parse(sessionStorage.getItem('shop4S_data') != '') && JSON.parse(sessionStorage.getItem('shop4S_data') != undefined)) {
@@ -164,8 +165,19 @@ addshop4S.controller('addshop4SCtrl', ['$scope', 'APIService', "$http", function
             $scope.counts3 = 1;
         }
     });
-    $scope.$watch('counts1  + counts3  + counts4', function (newValue, oldValue) {
-        if (newValue == 3) {
+    $scope.$watch('data.allowedDiff', function (newValue, oldValue) {
+        if (newValue == '' || newValue == null) {
+            $('#submit').addClass('button_disabled').attr("disabled", 'disabled');
+            $scope.counts5 = 0;
+        } else {
+            if (newValue > 1 && newValue < 9999) {
+                $scope.counts5 = 1;
+            }
+
+        }
+    });
+    $scope.$watch('counts1  + counts3  + counts4 + counts5', function (newValue, oldValue) {
+        if (newValue == 4) {
             $('#submit').removeAttr("disabled").removeClass('button_disabled');
         } else {
             $('#submit').addClass('button_disabled').attr("disabled", 'disabled');

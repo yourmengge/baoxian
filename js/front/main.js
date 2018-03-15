@@ -53,15 +53,32 @@ main.controller('mainCtrl', ['$scope', 'APIService', function ($scope, APIServic
     }
     $scope.openFirst = function (data, index) {
         $scope.menuList[index].isActive = !$scope.menuList[index].isActive;
-        sessionStorage.setItem('menuList', JSON.stringify($scope.menuList));
         if (data.secondList.length == 0) {
             goto_view(data.id)
-        }else if($scope.menuList[index].isActive){
-            goto_view(data.secondList[0].url)
+        } else if ($scope.menuList[index].isActive) {
+            $scope.menuList[1].isActive = false;
+            $scope.menuList[5].isActive = false;
+            $scope.gotoView(data.secondList[0], data, 0)
         }
     }
-    $scope.gotoView = function (url) {
-        goto_view(url)
+    $scope.gotoView = function (data, a, index) {
+        for (let i in $scope.menuList) {
+            if ($scope.menuList[i].id == a.id) {
+                for (let j in $scope.menuList[i].secondList) {
+                    if (j == index) {
+                        $scope.menuList[i].secondList[index].isActive = true;
+                    } else {
+                        $scope.menuList[i].secondList[j].isActive = false;
+                    }
+                }
+            } else {
+                for (let j in $scope.menuList[i].secondList) {
+                    $scope.menuList[i].secondList[j].isActive = false;
+                }
+            }
+        }
+        sessionStorage.setItem('menuList', JSON.stringify($scope.menuList));
+        goto_view(data.url)
     }
     $scope.read_message = function () {
         $('.message_center').toggle();

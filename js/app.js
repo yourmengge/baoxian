@@ -324,19 +324,24 @@ function reloadMenuList() {
         id: 'orderInfo',
         secondList: [{
             name: '订单列表',
-            url: 'main/orderlist'
+            url: 'main/orderlist',
+            isActive:false
         }, {
             name: '定损处理',
-            url: 'orderlist'
+            url: 'orderlist',
+            isActive:false
         }, {
             name: '查勘回厂率',
-            url: 'main/backtotal'
+            url: 'main/backtotal',
+            isActive:false
         }, {
             name: '推修厂回厂率',
-            url: 'main/backtotalS'
+            url: 'main/backtotalS',
+            isActive:false
         }, {
             name: '评价信息',
-            url: 'main/evaluation'
+            url: 'main/evaluation',
+            isActive:false
         }],
         isActive: false
     }, {
@@ -346,38 +351,45 @@ function reloadMenuList() {
         isActive: false
     }, {
         name: '修理厂管理',
-        id: 'orderInfo',
+        id: 'shop4s',
         secondList: [{
             name: '推修厂',
-            url: 'main/shop4S'
+            url: 'main/shop4S',
+            isActive:false
         }, {
             name: '修理厂',
-            url: 'main/nocooperation'
+            url: 'main/nocooperation',
+            isActive:false
         }, {
             name: '车辆品牌',
-            url: 'main/brand'
+            url: 'main/brand',
+            isActive:false
         }],
         isActive: false
     }, {
         name: '车辆管理',
-        id: 'orderInfo',
+        id: 'car',
         secondList: [{
             name: '车队列表',
-            url: 'main/companyfleet'
+            url: 'main/companyfleet',
+            isActive:false
         }, {
             name: '效率统计',
-            url: 'main/datastatistics'
+            url: 'main/datastatistics',
+            isActive:false
         }],
         isActive: false
     }, {
         name: '信息采集',
-        id: 'orderInfo',
+        id: 'caiji',
         secondList: [{
             name: '三者信息',
-            url: 'main/threecars'
+            url: 'main/threecars',
+            isActive:false
         }, {
             name: '车商采集',
-            url: 'main/threecarsS'
+            url: 'main/threecarsS',
+            isActive:false
         }],
         isActive: false
     }, {

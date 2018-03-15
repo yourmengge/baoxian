@@ -44,30 +44,13 @@
                     <input class="input" type="text" ng-model="address" placeholder="请从地图上选择" readonly ng-click="selectMap('车行')">
                 </td>
             </tr>
-            <!-- <tr>
-                <td>售后经理：</td>
-                <td><input class="input" type="text" ng-model="data.afterSaleMgr" ng-change="change()"></td>
-            </tr>
             <tr>
-                <td><span class="require"></span>电话：</td>
-                <td><input class="input" type="text" ng-model="data.afterSalePhone" ng-change="change()"></td>
+                <td>
+                    <span class="require"></span>允许定损偏差（米）：</td>
+                <td>
+                    <input placeholder="请输入允许的定损拍照位置偏差" class="input" type="number" ng-change="change()" min="1" max="9999" ng-model="data.allowedDiff">
+                </td>
             </tr>
-            <tr>
-                <td>售后经理2：</td>
-                <td><input class="input" type="text" ng-model="data.afterSaleMgr2" ng-change="change()"></td>
-            </tr>
-            <tr>
-                <td>电话2：</td>
-                <td><input class="input" type="text" ng-model="data.afterSalePhone2" ng-change="change()"></td>
-            </tr>
-            <tr>
-                <td>车商人员</td>
-                <td><input class="input" type="text" ng-model="data.dealer" ng-change="change()"></td>
-            </tr>
-            <tr>
-                <td>电话：</td>
-                <td><input class="input" type="text" ng-model="data.dealerPhone" ng-change="change()"></td>
-            </tr> -->
         </table>
         <br>
 

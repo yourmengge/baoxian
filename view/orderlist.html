@@ -212,7 +212,7 @@
 
         </div>
     </div> -->
-    <div class="orderlist" ng-hide="orderList.length == 0">
+    <div class="orderlist" ng-hide="table">
         <div class="index_div">
             <div class="index_blank"></div>
             <div ng-repeat="a in orderList">{{$index + 1}}</div>
@@ -222,7 +222,7 @@
                 <th>
                     订单状态
                 </th>
-                <th>
+                <th style="width:110px">
                     推修结果
                 </th>
                 <th>
@@ -269,24 +269,27 @@
                 </th>
             </tr>
             <tr ng-repeat="a in orderList" ng-click="detail(a.orderNo)">
-                <td>{{a.statusDesc}}</td>
-                <td>{{a.statusDesc}}</td>
-                <td>{{a.orderTypeDesc}} <a class="directType {{a.directTypeDesc}}">直</a> </td>
+                <td ng-class="switchColor(a.statusDesc)">{{a.statusDesc}}</td>
+                <td style="text-align: left;width:110px">
+                    <img ng-src="{{switchImg(a.pushFixResult)}}" class="pushImg" alt=""><span>{{a.pushFixResultDesc}}</span></td>
+                <td>
+                    <a ng-class="a.directType == 1?'directType_zhi':'directType'">直</a> {{a.orderTypeDesc}}</td>
                 <td>{{a.inspectorName}}</td>
-                <td>{{a.accidentCarNo}}{{a.insuranceTypeDesc}}</td>
+                <td style="text-align: left;"><img ng-src="{{switchCarType(a.insuranceType)}}" class="carImg" alt=""><span>{{a.accidentCarNo}}</span></td>
                 <td>{{a.createTime | ToLocal}}</td>
                 <td>{{a.statusDesc}}</td>
                 <td>{{a.accidentDriverName}}</td>
                 <td>{{a.accidentDriverPhone}}</td>
                 <td>{{a.grabFleetName}}</td>
                 <td>{{a.accidentAddress}}</td>
-                <td>{{a.statusDesc}}</td>
-                <td>{{a.statusDesc}}</td>
+                <td>{{a.shop4sName}}</td>
+                <td>{{a.shop4sNameFinal}}</td>
                 <td>{{a.shop4sConfirmTime | ToLocal}}</td>
                 <td>{{a.fixDiffDistance}}</td>
                 <td>
-                    <span class="button_span" style="min-width:50px;" ng-hide="a.status >= 4 || whichRole == 'liSuan' || whichRole == 'shop4sAdmin'"  ng-click="editOrder(a,$event)">修改</span>
-                    <span class="button_span red_font" style="min-width:50px;" ng-click="cancel(a.orderNo,$event)"  ng-hide="a.status >= 4 || whichRole == 'liSuan' || whichRole == 'shop4sAdmin'">取消</span>
+                    <span class="button_span" style="min-width:50px;" ng-hide="a.status >= 4 || whichRole == 'liSuan' || whichRole == 'shop4sAdmin'"
+                        ng-click="editOrder(a,$event)">修改</span>
+                    <span class="button_span red_font" style="min-width:50px;" ng-click="cancel(a.orderNo,$event)" ng-hide="a.status >= 4 || whichRole == 'liSuan' || whichRole == 'shop4sAdmin'">取消</span>
                 </td>
             </tr>
         </table>

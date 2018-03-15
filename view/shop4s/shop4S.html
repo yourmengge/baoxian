@@ -39,24 +39,9 @@
             <td style="width: 150px;" ng-hide="zhipeiDiv">
                 直赔资质
             </td>
-            <!-- <td>
-                售后经理
-            </td>
             <td>
-                电话
+                允许定损偏差（米）
             </td>
-            <td>
-                售后经理2
-            </td>
-            <td>
-                电话2
-            </td>
-            <td>
-                车商人员
-            </td>
-            <td>
-                电话
-            </td> -->
             <td style="min-width:130px;">
                 操作
             </td>
@@ -89,24 +74,9 @@
             <td ng-hide="a.type == 0">
                 *无直赔资质
             </td>
-            <!-- <td>
-                {{a.afterSaleMgr}}
-            </td>
             <td>
-                {{a.afterSalePhone}}
+                {{a.allowedDiff}}
             </td>
-            <td>
-                {{a.afterSaleMgr2}}
-            </td>
-            <td>
-                {{a.afterSalePhone2}}
-            </td>
-            <td>
-                {{a.dealer}}
-            </td>
-            <td>
-                {{a.dealerPhone}}
-            </td> -->
             <td>
                 <span ng-hide="a.type == 1" class="button_span" style="min-width:50px;" ng-click="goto('add',a)">人员管理</span>
                 <span ng-hide="a.type == 1" class="button_span" style="min-width:50px;" ng-click="goto('update',a)">修改</span>
