@@ -1,4 +1,4 @@
-var insurance = angular.module('insurance', ['threecars', 'caijidetail', 'batchnocooperation', 'nocooperation', 'addnocooperation', 'confirmation', 'backinfo', 'backtotal', 'brandcfg', 'member', 'brand', 'shop4sorder', 'shop4snum', 'updateFix', 'auditDetail', 'audit', 'third', 'auth', 'datastatistics', 'paymentdetail', 'batchinspector', 'payment', 'inspector', 'companyfleet', 'addshop4S', 'batchshop4S', 'shop4S', 'nar_location', 'disasterdriverorderlist', 'disastermap', 'driverordertotle', 'disasterorderlist', 'totleorder', 'batchaddorder', 'review', 'driverlocation', 'disasterdriver', 'disasterinspector', 'site', 'disasterdetail', 'disaster', 'createdisaster', 'addorder_nar', 'selectlocation', 'editorder', 'track', 'detail', 'team', 'ui.router', 'evaluation', 'adddriver', 'map', 'login', 'Road167', 'fixaddress', 'main', 'addorder', 'orderlist']);
+var insurance = angular.module('insurance', ['damagelist','threecars', 'caijidetail', 'batchnocooperation', 'nocooperation', 'addnocooperation', 'confirmation', 'backinfo', 'backtotal', 'brandcfg', 'member', 'brand', 'shop4sorder', 'shop4snum', 'updateFix', 'auditDetail', 'audit', 'third', 'auth', 'datastatistics', 'paymentdetail', 'batchinspector', 'payment', 'inspector', 'companyfleet', 'addshop4S', 'batchshop4S', 'shop4S', 'nar_location', 'disasterdriverorderlist', 'disastermap', 'driverordertotle', 'disasterorderlist', 'totleorder', 'batchaddorder', 'review', 'driverlocation', 'disasterdriver', 'disasterinspector', 'site', 'disasterdetail', 'disaster', 'createdisaster', 'addorder_nar', 'selectlocation', 'editorder', 'track', 'detail', 'team', 'ui.router', 'evaluation', 'adddriver', 'map', 'login', 'Road167', 'fixaddress', 'main', 'addorder', 'orderlist']);
 var t;
 insurance.config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.when('', '/login');
@@ -15,6 +15,10 @@ insurance.config(function ($stateProvider, $urlRouterProvider) {
         .state('main.addshop4S', {
             url: '/addshop4S',
             templateUrl: 'view/add/addshop4S.html'
+        })
+        .state('main.damagelist', {
+            url: '/damagelist',
+            templateUrl: 'view/damage/damagelist.html'
         })
         .state('main.threecars', {
             url: '/threecars',
@@ -328,7 +332,7 @@ function reloadMenuList() {
             isActive:false
         }, {
             name: '定损处理',
-            url: 'orderlist',
+            url: 'main/damagelist',
             isActive:false
         }, {
             name: '查勘回厂率',

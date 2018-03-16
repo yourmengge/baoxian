@@ -1,0 +1,116 @@
+<div class="adddriver" ng-controller="damagelistCtrl" ng-init="initData()">
+    <h2>定损处理</h2>
+    <p class="search_div">
+        上传时间：
+        <input type="date" id="startDay" class="input"> 至：
+        <input type="date" id="endDay" class="input">
+        <span >查看范围：</span>
+        <select ng-change="search()" class="input" name="" style="width:100px;" ng-model="select" ng-options="a.id as a.name for a in selectText"
+            id=""></select>
+        <input type="text" ng-model="keyword" placeholder="请输入车牌号、案件号、定损点查询" class="input" style="width:230px;" ng-model="keyword">
+        <button class="button" ng-click="search()">查询</button>
+        <button class="button" ng-click="searchAll()">显示全部</button>
+    </p>
+    <table cellspacing="0" cellpadding='10' class="table">
+        <tr class="table_1_tr">
+            <td>
+            </td>
+            <td>
+                车牌号
+            </td>
+            <td>
+                案件号
+            </td>
+            <td>
+                出险日期
+            </td>
+            <td>
+                定损点
+            </td>
+            <td>
+                上传时间
+            </td>
+            <td>
+                上传人
+            </td>
+            <td>
+                备注
+            </td>
+            <td>
+                下载
+            </td>
+        </tr>
+        <tr ng-repeat="a in shopList">
+            <td>
+                {{$index + 1}}
+            </td>
+            <td>
+                {{a.type == 1 ?'*无推修码':a.pushFixCode}}
+            </td>
+            <td>
+                {{a.fullName}}
+            </td>
+            <td>
+                {{a.simpleName}}
+            </td>
+            <td>
+                {{a.type == 1 ? '*无地址': a.address}}
+            </td>
+            <td>
+
+            </td>
+            <td>
+                *无直赔资质
+            </td>
+            <td>
+                {{a.allowedDiff}}
+            </td>
+            <td></td>
+            <td>
+                <span class="button_span" style="min-width:50px;" ng-click="goto('update',a)">新（{{}}）</span>
+                <span class="button_span" style="min-width:50px;" ng-click="delete(a)">所有（{{}}）</span>
+            </td>
+        </tr>
+    </table>
+    <div class="alert_bg" ng-click="close()"></div>
+    <div class="zhipeilist">
+        <div class="zhipeilist_title">
+            <h3 style="float:left;margin-left:6px;">
+                操作记录
+            </h3>
+            <img src="img/guanbi-dianji.png" alt="" class="close_img" ng-click="close()" style="margin-bottom: 0;margin-top:12px">
+
+        </div>
+        <div class="zhipeilist_div_title">
+            <div>
+                操作人员
+            </div>
+            <div>
+                操作时间
+            </div>
+            <div>
+                操作内容
+            </div>
+        </div>
+        <div class="zhipeilist_div2">
+            <div ng-repeat="a in zhipeilist" class="zhipeilist_div">
+                <div>
+                    {{a.createByDesc}}
+                </div>
+                <div>
+                    {{a.createTime | ToLocal}}
+                </div>
+                <div>
+                    {{a.operateContent}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <p ng-hide="page_p" class="page_p">
+        <button class="page_btn" ng-hide="home" ng-click="Page('home')">首页 </button>
+        <button class="page_btn" ng-hide="up" ng-click="Page('up')">上一页 </button>
+        <button class="page_btn current_btn" disabled>{{current}}</button>
+        <button class="page_btn" ng-hide="down" ng-click="Page('down')">下一页 </button>
+        <button class="page_btn" ng-hide="end" ng-click="Page('end')">尾页 </button> 总页数:{{pageCount}}
+    </p>
+</div>

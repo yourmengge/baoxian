@@ -94,6 +94,7 @@ nocooperation.controller('nocooperationCtrl', ['$scope', 'APIService', function 
             a.pushFixCode = '';
             a.simpleName = '';
             a.branchCompany = ''
+            a.allowedDiff = ''
             sessionStorage.setItem('shop4S_data', JSON.stringify(a));
             sessionStorage.removeItem('shop4S')
             goto_view('main/addshop4S')

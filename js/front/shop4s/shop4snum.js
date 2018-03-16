@@ -20,6 +20,35 @@ shop4snum.controller('shop4snumCtrl', ['$scope', 'APIService', function ($scope,
             }
         })
     }
+    $scope.location = function (data) {
+        if (confirm('确定' + (data.locateDiffLimit ? '关闭' : '开启') + '该人员的定损位置限定')) {
+            APIService.dingsun_location(data.id, !data.locateDiffLimit).then(function (res) {
+                if(res.data.http_status == 200){
+                    layer.msg('切换成功');
+                    setTimeout(() => {
+                        $scope.initData();
+                    }, 2000);
+                }else{
+                    isError(res)
+                }
+            })
+        }
+
+    }
+    $scope.deletePhone = function (data) {
+        if (confirm('确定将解除该账号绑定的手机，该账号可以重新绑定新的手机')) {
+            APIService.delete_phone(data.userId).then(function (res) {
+                if (res.data.http_status == 200) {
+                    layer.msg('解绑成功')
+                    setTimeout(function () {
+                        $scope.initData();
+                    }, 2000);
+                } else {
+                    isError(res)
+                }
+            })
+        }
+    }
     $scope.update = function (data) {
         $('.alert_bg').css('display', 'block');
         $scope.edit_div = show;

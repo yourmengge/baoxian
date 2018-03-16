@@ -146,7 +146,7 @@ Road167.factory('APIService', function ($http) {
     }
 
     //获取订单列表
-    service.get_order_list = function (limit, startDay, endDay, status, caseno, ordertype, wucha, insuranceType, peifu, accidentDateStart, accidentDateEnd, pushResult,offset) {
+    service.get_order_list = function (limit, startDay, endDay, status, caseno, ordertype, wucha, insuranceType, peifu, accidentDateStart, accidentDateEnd, pushResult, offset) {
         return service.get(host + urlV1 + urlThird + urlOrder + '?$limit=' + limit + '&$offset=' + offset + '&startDay=' + startDay + '&endDay=' + endDay + '&OrderStatus2=' + status + '&keyword=' + caseno + '&orderType=' + ordertype + '&fixDiffDistance=' + wucha + '&insuranceType=' + insuranceType + '&DirectType=' + peifu
             + '&accidentDateStart=' + accidentDateStart + '&accidentDateEnd=' + accidentDateEnd + '&PushResult=' + pushResult);
     }
@@ -621,6 +621,16 @@ Road167.factory('APIService', function ($http) {
     //获取直赔确认书
     service.get_zhipei_confirmation = function (orderNo) {
         return service.get(host + urlV1 + '/auth-direct-billing/order/' + orderNo)
+    }
+
+    //定损定位
+    service.dingsun_location = function (id, type) {
+        return service.patch(host + urlV1 + '/shop4s/user/' + id + '/limit/' + type)
+    }
+
+    //定损列表
+    service.get_damage_list = function (startDay, endDay, keyword, offset, limit) {
+        return service.get(host + urlV1 + '/loss-decision/page?startDay=' + startDay + '&endDay=' + endDay + '&keywords=' + keyword + '&$offset=' + offset + '&$limit=' + limit)
     }
 
     // //导出订单

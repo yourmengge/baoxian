@@ -2,7 +2,7 @@
     <h2>人员管理</h2>
     <button class="goback" ng-click="back()"></button>
     <p class="search_div">
-        <button class="button" style="float:left" ng-click="addDriver()">
+        <button class="button" style="float:left;margin-left: -5px;" ng-click="addDriver()">
             添加
         </button>
     </p>
@@ -14,7 +14,7 @@
         <img src="img/guanbi-dianji.png" alt="" class="close_img" ng-click="close()">
         <p style="    text-align: left;    margin-left: 100px;width:300px">
             姓&emsp;名：&emsp;
-            <input type="text" maxlength="10"  class="input" style="width: 70%;" ng-model="Name" maxlength="10">
+            <input type="text" maxlength="10" class="input" style="width: 70%;" ng-model="Name" maxlength="10">
         </p>
         <p style="text-align: left;margin-left: 100px;width:300px">
             手机号：&emsp;
@@ -47,13 +47,25 @@
             <th>角色</th>
             <th>姓名</th>
             <th>手机号</th>
+            <th>手机绑定</th>
+            <th style="width:60px;">定损位置限定</th>
             <th>操作</th>
         </tr>
         <tr ng-repeat="a in list">
             <td>{{shop4sMsg(a.type)}}</td>
             <td>{{a.afterSaleMgr}}</td>
             <td>{{a.afterSalePhone}}</td>
+            <td ng-hide="a.type != 9">{{a.bindDevice?'是':'否'}}</td>
+            <td ng-hide="a.type == 9">*不限定*</td>
+            <td style="width:60px;" ng-hide="a.type != 9">
+                <div class="over_radio" ng-click="location(a)"></div>
+                <label>
+                    <input class="mui-switch mui-switch-animbg" type="checkbox" ng-checked="a.locateDiffLimit">
+                </label>
+            </td>
+            <td ng-hide="a.type == 9">*不限定*</td>
             <td>
+                <span ng-hide="!a.bindDevice" class="button_span" ng-click="deletePhone(a)">解绑手机</span>
                 <span class="button_span" ng-click="update(a)">修改</span>
                 <span class="button_span" ng-click="delete(a)">删除</span>
             </td>
