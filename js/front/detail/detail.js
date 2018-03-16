@@ -80,7 +80,7 @@ detail.controller('detailCtrl', ['$scope', 'APIService', function ($scope, APISe
                 closeloading();
                 switch ($scope.tabType) {
                     case 'ASSIGN_DRIVER':
-                        $scope.assignDriverses = res.data.assignDriverses;
+                        $scope.assignDriverses = res.data.items;
                         $scope.notTuoche = true;
                         $scope.notFinished = true;
                         for (let i in $scope.assignDriverses) {
