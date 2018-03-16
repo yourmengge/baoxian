@@ -39,7 +39,7 @@
         <div class="flex_div_line">
             <div>收费方式：</div>
             <div>{{detail.chargeModeDesc}}
-                <span ng-hide="detail.chargeMode == 0" class="button_span div_link" ng-click="changeList(CHARGE_MODE)">变更记录</span>
+                <span ng-hide="detail.chargeMode == 0 || detail.orderType == 3" class="button_span div_link" ng-click="changeList(CHARGE_MODE)">变更记录</span>
             </div>
             <div>订单费用：</div>
             <div>{{detail.platformPayments | Price}}</div>
