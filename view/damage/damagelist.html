@@ -40,32 +40,29 @@
                 下载
             </td>
         </tr>
-        <tr ng-repeat="a in shopList">
+        <tr ng-repeat="a in list">
             <td>
                 {{$index + 1}}
             </td>
             <td>
-                {{a.type == 1 ?'*无推修码':a.pushFixCode}}
+                {{a.accidentCarNo}}
             </td>
             <td>
-                {{a.fullName}}
+                {{a.caseNo}}
             </td>
             <td>
-                {{a.simpleName}}
+                {{a.accidentTime | ToDay}}
             </td>
             <td>
-                {{a.type == 1 ? '*无地址': a.address}}
+                {{a.address}}
             </td>
             <td>
-
+                {{a.createTime | ToLocal}}
             </td>
             <td>
-                *无直赔资质
+                {{a.name}}
             </td>
-            <td>
-                {{a.allowedDiff}}
-            </td>
-            <td></td>
+            <td>{{a.remark}}</td>
             <td>
                 <span class="button_span" style="min-width:50px;" ng-click="goto('update',a)">新（{{}}）</span>
                 <span class="button_span" style="min-width:50px;" ng-click="delete(a)">所有（{{}}）</span>

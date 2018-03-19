@@ -9,7 +9,9 @@ detail.controller('detailCtrl', ['$scope', 'APIService', function ($scope, APISe
         $scope.LICENSE = 'LICENSE',
         $scope.DIRECT_COMPENSATION = 'DIRECT_COMPENSATION',
         $scope.CHARGE_MODE = 'CHARGE_MODE',
-        $scope.FIX_ADDRESS = 'FIX_ADDRESS'
+        $scope.FIX_ADDRESS = 'FIX_ADDRESS',
+        $scope.danzheng = 'danzheng',
+        $scope.DAMAGE = 'DAMAGE'
     $scope.initData = function () {
 
         $scope.openDetail = -1;
@@ -150,7 +152,41 @@ detail.controller('detailCtrl', ['$scope', 'APIService', function ($scope, APISe
 
     $scope.tabs = function (type) {
         $scope.tabType = type;
-        $scope.get_shijiu();
+        if (type == 'DAMAGE') {
+            $scope.get_damage_detail();
+        } else if (type == 'danzheng') {
+            $scope.get_danzheng_detail();
+        } else {
+            $scope.get_shijiu();
+        }
+
+    }
+    $scope.get_danzheng_detail = function () {
+        // $scope.detail.caseNo = '78900002800459998889';
+        // $scope.detail.accidentCarNo = '闽D15809'
+        if ($scope.detail.caseNo == null) {
+            $scope.detail.caseNo = ''
+        }
+        if ($scope.detail.accidentCarNo == null) {
+            $scope.detail.accidentCarNo = ''
+        }
+        APIService.get_danzheng_detail($scope.detail.caseNo, $scope.detail.accidentCarNo).then(function (res) {
+            if (res.data.http_status == 200) {
+                $scope.danzhenglist = res.data.items;
+            } else {
+                isError(res)
+            }
+        })
+    }
+    $scope.get_damage_detail = function () {
+        // $scope.order = 1702040003
+        APIService.get_damage_detail($scope.order).then(function (res) {
+            if (res.data.http_status == 200) {
+                $scope.damagelist = res.data.items;
+            } else {
+                isError(res)
+            }
+        })
     }
     $scope.openDiv = function (index, roleType) {
         if ($scope.openDetail == index) {

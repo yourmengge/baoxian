@@ -58,7 +58,7 @@
         </div>
         <div class="flex_div_line">
             <div>车牌号：</div>
-            <div>{{detail.accidentCarNoDesc}}</div>
+            <div>{{detail.accidentCarNo}}</div>
             <div>报案人：</div>
             <div>{{detail.accidentDriverName}}</div>
             <div>报案电话：</div>
@@ -168,6 +168,12 @@
         </button>
         <button class="{{tabType == PUSH_FIX? 'tabs_btn_active':''}}" ng-click="tabs(PUSH_FIX)">
             推修信息
+        </button>
+        <button class="{{tabType == DAMAGE? 'tabs_btn_active':''}}" ng-click="tabs(DAMAGE)">
+            定损详情
+        </button>
+        <button class="{{tabType == danzheng? 'tabs_btn_active':''}}" ng-click="tabs(danzheng)">
+            单证采集
         </button>
         <button class="{{tabType == LICENSE ? 'tabs_btn_active':''}}" ng-click="tabs(LICENSE)" ng-hide="detail.insuranceType != 2">
             信息采集
@@ -521,6 +527,39 @@
                 </div>
             </div>
             <div ng-hide="!(pushFix.dialInfo | isListNull)" style="text-align:center;">
+                <img class="no_data" src="img/img-none-zi.png" alt="">
+            </div>
+        </div>
+        <!-- 定损采集-->
+        <div class="tabsDiv" ng-hide="tabType != DAMAGE">
+            <div ng-repeat="damage in damagelist" class="damage_div">
+                <div style="margin-left:60px;">
+                    <p>
+                        <span>定损点：{{damage.address}}</span>
+                        <span class="name">{{damage.name}}</span>
+                        <span class="time">{{damage.createTime | ToLocal}}</span>
+                    </p>
+                    <p>
+                        {{damage.remark}}
+                    </p>
+                </div>
+                <div class="img_div">
+                    <img ng-repeat="a in damage.pictures" ng-src="{{a.zoomOutView}}" alt="" ng-click="openPic(a.path)">
+                </div>
+                <div class="under_line"></div>
+            </div>
+            <div ng-hide="damagelist.length != 0" style="text-align:center;    margin-left: -100px;">
+                <img class="no_data" src="img/img-none-zi.png" alt="">
+            </div>
+        </div>
+         <!-- 单证采集-->
+         <div class="tabsDiv" ng-hide="tabType != danzheng">
+            <div  class="damage_div">
+                <div class="img_div">
+                    <img ng-repeat="damage in danzhenglist track by $index" ng-src="{{damage.zoomOutView}}" alt="" ng-click="openPic(damage.path)">
+                </div>
+            </div>
+            <div ng-hide="danzhenglist.length != 0" style="text-align:center;    margin-left: -100px;">
                 <img class="no_data" src="img/img-none-zi.png" alt="">
             </div>
         </div>

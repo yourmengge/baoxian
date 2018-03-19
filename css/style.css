@@ -2806,6 +2806,22 @@ img {
     z-index: 100;
     opacity: 0;
 }
+.damage_div{
+
+}
+.damage_div .time{
+    float: right;
+    margin-right: 30px;
+}
+.damage_div .name{
+    float: right;
+    margin-right: 160px;
+}
+.damage_div .under_line{
+    height: 1px;
+    background: #dedede;
+    margin: 30px 140px 40px 60px;
+}
 /* .orderlist::-webkit-scrollbar-thumb {
     background-color: #a9ebff;
     background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%, transparent 75%, transparent);

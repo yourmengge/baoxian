@@ -633,6 +633,16 @@ Road167.factory('APIService', function ($http) {
         return service.get(host + urlV1 + '/loss-decision/page?startDay=' + startDay + '&endDay=' + endDay + '&keywords=' + keyword + '&$offset=' + offset + '&$limit=' + limit)
     }
 
+    //定损详情列表
+    service.get_damage_detail = function (orderNo) {
+        return service.get(host + urlV1 + '/loss-decision/order/' + orderNo);
+    }
+
+    //单证采集列表
+    service.get_danzheng_detail = function (caseNo, carNo) {
+        return service.get(host + urlV1 + '/picture-lossdec/order?caseNo=' + caseNo + '&accidentCarNo=' + carNo)
+    }
+
     // //导出订单
     // service.export = function(){
     //     return service.get(host + urlV1 + '/order/export')
