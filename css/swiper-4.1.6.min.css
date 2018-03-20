@@ -700,3 +700,7 @@ button.swiper-pagination-bullet {
 .swiper-container-coverflow .swiper-wrapper {
     -ms-perspective: 1200px
 }
+
+.swiper-button-next {
+    background-image: url(../img/swiper_button.png);
+}
