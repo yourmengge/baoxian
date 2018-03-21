@@ -175,15 +175,15 @@
 .swiper-button-next,
 .swiper-button-prev {
     position: absolute;
-    top: 50%;
-    width: 27px;
-    height: 44px;
+    top: 44%;
+    width: 74px;
+    height: 74px;
     margin-top: -22px;
     z-index: 10;
     cursor: pointer;
-    background-size: 27px 44px;
+    /* background-size: 27px 44px; */
     background-position: center;
-    background-repeat: no-repeat
+    background-repeat: no-repeat;
 }
 
 .swiper-button-next.swiper-button-disabled,
@@ -702,5 +702,9 @@ button.swiper-pagination-bullet {
 }
 
 .swiper-button-next {
-    background-image: url(../img/swiper_button.png);
+    background-image: url(../img/btn-pageright-press.png);
+}
+
+.swiper-button-prev {
+    background-image: url(../img/btn-pageleft-press.png);
 }

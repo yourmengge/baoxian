@@ -1,13 +1,13 @@
 var
-    host = 'https://dev.road167.com/extrication';
-url = 'https://dev.road167.com';
-appkey = '23637239'
-// host = 'https://t.road167.com/extrication';
-// url = 'https://t.road167.com';
-// appkey = '23726639'
-// host = 'https://www.road167.com/extrication';
-// url = 'https://www.road167.com';
-// appkey = '23638436'
+//     host = 'https://dev.road167.com/extrication';
+// url = 'https://dev.road167.com';
+// appkey = '23637239'
+    host = 'https://t.road167.com/extrication';
+url = 'https://t.road167.com';
+appkey = '23726639'
+    // host = 'https://www.road167.com/extrication';
+    // url = 'https://www.road167.com';
+    // appkey = '23638436'
 urlOrder = '/order';
 urlV1 = '/v1';
 urlUser = '/user';
@@ -71,6 +71,6 @@ var inspector_back = {
     success: ''
 }
 var
-branchOne = '一类修理厂';
+    branchOne = '一类修理厂';
 branchTwo = '二类修理厂';
 branchThree = '三类修理厂';
