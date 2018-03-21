@@ -283,13 +283,8 @@ Road167.factory('APIService', function($http) {
     }
 
     //查询大灾司机
-<<<<<<< HEAD
-    service.get_disaster_driver = function(type, key, limit, status, disasterId) {
-        return service.get(host + urlV1 + '/disaster-driver/list?key=' + key + '&$limit=' + limit + '&DisasterDriverStatus=' + status + '&disasterId=' + disasterId + type)
-=======
-    service.get_disaster_driver = function (key1, key2, limit, status, disasterId) {
+    service.get_disaster_driver = function(key1, key2, limit, status, disasterId) {
         return service.get(host + urlV1 + '/disaster-driver/list?$limit=' + limit + '&DisasterDriverStatus=' + status + '&disasterId=' + disasterId + '&fleetName=' + key1 + '&driverInfo=' + key2)
->>>>>>> 22.1dev
     }
 
     //查询大灾司机（订单统计）
