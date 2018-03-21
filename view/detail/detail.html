@@ -112,7 +112,7 @@
         </div>
         <div class="flex_div_line" ng-hide="detail.status != 8 && detail.status != 81 && detail.status != 82">
             <div>取消订单备注：</div>
-            <div style="max-width: 30px;">{{detail.cancelCause}}</div>
+            <div>{{detail.cancelCause}}</div>
         </div>
     </div>
     <h4 class="detail_title">地图位置
@@ -289,8 +289,7 @@
                         </span>
 
                     </div>
-                    <div class="driver_status_div {{a.accidentFinishTime != null?'status_active':''}} {{!(a.accidentFinishTime != null && a.taskEndTime == null)?'':'driver_status_span'}}"
-                        ng-hide="a.carType == 1">
+                    <div class="driver_status_div {{a.accidentFinishTime != null?'status_active':''}} {{!(a.accidentFinishTime != null && a.taskEndTime == null)?'':'driver_status_span'}}" ng-hide="a.carType == 1">
                         <p>
                             前往推修厂
                         </p>
@@ -952,7 +951,7 @@
                     <div>{{a.verifyUserDesc}}</div>
                     <div>审核备注：</div>
                     <div>
-                        <audio ng-src="{{i.verifyRemarkOfVoice}}" controls></audio>
+                        <audio ng-src="{{a.verifyRemarkOfVoice}}" controls></audio>
                     </div>
                     <div>审核时间：</div>
                     <div>{{a.verifyTime | ToLocal}}</div>
@@ -961,9 +960,9 @@
             <div ng-hide="{{a.applyUserDesc !== a.verifyUserDesc}}" class="{{$index != list.length - 1?'border_bottom':''}}">
                 <div class="changelist">
                     <div>修改内容：</div>
-                    <div>{{a.applyUserDesc}}</div>
-                    <div>修改人员：</div>
                     <div>{{a.applyAddress}}</div>
+                    <div>修改人员：</div>
+                    <div>{{a.applyUserDesc}}</div>
                     <div>修改时间：</div>
                     <div>{{a.createTime | ToLocal}}</div>
                 </div>

@@ -2,7 +2,7 @@ var detail = angular.module('detail', ['Road167']);
 var map, orderPic = [],
     accidentPic = [],
     fixPic = [];
-detail.controller('detailCtrl', ['$scope', 'APIService', function ($scope, APIService) {
+detail.controller('detailCtrl', ['$scope', 'APIService', function($scope, APIService) {
     $scope.ASSIGN_DRIVER = 'ASSIGN_DRIVER',
         $scope.PICTURE_VIDEO = 'PICTURE_VIDEO',
         $scope.PUSH_FIX = 'PUSH_FIX',
@@ -12,7 +12,7 @@ detail.controller('detailCtrl', ['$scope', 'APIService', function ($scope, APISe
         $scope.FIX_ADDRESS = 'FIX_ADDRESS',
         $scope.danzheng = 'danzheng',
         $scope.DAMAGE = 'DAMAGE'
-    $scope.initData = function () {
+    $scope.initData = function() {
 
         $scope.openDetail = -1;
         $scope.tabType = $scope.ASSIGN_DRIVER;
@@ -37,9 +37,9 @@ detail.controller('detailCtrl', ['$scope', 'APIService', function ($scope, APISe
         orderPic = [];
         accidentPic = [];
         fixPic = [];
-        //$scope.order = '1711160018'
+        $scope.order = '1711160018'
         $scope.order = sessionStorage.getItem('orderNo');
-        APIService.get_order_detail($scope.order, 'BASE').then(function (res) {
+        APIService.get_order_detail($scope.order, 'BASE').then(function(res) {
             if (res.data.http_status == 200) {
                 closeloading();
                 $scope.detail = res.data;
@@ -55,29 +55,29 @@ detail.controller('detailCtrl', ['$scope', 'APIService', function ($scope, APISe
     }
 
     //获取变更记录
-    $scope.changeList = function (type) {
-        $('.alert_bg').css('display', 'block');
-        if (type == $scope.CHARGE_MODE) {
-            $('#changemode').css('display', 'block');
-        } else {
-            $('#fixchange').css('display', 'block');
-        }
-        APIService.get_order_detail($scope.order, type).then(function (res) {
-            if (res.data.http_status == 200) {
-                $scope.list = res.data.items;
+    $scope.changeList = function(type) {
+            $('.alert_bg').css('display', 'block');
+            if (type == $scope.CHARGE_MODE) {
+                $('#changemode').css('display', 'block');
             } else {
-                isError(res);
+                $('#fixchange').css('display', 'block');
             }
+            APIService.get_order_detail($scope.order, type).then(function(res) {
+                if (res.data.http_status == 200) {
+                    $scope.list = res.data.items;
+                } else {
+                    isError(res);
+                }
 
-        })
-    }
-    //获取施救信息
-    $scope.isWeicaijiNull = function (weicaiji, text) {
+            })
+        }
+        //获取施救信息
+    $scope.isWeicaijiNull = function(weicaiji, text) {
         return weicaiji == '' ? text : '、' + text
     }
-    $scope.get_shijiu = function () {
+    $scope.get_shijiu = function() {
         loading();
-        APIService.get_order_detail($scope.order, $scope.tabType).then(function (res) {
+        APIService.get_order_detail($scope.order, $scope.tabType).then(function(res) {
             if (res.data.http_status == 200) {
                 closeloading();
                 switch ($scope.tabType) {
@@ -150,7 +150,7 @@ detail.controller('detailCtrl', ['$scope', 'APIService', function ($scope, APISe
         })
     }
 
-    $scope.tabs = function (type) {
+    $scope.tabs = function(type) {
         $scope.tabType = type;
         if (type == 'DAMAGE') {
             $scope.get_damage_detail();
@@ -161,7 +161,7 @@ detail.controller('detailCtrl', ['$scope', 'APIService', function ($scope, APISe
         }
 
     }
-    $scope.get_danzheng_detail = function () {
+    $scope.get_danzheng_detail = function() {
         // $scope.detail.caseNo = '78900002800459998889';
         // $scope.detail.accidentCarNo = '闽D15809'
         if ($scope.detail.caseNo == null) {
@@ -170,7 +170,7 @@ detail.controller('detailCtrl', ['$scope', 'APIService', function ($scope, APISe
         if ($scope.detail.accidentCarNo == null) {
             $scope.detail.accidentCarNo = ''
         }
-        APIService.get_danzheng_detail($scope.detail.caseNo, $scope.detail.accidentCarNo).then(function (res) {
+        APIService.get_danzheng_detail($scope.detail.caseNo, $scope.detail.accidentCarNo).then(function(res) {
             if (res.data.http_status == 200) {
                 $scope.danzhenglist = res.data.items;
             } else {
@@ -178,9 +178,9 @@ detail.controller('detailCtrl', ['$scope', 'APIService', function ($scope, APISe
             }
         })
     }
-    $scope.get_damage_detail = function () {
+    $scope.get_damage_detail = function() {
         // $scope.order = 1702040003
-        APIService.get_damage_detail($scope.order).then(function (res) {
+        APIService.get_damage_detail($scope.order).then(function(res) {
             if (res.data.http_status == 200) {
                 $scope.damagelist = res.data.items;
             } else {
@@ -188,13 +188,13 @@ detail.controller('detailCtrl', ['$scope', 'APIService', function ($scope, APISe
             }
         })
     }
-    $scope.openDiv = function (index, roleType) {
+    $scope.openDiv = function(index, roleType) {
         if ($scope.openDetail == index) {
             $scope.openDetail = -1;
 
         } else {
             $scope.openDetail = index;
-            APIService.get_bodajilu_list($scope.order, roleType).then(function (res) {
+            APIService.get_bodajilu_list($scope.order, roleType).then(function(res) {
                 if (res.data.http_status == 200) {
                     $scope.bodalist = res.data.items;
                 } else {
@@ -205,8 +205,8 @@ detail.controller('detailCtrl', ['$scope', 'APIService', function ($scope, APISe
 
 
     }
-    $scope.confirmation = function () {
-        APIService.get_order_detail($scope.order, 'DIRECT_COMPENSATION').then(function (res) {
+    $scope.confirmation = function() {
+        APIService.get_order_detail($scope.order, 'DIRECT_COMPENSATION').then(function(res) {
             if (res.data.http_status == 200) {
                 closeloading();
                 $scope.detail = res.data;
@@ -223,13 +223,13 @@ detail.controller('detailCtrl', ['$scope', 'APIService', function ($scope, APISe
     $scope.dialTypeTexts = [
         '', '报案人', '查勘员', '司机'
     ]
-    $scope.back = function () {
+    $scope.back = function() {
         window.history.go(-1);
     }
-    $scope.openPic = function (path) {
+    $scope.openPic = function(path) {
         window.open(path);
     }
-    $scope.location = function () {
+    $scope.location = function() {
         $('.closeBg').css('display', 'block');
         $('.detail_map').css('display', 'block');
         map = new BMap.Map("allmap");
@@ -238,11 +238,11 @@ detail.controller('detailCtrl', ['$scope', 'APIService', function ($scope, APISe
         $scope.map_location($scope.detail.accidentLatitude, $scope.detail.accidentLongitude, '事故地点');
         $scope.map_location($scope.detail.fixLatitude, $scope.detail.fixLongitude, '拖送地点');
     }
-    $scope.closeBG = function () {
+    $scope.closeBG = function() {
         $('.closeBg').css('display', 'none');
         $('.detail_map').css('display', 'none');
     }
-    $scope.map_location = function (lat, lng, text) {
+    $scope.map_location = function(lat, lng, text) {
         var new_point = new BMap.Point(lng, lat);
         var marker = new BMap.Marker(new_point); // 创建标注
         map.addOverlay(marker); // 将标注添加到地图中
@@ -254,9 +254,9 @@ detail.controller('detailCtrl', ['$scope', 'APIService', function ($scope, APISe
 
 
 
-    $scope.reload = function (paiqianId) {
+    $scope.reload = function(paiqianId) {
         loading();
-        APIService.reflash_distance(paiqianId).then(function (res) {
+        APIService.reflash_distance(paiqianId).then(function(res) {
 
             if (res.data.http_status == 200) {
                 closeloading();
@@ -271,7 +271,7 @@ detail.controller('detailCtrl', ['$scope', 'APIService', function ($scope, APISe
             }
         })
     }
-    $scope.hideZhipeiFN = function (data) {
+    $scope.hideZhipeiFN = function(data) {
         if (data.verifyStatus == 900) {
             $scope.hideZhipei = true;
         } else {
@@ -279,7 +279,7 @@ detail.controller('detailCtrl', ['$scope', 'APIService', function ($scope, APISe
         }
     }
 
-    $scope.hideCancelTypeFN = function (data) {
+    $scope.hideCancelTypeFN = function(data) {
         if (data == null || data.verifyStatus != 900) {
             $scope.hideCancelType = true;
         } else {
@@ -287,14 +287,14 @@ detail.controller('detailCtrl', ['$scope', 'APIService', function ($scope, APISe
         }
     }
 
-    $scope.hideButtonFN = function (data) {
+    $scope.hideButtonFN = function(data) {
         if (data.directCompensation && data.verifyStatus == 2) {
             $scope.hideButton = false;
         } else {
             $scope.hideButton = true;
         }
     }
-    $scope.hideCancelButtonFN = function (data) {
+    $scope.hideCancelButtonFN = function(data) {
         if (data.directCompensation == false || data.verifyStatus == 900) {
             $scope.hideCancelButton = true;
         } else {
@@ -302,7 +302,7 @@ detail.controller('detailCtrl', ['$scope', 'APIService', function ($scope, APISe
         }
     }
 
-    $scope.hideCancelFN = function (data) {
+    $scope.hideCancelFN = function(data) {
         if (data.verifyStatus == 900) {
             $scope.hideCancel = false;
         } else {
@@ -310,7 +310,7 @@ detail.controller('detailCtrl', ['$scope', 'APIService', function ($scope, APISe
         }
     }
 
-    $scope.close = function () {
+    $scope.close = function() {
         $('.alert_bg').css('display', 'none')
         $('.addinspector_div').css('display', 'none')
         $('#fixchange').css('display', 'none')
@@ -319,21 +319,21 @@ detail.controller('detailCtrl', ['$scope', 'APIService', function ($scope, APISe
         $scope.zhipeiremark = '';
         $scope.backPic = []
     }
-    $scope.cancel = function () {
+    $scope.cancel = function() {
         $('.alert_bg').css('display', 'block')
         $('.addinspector_div').toggle();
 
     }
-    $scope.cancelSubmit = function () {
+    $scope.cancelSubmit = function() {
         var data = {
             cancelRemark: $scope.zhipeiremark
         }
         if ($scope.zhipeiremark.length != 0) {
-            APIService.cancelZhipei($scope.order, data).then(function (res) {
+            APIService.cancelZhipei($scope.order, data).then(function(res) {
                 if (res.data.http_status == 200) {
                     layer.msg('直赔取消成功')
                     $scope.close();
-                    setTimeout(function () {
+                    setTimeout(function() {
                         location.reload();
                     }, 2000);
 
@@ -345,25 +345,25 @@ detail.controller('detailCtrl', ['$scope', 'APIService', function ($scope, APISe
             layer.msg('请输入取消备注')
         }
     }
-    $scope.hiddenView = function (pre, now) {
+    $scope.hiddenView = function(pre, now) {
         if (pre === 1 && now === 2) {
             return 1;
         } else if (pre === 2 && now === 1) {
             return 2;
         }
     }
-    $scope.track = function (data, order) {
+    $scope.track = function(data, order) {
         sessionStorage.setItem('driver_detail', JSON.stringify(data));
         sessionStorage.setItem('order_detail', JSON.stringify(order));
         goto_view('main/track')
     }
-    $scope.goto = function (orderNo) {
+    $scope.goto = function(orderNo) {
         sessionStorage.setItem('fixaddress_orderNo', orderNo)
         sessionStorage.setItem('select_type', 'update')
         goto_view('main/updateFix')
     }
 
-    $scope.openImg = function (data) {
+    $scope.openImg = function(data) {
         $('.alert_bg').css('display', 'block');
         $('.image_swiper').css('display', 'block');
         $scope.backPic = data;
