@@ -1,0 +1,45 @@
+<div class="fixaddress" ng-controller="damagedetailCtrl" ng-init="initData()">
+    <h2>定损详情</h2>
+    <div class="detail_div">
+        <div class="flex_div_line">
+            <div>车牌号：</div>
+            <div>{{detail.accidentCarNo}}</div>
+            <div>案件号：</div>
+            <div>{{detail.caseNo}}</div>
+            <div>
+                出险日期：
+            </div>
+            <div>
+                {{detail.accidentTime | ToDay}}
+            </div>
+        </div>
+        <div class="flex_div_line">
+            <div>推修厂：</div>
+            <div>{{detail.address}}</div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <div class="detail_div" style="margin-top:100px">
+        <button class="button" style="margin-left:0;">下载</button>
+        <div ng-repeat="damage in damagelist" class="damage_div">
+            <div>
+                <p>
+                    <span>定损点：{{damage.address}}</span>
+                    <span class="name">{{damage.name}}</span>
+                    <span class="time">{{damage.createTime | ToLocal}}</span>
+                </p>
+                <p>
+                    {{damage.remark}}
+                </p>
+            </div>
+            <div class="img_div">
+                <img ng-repeat="a in damage.pictures" ng-src="{{a.zoomOutView}}" alt="" ng-click="openPic(a.path)">
+            </div>
+            <div class="under_line damagelist_line"></div>
+        </div>
+    </div>
+
+</div>

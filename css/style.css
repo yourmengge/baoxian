@@ -80,27 +80,31 @@ button {
     position: fixed;
 }
 
-.first_menu{
+.first_menu {
     color: #3e3e3e;
     font-size: 22px;
     padding: 21px 40px;
     background: #fff;
     cursor: pointer;
 }
-.first_menu_active{
+
+.first_menu_active {
     color: #0079b5;
 }
-.first_menu_icon{
+
+.first_menu_icon {
     width: 16px;
     float: right;
     margin-top: 11px;
     height: 10px;
     background: url(../../img/icon_down.png);
 }
-.first_menu_icon_active{
+
+.first_menu_icon_active {
     background: url(../../img/icon_up.png);
 }
-.second_menu{
+
+.second_menu {
     color: #666;
     font-size: 18px;
     padding: 13px 80px;
@@ -108,14 +112,14 @@ button {
     cursor: pointer;
 }
 
-.second_menu_active{
+.second_menu_active {
     color: #0079b5;
     background: #eaeef2;
     padding-left: 74px;
     border-left: solid 6px #0079b5;
 }
 
-.second_menu:hover{
+.second_menu:hover {
     /* color: #0079b5; */
     background: #eaeef2;
 }
@@ -128,7 +132,7 @@ button {
 }
 
 .left_menu {
-    -webkit-user-select:none;
+    -webkit-user-select: none;
     position: fixed;
     left: 0;
     top: 80px;
@@ -326,7 +330,6 @@ button {
     padding-top: 10px;
     height: calc(100vh - 192px);
 }
-
 
 .right_content:hover::-webkit-scrollbar-thumb {
     background: #eaeaea;
@@ -838,6 +841,7 @@ input[type=number]::-webkit-outer-spin-button {
 .img_div img,
 .img_div video {
     width: 10vw;
+    height: 10vw;
     padding-right: 20px;
     padding-left: 5px;
     cursor: pointer;
@@ -870,12 +874,14 @@ input[type=number]::-webkit-outer-spin-button {
     z-index: 100;
     left: 15vw;
 }
-.image_swiper{
+
+.image_swiper {
     max-height: 500px !important;
     text-align: center;
     margin-top: 5vh;
 }
-.swiper_images img{
+
+.swiper_images img {
     height: 80%;
 }
 
@@ -891,7 +897,7 @@ input[type=number]::-webkit-outer-spin-button {
     top: -69px;
 }
 
-.swiper_images_title{
+.swiper_images_title {
     float: left;
     position: absolute;
     color: #333;
@@ -1869,6 +1875,11 @@ video {
     background: #e4f6ff;
 }
 
+.damagelist_line {
+    width: calc(100vw - 383px);
+    margin-left: -100px !important;
+}
+
 .data_table {
     width: 100%;
     display: flex;
@@ -2221,10 +2232,12 @@ audio {
     margin-right: 40px;
     cursor: pointer;
 }
-.message_logo:hover{
+
+.message_logo:hover {
     background-position-x: -22px;
 }
-.chat_logo{
+
+.chat_logo {
     background: url(../img/icon_chat.png) no-repeat;
     height: 24px;
     width: 30px;
@@ -2234,9 +2247,11 @@ audio {
     cursor: pointer;
     background-position-x: 7px;
 }
-.chat_logo:hover{
+
+.chat_logo:hover {
     background-position-x: -24px;
 }
+
 .message_logo_has {
     background: url(../img/icon_message_new.png) no-repeat !important;
 }
@@ -2494,11 +2509,14 @@ img {
 }
 
 .back_factory_total {
-    float: right;
+    height: 40px;
+    line-height: 40px;
+    background: #f5f5f5;
 }
 
 .back_factory_total span {
-    margin-left: 40px;
+    margin-right: 10px;
+    margin-left: 10px;
 }
 
 .inspector_type_active {
@@ -2508,6 +2526,7 @@ img {
 .div_link {
     color: #377ddd;
     text-decoration: underline;
+    cursor: pointer;
 }
 
 .div_link:active {
@@ -2687,7 +2706,7 @@ img {
     width: 97%;
 }
 
-.border_bottom{
+.border_bottom {
     border-bottom: solid 1px #e5e5e5;
     margin-bottom: 10px;
 }
@@ -2712,21 +2731,23 @@ img {
 .caijidetail {
     padding-left: 10px;
 }
-.caijidetail_div{
+
+.caijidetail_div {
     height: 40px;
     width: 100%;
 }
-.caijidetail_div div{
+
+.caijidetail_div div {
     float: left;
 }
 
-.orderlist{
+.orderlist {
     overflow-x: auto;
     width: 100%;
     padding-bottom: 10px;
-
 }
-.orderlist table{
+
+.orderlist table {
     width: 2000px;
     text-align: center;
     cursor: pointer;
@@ -2734,29 +2755,36 @@ img {
     border-right: solid 1px #a9ebff;
     font-size: 14px;
 }
-.orderlist table tr:nth-child(1){
+
+.orderlist table tr:nth-child(1) {
     height: 60px;
     background: #a9ebff;
 }
-.orderlist table tr:nth-child(1):hover{
+
+.orderlist table tr:nth-child(1):hover {
     background: #a9ebff;
 }
-.orderlist table tr{
+
+.orderlist table tr {
     height: 50px;
 }
-.orderlist table tr td{
+
+.orderlist table tr td {
     border: solid 1px #a9ebff;
     border-top: none;
     border-right: none;
 }
-.index_blank{
+
+.index_blank {
     height: 59px !important;
     background: #a9ebff;
 }
-.orderlist table tr:hover{
+
+.orderlist table tr:hover {
     background: #f5f5f5;
 }
-.orderlist .index_div{
+
+.orderlist .index_div {
     position: absolute;
     width: 50px;
     text-align: center;
@@ -2766,39 +2794,44 @@ img {
     cursor: pointer;
     border-left: solid 1px #a9ebff;
     border-right: solid 1px #a9ebff;
-   
 }
-.orderlist .index_div div{
+
+.orderlist .index_div div {
     height: 49px;
     border-bottom: solid 1px #a9ebff;
 }
-.directType{
+
+.directType {
     padding: 2px 5px;
     background: #d8d8d8;
     border-radius: 45px;
     color: #fff;
 }
-.directType_zhi{
+
+.directType_zhi {
     padding: 2px 5px;
     background: #5eb9e2;
     border-radius: 45px;
     color: #fff;
 }
 
-.pushImg{
+.pushImg {
     vertical-align: middle;
     margin-right: 10px;
 }
-.pushSpan{
+
+.pushSpan {
     position: absolute;
     margin-top: 11px;
 }
-.carImg{
+
+.carImg {
     vertical-align: middle;
     margin-right: 10px;
     margin-left: 10px;
 }
-.over_radio{
+
+.over_radio {
     width: 61px;
     height: 32px;
     position: absolute;
@@ -2806,22 +2839,26 @@ img {
     z-index: 100;
     opacity: 0;
 }
-.damage_div{
 
-}
-.damage_div .time{
+.damage_div {}
+
+.damage_div .time {
     float: right;
     margin-right: 30px;
 }
-.damage_div .name{
+
+.damage_div .name {
     float: right;
     margin-right: 160px;
 }
-.damage_div .under_line{
+
+.damage_div .under_line {
     height: 1px;
     background: #dedede;
     margin: 30px 140px 40px 60px;
 }
+
+
 /* .orderlist::-webkit-scrollbar-thumb {
     background-color: #a9ebff;
     background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .2) 50%, rgba(255, 255, 255, .2) 75%, transparent 75%, transparent);
@@ -2832,6 +2869,7 @@ img {
 .orderlist::-webkit-scrollbar-track-piece {
     background: #f5f5f5;
 }  */
+
 @media screen and (max-width:1366px) {
     .tabs_div button {
         height: 33px;

@@ -128,7 +128,7 @@
     <div class="main_title_bar">
         <img src="img/logo.png" alt="" class="logo">
         <span style="float:left;">{{companyName}}</span>
-        <button alt="" class="chat_logo" title="群聊" ng-click="chat()"></button>
+        <button ng-hide="{{}}" alt="" class="chat_logo" title="群聊" ng-click="chat()"></button>
         <button alt="" class="message_logo" title="消息" ng-click="read_message()"></button>
         <div class="message_center">
             <p class="message_title">消息中心</p>
@@ -142,12 +142,11 @@
     </div>
     <div class="left_menu">
         <div ng-repeat="a in menuList">
-            <div class="first_menu {{a.isActive?'first_menu_active':''}}" ng-click="openFirst(a,$index)">
+            <div ng-hide="a.hide" class="first_menu {{a.isActive?'first_menu_active':''}}" ng-click="openFirst(a,$index)">
                 <a>{{a.name}}</a>
                 <div ng-hide="a.secondList.length == 0" class="first_menu_icon {{a.isActive?'first_menu_icon_active':''}}"></div>
             </div>
-            <div ng-hide="a.secondList == [] || !a.isActive" class="second_menu {{b.isActive?'second_menu_active':''}}" ng-repeat="b in a.secondList"
-                ng-click="gotoView(b,a,$index)">
+            <div ng-hide="a.hide || !a.isActive" class="second_menu {{b.isActive?'second_menu_active':''}}" ng-repeat="b in a.secondList" ng-click="gotoView(b,a,$index)">
                 <a>{{b.name}}</a>
             </div>
         </div>

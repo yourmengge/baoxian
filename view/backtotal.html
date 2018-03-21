@@ -1,9 +1,10 @@
 <div class="adddriver" ng-controller="backtotalCtrl" ng-init="initData()">
     <h2>{{title}}</h2>
     <p class="search_div">
-        {{url == 'backtotal'?'出险日期':'确认时间'}}&emsp;&emsp;开始：
+        时间类型：<select class="input" ng-change="search()" name="" style="width:100px;" ng-model="timetype" ng-options="a.id as a.name for a in timeTypeTexts" id=""></select> 开始：
         <input type="date" id="startDay" class="input"> 结束：
-        <input type="date" id="endDay" class="input">
+        <input type="date" id="endDay" class="input"> 订单类型：
+        <select ng-change="search()" class="input" name="" style="width:100px;" ng-model="ordertype" ng-options="a.id as a.name for a in orderTypeTexts" id=""></select>
         <button class="button" ng-click="search()" style="min-width:60px;">查询</button>
         <button class="button" ng-click="searchAll()">
             显示全部
@@ -13,37 +14,37 @@
         </button>
     </p>
     <div>
-        <button class="inspector_type {{type == 'ACCIDENT'?'inspector_type_active':''}}" ng-click="changeType('ACCIDENT')">
-            施救
-        </button>
-        <button class="inspector_type {{type != 'ACCIDENT'?'inspector_type_active':''}}" ng-click="changeType('NOT_RESCURE')">
-            非施救
-        </button>
         <div class="back_factory_total">
             <span>
-                总计：{{type == 'ACCIDENT'?'施救回厂率':'非施救回厂率'}}&emsp;{{total.percentage}}%
+                总计：准确率{{total.accuracyRate}}%
             </span>
             <span>
-                共&emsp;{{total.counts}}&emsp;单
+                成功率{{total.successRate}}%
             </span>
             <span>
-                推修成功&emsp;{{total.pushFixCounts}}&emsp;单
+                总单数<span class="div_link" ng-click="goto('','')">{{total.counts}}</span>单
+            </span>
+            <span>
+                准确推修<span class="div_link" ng-click="goto('SAME','')">{{total.accuracyCounts}}</span>单
             </span>
         </div>
     </div>
     <div class="list_table" ng-hide="table">
         <div class="list_table_tr">
             <div>
-                    {{url == 'backtotal'?'查勘员':'推修厂'}}
+                {{url == 'backtotal'?'查勘员':'推修厂'}}
             </div>
             <div>
-                {{type == 'ACCIDENT'?'施救回厂率（%）':'非施救回厂率（%）'}}
+                准确率（%）
+            </div>
+            <div>
+                成功率（%）
             </div>
             <div>
                 总单数（单）
             </div>
             <div>
-                推修成功（单）
+                准确推修（单）
             </div>
         </div>
         <div ng-repeat="a in orderlist">
@@ -52,13 +53,16 @@
                     {{a.name}}
                 </div>
                 <div>
-                    {{a.percentage}}
+                    {{a.accuracyRate}}
                 </div>
-                <div class="div_link" ng-click="goto('',a.userId)">
+                <div>
+                    {{a.successRate}}
+                </div>
+                <div class="div_link" ng-click="goto('',a.name)">
                     {{a.counts}}
                 </div>
-                <div class="div_link" ng-click="goto('SUCCESS',a.userId)">
-                    {{a.pushFixCounts}}
+                <div class="div_link" ng-click="goto('SAME',a.name)">
+                    {{a.accuracyCounts}}
                 </div>
             </div>
         </div>

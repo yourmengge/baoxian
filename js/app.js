@@ -1,6 +1,6 @@
-var insurance = angular.module('insurance', ['damagelist','threecars', 'caijidetail', 'batchnocooperation', 'nocooperation', 'addnocooperation', 'confirmation', 'backinfo', 'backtotal', 'brandcfg', 'member', 'brand', 'shop4sorder', 'shop4snum', 'updateFix', 'auditDetail', 'audit', 'third', 'auth', 'datastatistics', 'paymentdetail', 'batchinspector', 'payment', 'inspector', 'companyfleet', 'addshop4S', 'batchshop4S', 'shop4S', 'nar_location', 'disasterdriverorderlist', 'disastermap', 'driverordertotle', 'disasterorderlist', 'totleorder', 'batchaddorder', 'review', 'driverlocation', 'disasterdriver', 'disasterinspector', 'site', 'disasterdetail', 'disaster', 'createdisaster', 'addorder_nar', 'selectlocation', 'editorder', 'track', 'detail', 'team', 'ui.router', 'evaluation', 'adddriver', 'map', 'login', 'Road167', 'fixaddress', 'main', 'addorder', 'orderlist']);
+var insurance = angular.module('insurance', ['damagedetail', 'damagelist', 'threecars', 'caijidetail', 'batchnocooperation', 'nocooperation', 'addnocooperation', 'confirmation', 'backinfo', 'backtotal', 'brandcfg', 'member', 'brand', 'shop4sorder', 'shop4snum', 'updateFix', 'auditDetail', 'audit', 'third', 'auth', 'datastatistics', 'paymentdetail', 'batchinspector', 'payment', 'inspector', 'companyfleet', 'addshop4S', 'batchshop4S', 'shop4S', 'nar_location', 'disasterdriverorderlist', 'disastermap', 'driverordertotle', 'disasterorderlist', 'totleorder', 'batchaddorder', 'review', 'driverlocation', 'disasterdriver', 'disasterinspector', 'site', 'disasterdetail', 'disaster', 'createdisaster', 'addorder_nar', 'selectlocation', 'editorder', 'track', 'detail', 'team', 'ui.router', 'evaluation', 'adddriver', 'map', 'login', 'Road167', 'fixaddress', 'main', 'addorder', 'orderlist']);
 var t;
-insurance.config(function ($stateProvider, $urlRouterProvider) {
+insurance.config(function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.when('', '/login');
     $stateProvider
         .state('login', {
@@ -12,13 +12,17 @@ insurance.config(function ($stateProvider, $urlRouterProvider) {
             templateUrl: 'view/main.html'
         })
 
-        .state('main.addshop4S', {
+    .state('main.addshop4S', {
             url: '/addshop4S',
             templateUrl: 'view/add/addshop4S.html'
         })
         .state('main.damagelist', {
             url: '/damagelist',
             templateUrl: 'view/damage/damagelist.html'
+        })
+        .state('main.damagedetail', {
+            url: '/damagedetail',
+            templateUrl: 'view/damage/damagedetail.html'
         })
         .state('main.threecars', {
             url: '/threecars',
@@ -281,9 +285,9 @@ function isError(err) {
     if (err.data.http_code == 'token.error' || err.data.http_code == 'userId.head.illeagl') {
         layer.msg('请重新登录');
         clearTimeout(t)
-        setTimeout(function () {
+        setTimeout(function() {
             closeloading();
-            setTimeout(function () {
+            setTimeout(function() {
                 location.reload();
             }, 500);
             goto_view('login');
@@ -322,6 +326,7 @@ function goto_view(v) {
         b: 2
     };
 }
+
 function reloadMenuList() {
     var menuList = [{
         name: '订单信息',
@@ -329,82 +334,89 @@ function reloadMenuList() {
         secondList: [{
             name: '订单列表',
             url: 'main/orderlist',
-            isActive:false
+            isActive: false
         }, {
             name: '定损处理',
             url: 'main/damagelist',
-            isActive:false
+            isActive: false
         }, {
             name: '查勘回厂率',
             url: 'main/backtotal',
-            isActive:false
+            isActive: false
         }, {
             name: '推修厂回厂率',
             url: 'main/backtotalS',
-            isActive:false
+            isActive: false
         }, {
             name: '评价信息',
             url: 'main/evaluation',
-            isActive:false
+            isActive: false
         }],
-        isActive: false
+        isActive: false,
+        hide: true
     }, {
         name: '查勘员管理',
         id: 'main/inspector',
         secondList: [],
-        isActive: false
+        isActive: false,
+        hide: true
     }, {
         name: '修理厂管理',
         id: 'shop4s',
         secondList: [{
             name: '推修厂',
             url: 'main/shop4S',
-            isActive:false
+            isActive: false
         }, {
             name: '修理厂',
             url: 'main/nocooperation',
-            isActive:false
+            isActive: false
         }, {
             name: '车辆品牌',
             url: 'main/brand',
-            isActive:false
+            isActive: false
         }],
-        isActive: false
+        isActive: false,
+        hide: true
     }, {
         name: '车辆管理',
         id: 'car',
         secondList: [{
             name: '车队列表',
             url: 'main/companyfleet',
-            isActive:false
+            isActive: false
         }, {
             name: '效率统计',
             url: 'main/datastatistics',
-            isActive:false
+            isActive: false
         }],
-        isActive: false
+        isActive: false,
+        hide: true
     }, {
         name: '信息采集',
         id: 'caiji',
         secondList: [{
             name: '三者信息',
             url: 'main/threecars',
-            isActive:false
+            isActive: false
         }, {
             name: '车商采集',
             url: 'main/threecarsS',
-            isActive:false
+            isActive: false
         }],
-        isActive: false
+        isActive: false,
+        hide: true
     }, {
         name: '大灾管理',
         id: 'main/disaster',
         secondList: [],
-        isActive: false
+        isActive: false,
+        hide: true
     }]
     sessionStorage.setItem('menuList', JSON.stringify(menuList));
     return menuList;
 }
+
 function ToLocalTime(shijianchuo) {
     var time = new Date(shijianchuo);
     var y = time.getFullYear();
@@ -413,9 +425,11 @@ function ToLocalTime(shijianchuo) {
     var nowtime = y + '-' + add0(m) + '-' + add0(d);
     return nowtime;
 }
+
 function getUrl(url) {
     return url.split('/')[url.split('/').length - 1];
 }
+
 function ToTime(shijianchuo) {
     var time = new Date(shijianchuo);
     var y = time.getFullYear();
@@ -443,13 +457,13 @@ function DateFormat(type, date) {
     }
 }
 
-insurance.filter('isListNull', function () {
+insurance.filter('isListNull', function() {
     function isListNull(list) {
         return (list == null || list.length == 0) ? true : false;
     }
     return isListNull;
 });
-insurance.filter('zhiPei', function () {
+insurance.filter('zhiPei', function() {
     function ToLocal(text) {
         if (text) {
             return '是'
@@ -459,7 +473,7 @@ insurance.filter('zhiPei', function () {
     }
     return ToLocal;
 });
-insurance.filter('ToDay', function () {
+insurance.filter('ToDay', function() {
     function ToLocal(shijianchuo) {
         if (shijianchuo != null) {
             var time = new Date(shijianchuo);
@@ -474,7 +488,7 @@ insurance.filter('ToDay', function () {
     }
     return ToLocal;
 });
-insurance.filter('ToMin', function () {
+insurance.filter('ToMin', function() {
     function add0(num) {
         num = parseInt(num);
         if (num < 10) {
@@ -497,7 +511,7 @@ insurance.filter('ToMin', function () {
     }
     return ToLocal;
 });
-insurance.filter('ToFormat', function () {
+insurance.filter('ToFormat', function() {
     function ToLocal(shijianchuo) {
         if (shijianchuo == null) {
             return null;
@@ -516,7 +530,7 @@ insurance.filter('ToFormat', function () {
     }
     return ToLocal;
 })
-insurance.filter('ToFenzhong', function () {
+insurance.filter('ToFenzhong', function() {
     function ToLocal(shijianchuo) {
         if (shijianchuo == null) {
             return null;
@@ -526,7 +540,15 @@ insurance.filter('ToFenzhong', function () {
     }
     return ToLocal;
 })
-insurance.filter('ToFormatDate', function () {
+insurance.filter('countOfZip', function() {
+    function ToLocal(path) {
+        if (path != '' && path != null) {
+            return path.split('_')[path.split('_').length - 1].split('.zip')[0]
+        }
+    }
+    return ToLocal;
+})
+insurance.filter('ToFormatDate', function() {
     function ToLocal(shijianchuo) {
         if (shijianchuo == null) {
             return null;
@@ -543,7 +565,7 @@ insurance.filter('ToFormatDate', function () {
     }
     return ToLocal;
 })
-insurance.filter('noIdCard', function () {
+insurance.filter('noIdCard', function() {
     function noIdCard(path) {
         if (path == null) {
             return 'img/img-zhipei-idcard@2x.png'
@@ -553,7 +575,7 @@ insurance.filter('noIdCard', function () {
     }
     return noIdCard;
 })
-insurance.filter('SecondOrder', function () {
+insurance.filter('SecondOrder', function() {
     function ToLocal(shijianchuo) {
         if (shijianchuo != null) {
 
@@ -564,7 +586,7 @@ insurance.filter('SecondOrder', function () {
     }
     return ToLocal;
 });
-insurance.filter('Arrive', function () {
+insurance.filter('Arrive', function() {
     function ToLocal(shijianchuo) {
         if (shijianchuo != null) {
             return '未到达'
@@ -574,7 +596,7 @@ insurance.filter('Arrive', function () {
     }
     return ToLocal;
 });
-insurance.filter('ToTime', function () {
+insurance.filter('ToTime', function() {
     function ToLocal(shijianchuo) {
         if (shijianchuo != null) {
             var time = new Date(shijianchuo);
@@ -589,7 +611,7 @@ insurance.filter('ToTime', function () {
     }
     return ToLocal;
 });
-insurance.filter('ToLocal', function () {
+insurance.filter('ToLocal', function() {
     function ToLocal(shijianchuo) {
         if (shijianchuo != null) {
             var time = new Date(shijianchuo);
@@ -608,7 +630,7 @@ insurance.filter('ToLocal', function () {
     }
     return ToLocal;
 });
-insurance.filter('ToLocal2', function () {
+insurance.filter('ToLocal2', function() {
     function ToLocal(shijianchuo) {
         if (shijianchuo != null) {
             var time = new Date(shijianchuo);
@@ -627,7 +649,7 @@ insurance.filter('ToLocal2', function () {
     }
     return ToLocal;
 });
-insurance.filter('ToLocal3', function () {
+insurance.filter('ToLocal3', function() {
     function ToLocal(shijianchuo) {
         if (shijianchuo != null) {
             var time = new Date(shijianchuo);
@@ -645,7 +667,7 @@ insurance.filter('ToLocal3', function () {
     }
     return ToLocal;
 });
-insurance.filter('trackStatus', function () {
+insurance.filter('trackStatus', function() {
     function ToLocal(text) {
         if (text == '静止') {
             return 'img/jingzhi.png'
@@ -659,7 +681,7 @@ insurance.filter('trackStatus', function () {
     }
     return ToLocal;
 });
-insurance.filter('Driver', function () {
+insurance.filter('Driver', function() {
     function ToLocal(array) {
         if (array == null) {
             return '';
@@ -671,7 +693,7 @@ insurance.filter('Driver', function () {
     }
     return ToLocal;
 });
-insurance.filter('DisasterShi', function () {
+insurance.filter('DisasterShi', function() {
     function ToLocal(string) {
         if (string == null) {
             return '';
@@ -683,7 +705,7 @@ insurance.filter('DisasterShi', function () {
     }
     return ToLocal;
 });
-insurance.filter('DisasterQu', function () {
+insurance.filter('DisasterQu', function() {
     function ToLocal(string) {
         if (string == null) {
             return '';
@@ -695,7 +717,7 @@ insurance.filter('DisasterQu', function () {
     }
     return ToLocal;
 });
-insurance.filter('DisasterProvince', function () {
+insurance.filter('DisasterProvince', function() {
     function ToLocal(string) {
         if (string == null) {
             return '';
@@ -707,7 +729,7 @@ insurance.filter('DisasterProvince', function () {
     }
     return ToLocal;
 });
-insurance.filter('DisasterCity', function () {
+insurance.filter('DisasterCity', function() {
     function ToLocal(string) {
         if (string == null) {
             return '';
@@ -719,7 +741,7 @@ insurance.filter('DisasterCity', function () {
     }
     return ToLocal;
 });
-insurance.filter('Drivers', function () {
+insurance.filter('Drivers', function() {
 
     function ToLocal(array) {
         var drivers = '';
@@ -741,7 +763,7 @@ insurance.filter('Drivers', function () {
     }
     return ToLocal;
 });
-insurance.filter('OrderStatus', function () {
+insurance.filter('OrderStatus', function() {
     function OrderStatus(text) {
         switch (text) {
             case 1:
@@ -775,7 +797,7 @@ insurance.filter('OrderStatus', function () {
     }
     return OrderStatus;
 });
-insurance.filter('OrderType', function () {
+insurance.filter('OrderType', function() {
     function OrderType(text) {
         switch (parseInt(text)) {
             case 1:
@@ -791,7 +813,7 @@ insurance.filter('OrderType', function () {
     }
     return OrderType;
 });
-insurance.filter('TaskStatus', function () {
+insurance.filter('TaskStatus', function() {
     function TaskStatus(text) {
         switch (parseInt(text)) {
             case 1:
@@ -809,7 +831,7 @@ insurance.filter('TaskStatus', function () {
     }
     return TaskStatus;
 });
-insurance.filter('TaskFlag', function () {
+insurance.filter('TaskFlag', function() {
     function TaskFlag(text) {
         switch (parseInt(text)) {
             case 0:
@@ -845,7 +867,7 @@ insurance.filter('TaskFlag', function () {
     }
     return TaskFlag;
 });
-insurance.filter('CreateRole', function () {
+insurance.filter('CreateRole', function() {
     function CreateRole(text) {
         switch (parseInt(text)) {
             case 0:
@@ -869,7 +891,7 @@ insurance.filter('CreateRole', function () {
     }
     return CreateRole;
 });
-insurance.filter('InsuranceType', function () {
+insurance.filter('InsuranceType', function() {
     function InsuranceType(text) {
         switch (text) {
             case 0:
@@ -891,7 +913,7 @@ insurance.filter('InsuranceType', function () {
     }
     return InsuranceType;
 });
-insurance.filter('CarType', function () {
+insurance.filter('CarType', function() {
     function CarType(text) {
         switch (parseInt(text)) {
             case 1:
@@ -916,7 +938,7 @@ insurance.filter('CarType', function () {
     }
     return CarType;
 });
-insurance.filter('gongli', function () {
+insurance.filter('gongli', function() {
     function Price(value) {
         if (value == 0) {
             return 0.0;
@@ -926,7 +948,7 @@ insurance.filter('gongli', function () {
     }
     return Price;
 })
-insurance.filter('Price', function () {
+insurance.filter('Price', function() {
     function Price(value) {
         if (value == 0) {
             return 0;
@@ -936,7 +958,7 @@ insurance.filter('Price', function () {
     }
     return Price;
 })
-insurance.filter('AccidentCarNoType', function () {
+insurance.filter('AccidentCarNoType', function() {
     function Price(text) {
         if (text != 1) {
             return null;
@@ -946,7 +968,7 @@ insurance.filter('AccidentCarNoType', function () {
     }
     return Price;
 });
-insurance.filter('ServiceItems', function () {
+insurance.filter('ServiceItems', function() {
     var a = '';
 
     function ServiceItems(array) {
@@ -966,7 +988,7 @@ insurance.filter('ServiceItems', function () {
     }
     return ServiceItems;
 })
-insurance.filter('Distance', function () {
+insurance.filter('Distance', function() {
     function Price(text) {
         if (text == null) {
             return null;
@@ -976,7 +998,7 @@ insurance.filter('Distance', function () {
     }
     return Price;
 });
-insurance.filter('Shi', function () {
+insurance.filter('Shi', function() {
     function Shi(address) {
         if (address == null || address.length == 0) {
             return null;
@@ -1001,7 +1023,7 @@ insurance.filter('Shi', function () {
     }
     return Shi;
 });
-insurance.filter('Qu', function () {
+insurance.filter('Qu', function() {
     function Qu(address) {
         if (address == null || address.length == 0) {
             return null;

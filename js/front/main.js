@@ -1,32 +1,33 @@
 var main = angular.module('main', ['Road167']);
-main.controller('mainCtrl', ['$scope', 'APIService', function ($scope, APIService) {
+main.controller('mainCtrl', ['$scope', 'APIService', function($scope, APIService) {
     $scope.sdk = new WSDK();
     $scope.history_message = {};
     var nextkey = '';
-    $scope.logout = function () {
-        APIService.user_logout().then(function (res) {
+    $scope.logout = function() {
+        APIService.user_logout().then(function(res) {
             if (res.data.result_status == 0) {
                 layer.msg('退出成功');
                 a = [];
                 goto_view('login')
-                setTimeout(function () {
+                setTimeout(function() {
 
                     location.reload();
                 }, 500);
             }
         })
     }
-    $scope.chat_logout = function () {
+    $scope.chat_logout = function() {
         $scope.sdk.Base.destroy();
 
         $scope.sdk = null;
     }
 
-    $scope.back = function () {
+    $scope.back = function() {
         window.history.back();
     }
-    $scope.initData = function () {
+    $scope.initData = function() {
         $scope.initChat();
+        reloadMenuList();
         $scope.menuList = JSON.parse(sessionStorage.getItem('menuList'));
         $scope.not_read_counts = 0;
         $scope.whichRole = sessionStorage.getItem('whichRole');
@@ -35,13 +36,14 @@ main.controller('mainCtrl', ['$scope', 'APIService', function ($scope, APIServic
         if ($scope.whichRole == 'liSuan') {
 
         } else if ($scope.whichRole == 'third') { //如果只只查看三者车的账号，隐藏左边栏
-
+            $scope.menuList[0]
         } else if ($scope.whichRole == 'shop4sAdmin') { //车商人员
 
         } else if ($scope.whichRole == 'admin') {
-            APIService.get_menu().then(function (res) {
+            APIService.get_menu().then(function(res) {
                 if (res.data.http_status == 200) {
                     //17045账号登录，隐藏抢单车队
+
                     if (sessionStorage.getItem('userId') == "21966") {
 
                     }
@@ -51,7 +53,7 @@ main.controller('mainCtrl', ['$scope', 'APIService', function ($scope, APIServic
             })
         }
     }
-    $scope.openFirst = function (data, index) {
+    $scope.openFirst = function(data, index) {
         $scope.menuList[index].isActive = !$scope.menuList[index].isActive;
         if (data.secondList.length == 0) {
             goto_view(data.id)
@@ -61,7 +63,9 @@ main.controller('mainCtrl', ['$scope', 'APIService', function ($scope, APIServic
             $scope.gotoView(data.secondList[0], data, 0)
         }
     }
-    $scope.gotoView = function (data, a, index) {
+    $scope.gotoView = function(data, a, index) {
+        sessionStorage.removeItem('inspectorBackFilter');
+        sessionStorage.removeItem('filter');
         for (let i in $scope.menuList) {
             if ($scope.menuList[i].id == a.id) {
                 for (let j in $scope.menuList[i].secondList) {
@@ -80,7 +84,7 @@ main.controller('mainCtrl', ['$scope', 'APIService', function ($scope, APIServic
         sessionStorage.setItem('menuList', JSON.stringify($scope.menuList));
         goto_view(data.url)
     }
-    $scope.read_message = function () {
+    $scope.read_message = function() {
         $('.message_center').toggle();
         if ($('.message_logo').hasClass('message_logo_has')) {
             $('.message_logo').removeClass('message_logo_has')
@@ -90,43 +94,43 @@ main.controller('mainCtrl', ['$scope', 'APIService', function ($scope, APIServic
         }
 
     }
-    $scope.set_read_message = function () { //设置消息已读
+    $scope.set_read_message = function() { //设置消息已读
         $scope.sdk.Chat.setReadState({
             touid: '10001',
             timestamp: Math.floor((+new Date()) / 1000),
-            success: function (data) {
+            success: function(data) {
                 console.log('设置已读成功', data);
             },
-            error: function (error) {
+            error: function(error) {
                 console.log('设置已读失败', error);
             }
         });
     }
-    $scope.initChat = function () { //初始化聊天
+    $scope.initChat = function() { //初始化聊天
         $scope.sdk.Base.login({
             uid: APIService.userId + '',
             appkey: appkey,
             credential: APIService.imPassword,
             timeout: 2000,
-            success: function (data) {
+            success: function(data) {
                 // {code: 1000, resultText: 'SUCCESS'}
                 console.log('login success', data);
                 $scope.get_message();
-                setTimeout(function () {
+                setTimeout(function() {
                     $scope.get_not_read_counts();
                 }, 500);
 
 
             },
-            error: function (error) {
+            error: function(error) {
                 // {code: 1002, resultText: 'TIMEOUT'}
                 console.log('login fail', error);
                 $scope.initChat();
             }
         });
     }
-    $scope.get_message = function () { //获取实时聊天消息
-        $scope.sdk.Event.on('CHAT.MSG_RECEIVED', function (data) {
+    $scope.get_message = function() { //获取实时聊天消息
+        $scope.sdk.Event.on('CHAT.MSG_RECEIVED', function(data) {
             console.log(data)
             $('.message_logo').addClass('message_logo_has')
             $scope.message = data.data.msgs[0].msg.header.summary;
@@ -151,7 +155,7 @@ main.controller('mainCtrl', ['$scope', 'APIService', function ($scope, APIServic
         }
 
     }
-    $scope.chat = function () {
+    $scope.chat = function() {
         if ($scope.whichRole == 'shop4sAdmin') {
             $scope.adminType = '35910750FD7FFF73'
         } else if ($scope.whichRole == 'admin') {
@@ -160,7 +164,7 @@ main.controller('mainCtrl', ['$scope', 'APIService', function ($scope, APIServic
         window.open('chat.html#' + APIService.userId + '#' + APIService.imPassword + '#' + $scope.adminType)
     }
 
-    $scope.isToday = function (time) {
+    $scope.isToday = function(time) {
         var now = new Date().getTime();
         if (now - time >= 86400000) {
             return false;
@@ -168,13 +172,13 @@ main.controller('mainCtrl', ['$scope', 'APIService', function ($scope, APIServic
             return true;
         }
     }
-    $scope.get_history = function () { //获取历史消息
+    $scope.get_history = function() { //获取历史消息
         $scope.sdk.Chat.getHistory({
             touid: '10001',
             nextkey,
             nextkey,
             count: 300,
-            success: function (data) {
+            success: function(data) {
                 console.log('get history msg success', data);
                 nextkey = data.data && data.data.next_key;
                 var history = data.data.msgs;
@@ -194,16 +198,16 @@ main.controller('mainCtrl', ['$scope', 'APIService', function ($scope, APIServic
                     }
                 }
             },
-            error: function (error) {
+            error: function(error) {
                 console.log('get history msg fail', error);
                 $scope.initChat();
             }
         });
     }
-    $scope.get_not_read_counts = function () { //获取未读条数
+    $scope.get_not_read_counts = function() { //获取未读条数
         $scope.sdk.Base.getUnreadMsgCount({
             count: 1000,
-            success: function (data) {
+            success: function(data) {
                 console.log(data)
                 if (data.data.length != 0) {
                     $scope.not_read_counts = data.data[0].msgCount;
@@ -211,7 +215,7 @@ main.controller('mainCtrl', ['$scope', 'APIService', function ($scope, APIServic
                 }
                 $scope.get_history();
             },
-            error: function (error) {
+            error: function(error) {
                 console.log('获取未读消息的条数失败', error);
             }
         });
