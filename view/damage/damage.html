@@ -1,0 +1,27 @@
+<div ng-controller="damageCtrl" ng-init="initData()">
+    <div class="detail_div">
+        <div ng-repeat="damage in damagelist" class="damage_div">
+            <button ng-hide="damage.zipPath == null || type == 'orderdetail'" class="button" style="margin-left:0;" ng-click="download(damage.zipPath)">下载</button>
+            <div>
+                <p>
+                    <span>{{damage.address}}&emsp;</span>
+                    <span>{{damage.name}}</span>
+                    <span class="time">{{damage.createTime | ToLocal}}</span>
+                </p>
+                <p>
+                    {{damage.remark}}
+                </p>
+            </div>
+            <div class="damage_img_div">
+                <img class="damage_img" ng-repeat="a in damage.pic" ng-src="{{a.zoomOutView}}" alt="" ng-click="openPic(a.path)">
+                <div class="open_img_button">
+                    <button ng-hide="damage.pictures.length < 7 || damage.pic == null" ng-click="openImg($index)">点击{{damage.show?'展开':'收起'}}</button>
+                </div>
+            </div>
+            <div class="under_line damagelist_line"></div>
+        </div>
+    </div>
+    <div ng-hide="damagelist.length != 0" style="text-align:center;">
+        <img class=" no_data " src="img/img-none-zi.png " alt=" ">
+    </div>
+</div>

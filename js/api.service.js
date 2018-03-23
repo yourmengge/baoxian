@@ -648,6 +648,16 @@ Road167.factory('APIService', function($http) {
         return service.get(host + urlV1 + '/picture-lossdec/order?caseNo=' + caseNo + '&accidentCarNo=' + carNo)
     }
 
+    //获取公司信息
+    service.get_company_info = function(companyId) {
+        return service.get(host + urlV1 + '/company/' + companyId);
+    }
+
+    //修改公司信息
+    service.update_company_info = function(companyId, data) {
+        return service.patch(host + urlV1 + '/company/' + companyId, data)
+    }
+
     // //导出订单
     // service.export = function(){
     //     return service.get(host + urlV1 + '/order/export')

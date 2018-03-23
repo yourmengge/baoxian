@@ -32,6 +32,7 @@ urlTrack2 = '&end_time=';
 urlTrack3 = '&entity_name=';
 urlTrack4 = '&page_size=5000&is_processed=1&simple_return=0&supplement_mode=driving&process_option=[need_denoise=1,need_vacuate=1,need_mapmatch=1,transport_mode=1]'
 isPhone = /^0?1[3|4|5|7|8][0-9]\d{8}$/;
+isEmail = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/
 urlSpecify_fleet = '/specify-fleet';
 token = '';
 userId = ''

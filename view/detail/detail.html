@@ -531,7 +531,8 @@
         </div>
         <!-- 定损采集-->
         <div class="tabsDiv" ng-hide="tabType != DAMAGE">
-            <div ng-repeat="damage in damagelist" class="damage_div">
+            <div ui-view style="margin-left:-100px"></div>
+            <!-- <div ng-repeat="damage in damagelist" class="damage_div">
                 <div style="margin-left:60px;">
                     <p>
                         <span>定损点：{{damage.address}}</span>
@@ -549,11 +550,11 @@
             </div>
             <div ng-hide="damagelist.length != 0" style="text-align:center;    margin-left: -100px;">
                 <img class="no_data" src="img/img-none-zi.png" alt="">
-            </div>
+            </div> -->
         </div>
-         <!-- 单证采集-->
-         <div class="tabsDiv" ng-hide="tabType != danzheng">
-            <div  class="damage_div">
+        <!-- 单证采集-->
+        <div class="tabsDiv" ng-hide="tabType != danzheng">
+            <div class="damage_div">
                 <div class="img_div">
                     <img ng-repeat="damage in danzhenglist track by $index" ng-src="{{damage.zoomOutView}}" alt="" ng-click="openPic(damage.path)">
                 </div>

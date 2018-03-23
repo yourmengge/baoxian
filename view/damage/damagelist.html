@@ -1,5 +1,6 @@
 <div class="adddriver" ng-controller="damagelistCtrl" ng-init="initData()">
     <h2>定损处理</h2>
+    <div class="button_span email" ng-click="openSetting()"><img src="../img/icon_mailsetting.png" alt="">邮箱设置</div>
     <p class="search_div">
         上传时间：
         <input type="date" id="startDay" class="input"> 至：
@@ -11,6 +12,19 @@
         <button class="button" ng-click="search()">查询</button>
         <button class="button" ng-click="searchAll()">显示全部</button>
     </p>
+    <div class="closeBg" ng-click="closeBG()"></div>
+    <div class="addinspector_div " id="fixchange">
+        <h2 class="alert_add_h2">参数设定</h2>
+        <img src="img/guanbi-dianji.png" alt="" class="close_img" ng-click="closeBG()">
+        <p style="    text-align: left;    margin-left: 53px;">
+            定损邮箱：
+            <input type="email" class="input" style="width: 67%;" ng-model="email">
+        </p>
+        <p>
+            <button class="button {{email != ''?'':'button_disabled'}}" ng-click="submit_add()" ng-disabled="Name != '' && phone != ''?'':'true'">确定</button>
+            <button class="button button_cancel" ng-click="closeBG()">取消</button>
+        </p>
+    </div>
     <table cellspacing="0" cellpadding='10' class="table">
         <tr class="table_1_tr">
             <td>
@@ -37,10 +51,10 @@
                 备注
             </td>
             <td>
-                下载
+                查看
             </td>
         </tr>
-        <tr ng-repeat="a in list" ng-click="goto(a.accidentCarNo,a.caseNo)">
+        <tr ng-repeat="a in list">
             <td>
                 {{$index + 1}}
             </td>
@@ -64,7 +78,7 @@
             </td>
             <td>{{a.remark}}</td>
             <td>
-                <span class="button_span" ng-hide="a.zipPath == null || a.zipPath == ''" style="min-width:50px;" ng-click="download(a.zipPath)">所有（{{a.zipPath | countOfZip}}）</span>
+                <span class="button_span" style="min-width:50px;" ng-click="goto(a.accidentCarNo,a.caseNo)">详情</span>
             </td>
         </tr>
     </table>

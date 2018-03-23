@@ -179,14 +179,20 @@ detail.controller('detailCtrl', ['$scope', 'APIService', function($scope, APISer
         })
     }
     $scope.get_damage_detail = function() {
-        // $scope.order = 1702040003
-        APIService.get_damage_detail($scope.order).then(function(res) {
-            if (res.data.http_status == 200) {
-                $scope.damagelist = res.data.items;
-            } else {
-                isError(res)
-            }
-        })
+        // // $scope.order = 1702040003
+        // APIService.get_damage_detail($scope.order).then(function(res) {
+        //     if (res.data.http_status == 200) {
+        //         $scope.damagelist = res.data.items;
+        //     } else {
+        //         isError(res)
+        //     }
+        // })
+        // $scope.detail.caseNo = '78900002800459998888';
+        // $scope.detail.accidentCarNo = '闽D15808'
+        sessionStorage.setItem('carNo', $scope.detail.accidentCarNo)
+        sessionStorage.setItem('caseNo', $scope.detail.caseNo)
+        sessionStorage.setItem('orderdetail', 'orderdetail')
+        goto_view('main/detail/damage')
     }
     $scope.openDiv = function(index, roleType) {
         if ($scope.openDetail == index) {

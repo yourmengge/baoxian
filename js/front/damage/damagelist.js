@@ -10,6 +10,7 @@ damagelist.controller('damagelistCtrl', ['$scope', 'APIService', function($scope
         name: '所有'
     }]
     $scope.init = function() {
+        $scope.email = '';
         $scope.select = '';
         $scope.start = '';
         $scope.endDay = '';
@@ -26,7 +27,22 @@ damagelist.controller('damagelistCtrl', ['$scope', 'APIService', function($scope
     $scope.goto = function(carNo, caseNo) {
         sessionStorage.setItem('carNo', carNo)
         sessionStorage.setItem('caseNo', caseNo)
-        goto_view('main/damagedetail')
+        sessionStorage.setItem('orderdetail', '')
+        goto_view('main/damagedetail/damage')
+    }
+    $scope.submit_add = function() {
+        if (!isEmail.test($scope.email)) {
+            layer.msg('请输入正确的邮箱')
+        } else {
+            APIService.update_company_info(sessionStorage.getItem('companyId'), { damageAssessMail: $scope.email }).then(function(res) {
+                if (res.data.http_status == 200) {
+                    layer.msg('设定成功');
+                    $scope.closeBG();
+                } else {
+                    isError(res)
+                }
+            })
+        }
     }
     $scope.initData = function() {
         $scope.init();
@@ -50,6 +66,21 @@ damagelist.controller('damagelistCtrl', ['$scope', 'APIService', function($scope
         dingsunfilter.order_current = $scope.current;
         console.log(JSON.stringify(dingsunfilter))
         sessionStorage.setItem('dingsunfilter', JSON.stringify(dingsunfilter));
+    }
+    $scope.openSetting = function() {
+        APIService.get_company_info(sessionStorage.getItem('companyId')).then(function(res) {
+            if (res.data.http_status == 200) {
+                $scope.email = res.data.damageAssessMail
+            } else {
+                isError(res)
+            }
+        })
+        $('.closeBg').css('display', 'block');
+        $('.addinspector_div').css('display', 'block');
+    }
+    $scope.closeBG = function() {
+        $('.closeBg').css('display', 'none');
+        $('.addinspector_div').css('display', 'none');
     }
     $scope.Page = function(type) {
         if ($scope.start - $scope.endDay <= 0) {

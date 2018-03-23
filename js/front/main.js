@@ -27,25 +27,52 @@ main.controller('mainCtrl', ['$scope', 'APIService', function($scope, APIService
     }
     $scope.initData = function() {
         $scope.initChat();
-        reloadMenuList();
+
         $scope.menuList = JSON.parse(sessionStorage.getItem('menuList'));
         $scope.not_read_counts = 0;
+        $scope.hasChat = false;
         $scope.whichRole = sessionStorage.getItem('whichRole');
         $scope.companyName = sessionStorage.getItem('companyName');
         $scope.adminName = sessionStorage.getItem('adminName');
         if ($scope.whichRole == 'liSuan') {
 
         } else if ($scope.whichRole == 'third') { //如果只只查看三者车的账号，隐藏左边栏
-            $scope.menuList[0]
+            $scope.menuList[4].hide = false;
+            $scope.menuList[4].secondList[0].hide = false;
         } else if ($scope.whichRole == 'shop4sAdmin') { //车商人员
-
+            $scope.menuList[0].hide = false;
+            $scope.menuList[0].secondList[0].hide = false;
+            $scope.menuList[4].hide = false;
+            $scope.menuList[4].secondList[1].hide = false;
         } else if ($scope.whichRole == 'admin') {
             APIService.get_menu().then(function(res) {
                 if (res.data.http_status == 200) {
+                    for (let i in $scope.menuList) {
+                        if ($scope.menuList[i].secondList.length != 0) { //判断有没有二级菜单
+                            for (let j in $scope.menuList[i].secondList) {
+                                for (let k in res.data.items) {
+                                    if (res.data.items[k].url == $scope.menuList[i].secondList[j].url) {
+                                        $scope.menuList[i].secondList[j].hide = false;
+                                        $scope.menuList[i].hide = false;
+                                        res.data.items.splice(k, 1)
+                                    }
+                                }
+                            }
+                        } else {
+                            for (let k in res.data.items) {
+                                if (res.data.items[k].url == $scope.menuList[i].id) {
+                                    $scope.menuList[i].hide = false;
+                                    res.data.items.splice(k, 1)
+                                }
+                            }
+                        }
+                    }
+                    if (res.data.items[0].url == 'chat') {
+                        $scope.hasChat = true;
+                    }
                     //17045账号登录，隐藏抢单车队
-
                     if (sessionStorage.getItem('userId') == "21966") {
-
+                        $scope.menuList[3].secondList[0].hide = true;
                     }
                 } else {
                     isError(res)
@@ -56,11 +83,18 @@ main.controller('mainCtrl', ['$scope', 'APIService', function($scope, APIService
     $scope.openFirst = function(data, index) {
         $scope.menuList[index].isActive = !$scope.menuList[index].isActive;
         if (data.secondList.length == 0) {
-            goto_view(data.id)
+            goto_view('main/' + data.id)
         } else if ($scope.menuList[index].isActive) {
             $scope.menuList[1].isActive = false;
             $scope.menuList[5].isActive = false;
-            $scope.gotoView(data.secondList[0], data, 0)
+            for (let i in data.secondList) {
+                if (data.secondList[i].hide) {
+
+                } else {
+                    return $scope.gotoView(data.secondList[i], data, i)
+                }
+            }
+
         }
     }
     $scope.gotoView = function(data, a, index) {
@@ -82,7 +116,7 @@ main.controller('mainCtrl', ['$scope', 'APIService', function($scope, APIService
             }
         }
         sessionStorage.setItem('menuList', JSON.stringify($scope.menuList));
-        goto_view(data.url)
+        goto_view('main/' + data.url)
     }
     $scope.read_message = function() {
         $('.message_center').toggle();

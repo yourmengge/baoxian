@@ -1,4 +1,4 @@
-var insurance = angular.module('insurance', ['damagedetail', 'damagelist', 'threecars', 'caijidetail', 'batchnocooperation', 'nocooperation', 'addnocooperation', 'confirmation', 'backinfo', 'backtotal', 'brandcfg', 'member', 'brand', 'shop4sorder', 'shop4snum', 'updateFix', 'auditDetail', 'audit', 'third', 'auth', 'datastatistics', 'paymentdetail', 'batchinspector', 'payment', 'inspector', 'companyfleet', 'addshop4S', 'batchshop4S', 'shop4S', 'nar_location', 'disasterdriverorderlist', 'disastermap', 'driverordertotle', 'disasterorderlist', 'totleorder', 'batchaddorder', 'review', 'driverlocation', 'disasterdriver', 'disasterinspector', 'site', 'disasterdetail', 'disaster', 'createdisaster', 'addorder_nar', 'selectlocation', 'editorder', 'track', 'detail', 'team', 'ui.router', 'evaluation', 'adddriver', 'map', 'login', 'Road167', 'fixaddress', 'main', 'addorder', 'orderlist']);
+var insurance = angular.module('insurance', ['damage', 'damagedetail', 'damagelist', 'threecars', 'caijidetail', 'batchnocooperation', 'nocooperation', 'addnocooperation', 'confirmation', 'backinfo', 'backtotal', 'brandcfg', 'member', 'brand', 'shop4sorder', 'shop4snum', 'updateFix', 'auditDetail', 'audit', 'third', 'auth', 'datastatistics', 'paymentdetail', 'batchinspector', 'payment', 'inspector', 'companyfleet', 'addshop4S', 'batchshop4S', 'shop4S', 'nar_location', 'disasterdriverorderlist', 'disastermap', 'driverordertotle', 'disasterorderlist', 'totleorder', 'batchaddorder', 'review', 'driverlocation', 'disasterdriver', 'disasterinspector', 'site', 'disasterdetail', 'disaster', 'createdisaster', 'addorder_nar', 'selectlocation', 'editorder', 'track', 'detail', 'team', 'ui.router', 'evaluation', 'adddriver', 'map', 'login', 'Road167', 'fixaddress', 'main', 'addorder', 'orderlist']);
 var t;
 insurance.config(function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.when('', '/login');
@@ -23,6 +23,14 @@ insurance.config(function($stateProvider, $urlRouterProvider) {
         .state('main.damagedetail', {
             url: '/damagedetail',
             templateUrl: 'view/damage/damagedetail.html'
+        })
+        .state('main.damagedetail.damage', {
+            url: '/damage',
+            templateUrl: 'view/damage/damage.html'
+        })
+        .state('main.detail.damage', {
+            url: '/damage',
+            templateUrl: 'view/damage/damage.html'
         })
         .state('main.threecars', {
             url: '/threecars',
@@ -333,30 +341,35 @@ function reloadMenuList() {
         id: 'orderInfo',
         secondList: [{
             name: '订单列表',
-            url: 'main/orderlist',
-            isActive: false
+            url: 'orderlist',
+            isActive: false,
+            hide: true
         }, {
             name: '定损处理',
-            url: 'main/damagelist',
-            isActive: false
+            url: 'damagelist',
+            isActive: false,
+            hide: true
         }, {
             name: '查勘回厂率',
-            url: 'main/backtotal',
-            isActive: false
+            url: 'backtotal',
+            isActive: false,
+            hide: true
         }, {
             name: '推修厂回厂率',
-            url: 'main/backtotalS',
-            isActive: false
+            url: 'backtotalS',
+            isActive: false,
+            hide: true
         }, {
             name: '评价信息',
-            url: 'main/evaluation',
-            isActive: false
+            url: 'evaluation',
+            isActive: false,
+            hide: true
         }],
         isActive: false,
         hide: true
     }, {
         name: '查勘员管理',
-        id: 'main/inspector',
+        id: 'inspector',
         secondList: [],
         isActive: false,
         hide: true
@@ -365,16 +378,19 @@ function reloadMenuList() {
         id: 'shop4s',
         secondList: [{
             name: '推修厂',
-            url: 'main/shop4S',
-            isActive: false
+            url: 'shop4S',
+            isActive: false,
+            hide: true
         }, {
             name: '修理厂',
-            url: 'main/nocooperation',
-            isActive: false
+            url: 'nocooperation',
+            isActive: false,
+            hide: true
         }, {
             name: '车辆品牌',
-            url: 'main/brand',
-            isActive: false
+            url: 'brand',
+            isActive: false,
+            hide: true
         }],
         isActive: false,
         hide: true
@@ -383,12 +399,14 @@ function reloadMenuList() {
         id: 'car',
         secondList: [{
             name: '车队列表',
-            url: 'main/companyfleet',
-            isActive: false
+            url: 'companyfleet',
+            isActive: false,
+            hide: true
         }, {
             name: '效率统计',
-            url: 'main/datastatistics',
-            isActive: false
+            url: 'datastatistics',
+            isActive: false,
+            hide: true
         }],
         isActive: false,
         hide: true
@@ -397,18 +415,20 @@ function reloadMenuList() {
         id: 'caiji',
         secondList: [{
             name: '三者信息',
-            url: 'main/threecars',
-            isActive: false
+            url: 'threecars',
+            isActive: false,
+            hide: true
         }, {
             name: '车商采集',
-            url: 'main/threecarsS',
-            isActive: false
+            url: 'threecarsS',
+            isActive: false,
+            hide: true
         }],
         isActive: false,
         hide: true
     }, {
         name: '大灾管理',
-        id: 'main/disaster',
+        id: 'disaster',
         secondList: [],
         isActive: false,
         hide: true

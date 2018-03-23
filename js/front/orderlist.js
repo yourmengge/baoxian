@@ -54,6 +54,7 @@ orderlist.controller('orderlistCtrl', ['$scope', 'APIService', '$http', function
             $scope.caseNo = a.keyword;
             $scope.pushResult = a.resulttype;
             $scope.current = 1;
+            $scope.status = 'THIRD_REMOVE_CANCEL'
             $scope.reset_date();
         } else if (sessionStorage.getItem('filter') != undefined) {
             var a = JSON.parse(sessionStorage.getItem('filter'))
@@ -413,6 +414,10 @@ orderlist.controller('orderlistCtrl', ['$scope', 'APIService', '$http', function
         {
             id: 'THIRD_CANCEL',
             name: '已取消'
+        },
+        {
+            id: 'THIRD_REMOVE_CANCEL',
+            name: '除已取消'
         }
     ]
     $scope.WuChaTexts = [{
