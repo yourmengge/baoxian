@@ -11,8 +11,8 @@ login.controller('loginCtrl', ['$scope', 'APIService', function($scope, APIServi
                         reloadMenuList();
                         sessionStorage.setItem('lmId', 1)
                         sessionStorage.setItem('funcList', res.data.funcList)
-                        if (res.data.roleId == '72') { //理算人员
-                            sessionStorage.setItem('whichRole', 'liSuan')
+                        if (res.data.roleId == '72') { //定损人员
+                            sessionStorage.setItem('whichRole', 'dingsun')
                         } else if (res.data.roleId == '71') { //车商人员
                             sessionStorage.setItem('whichRole', 'shop4sAdmin')
                         } else if ((res.data.userFlag & 1) > 0) { //查看三者车

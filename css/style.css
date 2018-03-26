@@ -630,6 +630,7 @@ textarea {
     right: 0;
     bottom: 0;
     background: rgba(47, 47, 47, 0.72);
+    z-index: 0618;
 }
 
 .p_input {
@@ -1141,7 +1142,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .addinspector_div {
-    z-index: 10;
+    z-index: 0619;
     display: none;
     width: 500px;
     background: #fff;

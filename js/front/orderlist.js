@@ -492,9 +492,9 @@ orderlist.controller('orderlistCtrl', ['$scope', 'APIService', '$http', function
     }
     $scope.switchCarType = function(type) {
         switch (type) {
-            case 1:
-                return 'img/icon_sanzhe.png'
             case 2:
+                return 'img/icon_sanzhe.png'
+            case 1:
                 return 'img/icon_biaodi.png'
             default:
                 break;

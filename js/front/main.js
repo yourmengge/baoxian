@@ -34,8 +34,9 @@ main.controller('mainCtrl', ['$scope', 'APIService', function($scope, APIService
         $scope.whichRole = sessionStorage.getItem('whichRole');
         $scope.companyName = sessionStorage.getItem('companyName');
         $scope.adminName = sessionStorage.getItem('adminName');
-        if ($scope.whichRole == 'liSuan') {
-
+        if ($scope.whichRole == 'dingsun') { //定损人员
+            $scope.menuList[0].hide = false;
+            $scope.menuList[0].secondList[1].hide = false;
         } else if ($scope.whichRole == 'third') { //如果只只查看三者车的账号，隐藏左边栏
             $scope.menuList[4].hide = false;
             $scope.menuList[4].secondList[0].hide = false;
