@@ -181,11 +181,11 @@ button {
     float: right;
     margin-top: 6px;
     height: 10px;
-    background: url(../../img/icon_down.png);
+    background: url(../img/icon_down.png);
 }
 
 .first_menu_icon_active {
-    background: url(../../img/icon_up.png);
+    background: url(../img/icon_up.png);
 }
 
 .second_menu {

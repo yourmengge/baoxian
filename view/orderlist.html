@@ -22,30 +22,20 @@
     </p> -->
     <p class="search_div">
         时间类型：
-        <select class="input" ng-change="search()" name="" style="width:100px;" ng-model="timetype" ng-options="a.id as a.name for a in timeTypeTexts"
-            id=""></select>
-        开始：
+        <select class="input" ng-change="search()" name="" style="width:100px;" ng-model="timetype" ng-options="a.id as a.name for a in timeTypeTexts" id=""></select> 开始：
         <input type="date" id="startDay" class="input"> 结束：
         <input type="date" id="endDay" class="input">
         <br>
         <br>订单状态：
-        <select ng-change="search()" class="input" name="" style="width:100px;" ng-model="status" ng-options="a.id as a.name for a in statusTexts"
-            id=""></select> 订单类型：
-        <select ng-change="search()" class="input" name="" style="width:100px;" ng-model="ordertype" ng-options="a.id as a.name for a in orderTypeTexts"
-            id=""></select>
-        车保类型：
-        <select ng-change="search()" class="input" name="" style="width:100px;" ng-model="insuranceType" ng-options="a.id as a.name for a in insuranceTypeTexts"
-            id=""></select>
+        <select ng-change="search()" class="input" name="" style="width:100px;" ng-model="status" ng-options="a.id as a.name for a in statusTexts" id=""></select> 订单类型：
+        <select ng-change="search()" class="input" name="" style="width:100px;" ng-model="ordertype" ng-options="a.id as a.name for a in orderTypeTexts" id=""></select> 车保类型：
+        <select ng-change="search()" class="input" name="" style="width:100px;" ng-model="insuranceType" ng-options="a.id as a.name for a in insuranceTypeTexts" id=""></select>
         <span ng-hide="zhipei">赔付类型：</span>
-        <select ng-hide="zhipei" ng-change="search()" class="input" name="" style="width:100px;" ng-model="peifu" ng-options="a.id as a.name for a in peifuTexts"
-            id=""></select>
+        <select ng-hide="zhipei" ng-change="search()" class="input" name="" style="width:100px;" ng-model="peifu" ng-options="a.id as a.name for a in peifuTexts" id=""></select>
         <br>
         <br> 推修结果：
-        <select ng-change="search()" class="input" name="" style="width:100px;" ng-model="pushResult" ng-options="a.id as a.name for a in resultTypeTexts"
-            id=""></select>
-        目的地点误差：
-        <select ng-change="search()" class="input" name="" style="width:100px;" ng-model="WuCha" ng-options="a.id as a.name for a in WuChaTexts"
-            id=""></select>
+        <select ng-change="search()" class="input" name="" style="width:100px;" ng-model="pushResult" ng-options="a.id as a.name for a in resultTypeTexts" id=""></select> 目的地点误差：
+        <select ng-change="search()" class="input" name="" style="width:100px;" ng-model="WuCha" ng-options="a.id as a.name for a in WuChaTexts" id=""></select>
         <input class="input" type="text" ng-model="caseNo" style="width:320px;" placeholder="请输入查勘员、车牌号、施救单位或推修车行简称">
         <button class="button" ng-click="search()" style="min-width:60px;">查询</button>
         <button class="button" ng-click="searchAll()" style="min-width:60px;">显示全部</button>
@@ -249,7 +239,7 @@
                 <th>
                     施救单位
                 </th>
-                <th>
+                <th style="width:300px;">
                     施救地点
                 </th>
                 <th>
@@ -281,14 +271,13 @@
                 <td>{{a.accidentDriverName}}</td>
                 <td>{{a.accidentDriverPhone}}</td>
                 <td>{{a.grabFleetName}}</td>
-                <td>{{a.accidentAddress}}</td>
+                <td style="width:300px;">{{a.accidentAddress}}</td>
                 <td>{{a.shop4sName}}</td>
                 <td>{{a.shop4sNameFinal}}</td>
                 <td>{{a.shop4sConfirmTime | ToLocal}}</td>
                 <td>{{a.fixDiffDistance}}</td>
                 <td>
-                    <span class="button_span" style="min-width:50px;" ng-hide="a.status >= 4 || whichRole == 'liSuan' || whichRole == 'shop4sAdmin'"
-                        ng-click="editOrder(a,$event)">修改</span>
+                    <span class="button_span" style="min-width:50px;" ng-hide="a.status >= 4 || whichRole == 'liSuan' || whichRole == 'shop4sAdmin'" ng-click="editOrder(a,$event)">修改</span>
                     <span class="button_span red_font" style="min-width:50px;" ng-click="cancel(a.orderNo,$event)" ng-hide="a.status >= 4 || whichRole == 'liSuan' || whichRole == 'shop4sAdmin'">取消</span>
                 </td>
             </tr>
