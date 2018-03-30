@@ -145,6 +145,9 @@
             <div ng-hide="a.hide" class="first_menu {{a.isActive?'first_menu_active':''}}" ng-click="openFirst(a,$index)">
                 <a>{{a.name}}</a>
                 <div ng-hide="a.secondList.length == 0" class="first_menu_icon {{a.isActive?'first_menu_icon_active':''}}"></div>
+                <div ng-hide="a.id != 'disaster'" class="first_menu_icon">
+                    <a href="view/help.html" id="help" target="blank" title="大灾帮助文档"></a>
+                </div>
             </div>
             <div ng-hide="b.hide || !a.isActive" class="second_menu {{b.isActive?'second_menu_active':''}}" ng-repeat="b in a.secondList" ng-click="gotoView(b,a,$index)">
                 <a>{{b.name}}</a>

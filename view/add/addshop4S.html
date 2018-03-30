@@ -15,7 +15,7 @@
                     <input class="input" type="text" ng-change="change()" ng-model="data.branchCompany">
                 </td>
             </tr>
-            <tr ng-hide="data.noPushFixCode" >
+            <tr ng-hide="data.noPushFixCode">
                 <td>
                     <span class="require"></span>推修码：</td>
                 <td>
@@ -37,7 +37,7 @@
                     <input class="input" type="text" ng-model="data.simpleName" ng-change="change()">
                 </td>
             </tr>
-            <tr ng-hide="data.noPushFixCode" >
+            <tr ng-hide="data.noPushFixCode">
                 <td>
                     <span class="require"></span>车行地址：</td>
                 <td>
@@ -48,7 +48,10 @@
                 <td>
                     <span class="require"></span>允许定损偏差（米）：</td>
                 <td>
-                    <input placeholder="请输入允许的定损拍照位置偏差" class="input" type="number" ng-change="change()" min="1" max="9999" ng-model="data.allowedDiff">
+                    <input placeholder="请输入允许的定损拍照位置偏差" class="input" type="number" ng-change="change()" ng-model="data.allowedDiff">
+                </td>
+                <td style="font-size: 15px;color: #f00;" ng-hide="!toLarge">
+                    定损偏差只允许为1-9999范围的数值
                 </td>
             </tr>
         </table>
@@ -56,7 +59,7 @@
 
         <br>
         <!--<button class="button" style="margin-left: 5vw;margin-top: 30px;"  ng-click="back()"></button>-->
-        <div style="width:470px;height:50px;">
+        <div style="width:470px;height:50px;    margin-left: 81px;">
             <button class="button  " style="margin-left: 87px;" id="submit" ng-click="submit_button()">确定</button>
             <button class="button  " style="margin-left: 20px;" id="submit" ng-click="reset()" ng-hide="title == '修改推修厂'">重置</button>
             <span style="float:right">为必填项</span>

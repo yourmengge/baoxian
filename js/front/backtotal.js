@@ -78,7 +78,9 @@ backtotal.controller('backtotalCtrl', ['$scope', 'APIService', function($scope, 
             timetype: $scope.timetype,
             current: $scope.current,
             resulttype: $scope.resulttype,
-            keyword: $scope.keyword
+            keyword: $scope.keyword,
+            createUserId: $scope.createUserId,
+            type: $scope.backType
         }
         sessionStorage.setItem('inspectorBackFilter', JSON.stringify(inspectorBackFilter));
     }
@@ -138,7 +140,7 @@ backtotal.controller('backtotalCtrl', ['$scope', 'APIService', function($scope, 
         $scope.get_inspector_back_factory();
         $scope.back_factory_total();
     }
-    $scope.goto = function(type, name) {
+    $scope.goto = function(type, name, userId) {
         if (name == null) {
             name = '';
         }
@@ -149,6 +151,7 @@ backtotal.controller('backtotalCtrl', ['$scope', 'APIService', function($scope, 
                 $scope.menuList[0].secondList[j].isActive = false;
             }
         }
+        $scope.createUserId = userId
         $scope.resulttype = type;
         $scope.keyword = name;
         console.log()

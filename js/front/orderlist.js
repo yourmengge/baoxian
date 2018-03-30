@@ -34,6 +34,8 @@ orderlist.controller('orderlistCtrl', ['$scope', 'APIService', '$http', function
         $scope.init();
         // $scope.get_order_total();
         loading();
+        $scope.createUserId = '';
+        $scope.pushShop4sId = '';
         $scope.whichRole = sessionStorage.getItem('whichRole')
         if (sessionStorage.getItem('inspectorBackFilter') != undefined) {
             var a = JSON.parse(sessionStorage.getItem('inspectorBackFilter'));
@@ -52,9 +54,17 @@ orderlist.controller('orderlistCtrl', ['$scope', 'APIService', '$http', function
             }
             $scope.ordertype = a.ordertype;
             $scope.caseNo = a.keyword;
+            if (a.type == 'inspector') {
+                $scope.createUserId = a.createUserId;
+                $scope.pushShop4sId = '';
+            } else {
+                $scope.pushShop4sId = a.createUserId;
+                $scope.createUserId = '';
+            }
+
             $scope.pushResult = a.resulttype;
             $scope.current = 1;
-            $scope.status = 'THIRD_REMOVE_CANCEL'
+            $scope.status = 'THIRD_BACK'
             $scope.reset_date();
         } else if (sessionStorage.getItem('filter') != undefined) {
             var a = JSON.parse(sessionStorage.getItem('filter'))
@@ -136,7 +146,7 @@ orderlist.controller('orderlistCtrl', ['$scope', 'APIService', '$http', function
 
     // }
     $scope.get_order_list = function() {
-        APIService.get_order_list(10, $scope.start, $scope.endDay, $scope.status, $scope.caseNo, $scope.ordertype, $scope.WuCha, $scope.insuranceType, $scope.peifu, $scope.accidentDateStart, $scope.accidentDateEnd, $scope.pushResult, ($scope.current - 1) * 10).then(function(res) {
+        APIService.get_order_list(10, $scope.createUserId, $scope.pushShop4sId, $scope.start, $scope.endDay, $scope.status, $scope.caseNo, $scope.ordertype, $scope.WuCha, $scope.insuranceType, $scope.peifu, $scope.accidentDateStart, $scope.accidentDateEnd, $scope.pushResult, ($scope.current - 1) * 10).then(function(res) {
             if (res.data.http_status == 200) {
                 closeloading();
                 if (res.data.orderCounts == 0) {
@@ -202,7 +212,7 @@ orderlist.controller('orderlistCtrl', ['$scope', 'APIService', '$http', function
         window.open(host + urlV1 + '/order/export/third?OrderStatus2=' + $scope.status + '&orderType=' + $scope.ordertype + '&$limit=999&startDay=' + $scope.start + '&endDay=' +
                 $scope.endDay + '&keyword=' + $scope.caseNo + '&fixDiffDistance=' + $scope.WuCha + '&insuranceType=' + $scope.insuranceType + '&DirectType=' + $scope.peifu +
                 '&accidentDateStart=' + $scope.accidentDateStart + '&accidentDateEnd=' + $scope.accidentDateEnd + '&PushResult=' +
-                $scope.pushResult + '&Authorization=' + APIService.token + '&user-id=' + APIService.userId)
+                $scope.pushResult + '&createUserId=' + $scope.createUserId + '&pushShop4sId' + $scope.pushShop4sId + '&Authorization=' + APIService.token + '&user-id=' + APIService.userId)
             //window.open('http://dev.road167.com:8080/extrication/v1/order/export');
             // APIService.export().then(function (res) {
             //     console.log(res.data);
@@ -242,7 +252,7 @@ orderlist.controller('orderlistCtrl', ['$scope', 'APIService', '$http', function
 
         $scope.openDetail = -1;
         loading();
-        APIService.get_order_list(10, $scope.start, $scope.endDay, $scope.status, $scope.caseNo, $scope.ordertype, $scope.WuCha, $scope.insuranceType, $scope.peifu, $scope.accidentDateStart, $scope.accidentDateEnd, $scope.pushResult, ($scope.current - 1) * 10).then(function(res) {
+        APIService.get_order_list(10, $scope.createUserId, $scope.pushShop4sId, $scope.start, $scope.endDay, $scope.status, $scope.caseNo, $scope.ordertype, $scope.WuCha, $scope.insuranceType, $scope.peifu, $scope.accidentDateStart, $scope.accidentDateEnd, $scope.pushResult, ($scope.current - 1) * 10).then(function(res) {
             if (res.data.http_status == 200) {
                 closeloading();
                 if (res.data.orderCounts == 0) {
@@ -323,7 +333,7 @@ orderlist.controller('orderlistCtrl', ['$scope', 'APIService', '$http', function
             APIService.paging(urlV1 + urlThird + urlOrder + '?startDay=' + $scope.start + '&endDay=' + $scope.endDay + '&OrderStatus2=' + $scope.status +
                 '&orderType=' + $scope.ordertype + '&keyword=' + $scope.caseNo + '&fixDiffDistance=' + $scope.WuCha + '&insuranceType=' + $scope.insuranceType +
                 '&DirectType=' + $scope.peifu + '&accidentDateStart=' + $scope.accidentDateStart + '&accidentDateEnd=' + $scope.accidentDateEnd + '&PushResult=' +
-                $scope.pushResult, limit, type, $scope.pageCount, $scope.current).then(function(res) {
+                $scope.pushResult + '&createUserId=' + $scope.createUserId + '&pushShop4sId=' + $scope.pushShop4sId, limit, type, $scope.pageCount, $scope.current).then(function(res) {
                 if (res.data.http_status == 200) {
                     closeloading();
                     $scope.orderList = res.data.orderList;
@@ -393,7 +403,7 @@ orderlist.controller('orderlistCtrl', ['$scope', 'APIService', '$http', function
     }]
     $scope.statusTexts = [{
             id: 'THIRD_ALL',
-            name: '全部订单'
+            name: '全部'
         },
         {
             id: 'THIRD_ORDER',
@@ -416,7 +426,7 @@ orderlist.controller('orderlistCtrl', ['$scope', 'APIService', '$http', function
             name: '已取消'
         },
         {
-            id: 'THIRD_REMOVE_CANCEL',
+            id: 'THIRD_BACK',
             name: '除已取消'
         }
     ]
@@ -458,6 +468,16 @@ orderlist.controller('orderlistCtrl', ['$scope', 'APIService', '$http', function
             name: '非施救'
         }
     ]
+
+    $scope.hideEdit = function(status) {
+        if (status === '已完成' || status == '已取消') {
+            return true;
+        }
+        if ($scope.whichRole == 'liSuan' || $scope.whichRole == 'shop4sAdmin') {
+            return true;
+        }
+        return false;
+    }
     $scope.switchColor = function(text) {
         switch (text) {
             case '待接单':

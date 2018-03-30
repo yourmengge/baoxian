@@ -22,10 +22,10 @@
                 成功率{{total.successRate}}%
             </span>
             <span>
-                总单数<span class="div_link" ng-click="goto('','')">{{total.counts}}</span>单
+                总单数<span class="div_link" ng-click="goto('','','')">{{total.counts}}</span>单
             </span>
             <span>
-                准确推修<span class="div_link" ng-click="goto('SAME','')">{{total.accuracyCounts}}</span>单
+                准确推修<span class="div_link" ng-click="goto('SAME','','')">{{total.accuracyCounts}}</span>单
             </span>
         </div>
     </div>
@@ -35,10 +35,10 @@
                 {{url == 'backtotal'?'查勘员':'推修厂'}}
             </div>
             <div>
-                准确率（%）
+                准确率
             </div>
             <div>
-                成功率（%）
+                成功率
             </div>
             <div>
                 总单数（单）
@@ -53,15 +53,15 @@
                     {{a.name}}
                 </div>
                 <div>
-                    {{a.accuracyRate}}
+                    {{a.accuracyRate}}%
                 </div>
                 <div>
-                    {{a.successRate}}
+                    {{a.successRate}}%
                 </div>
-                <div class="div_link" ng-click="goto('',a.name)">
+                <div class="div_link" ng-click="goto('',a.name,a.userId)">
                     {{a.counts}}
                 </div>
-                <div class="div_link" ng-click="goto('SAME',a.name)">
+                <div class="div_link" ng-click="goto('SAME',a.name,a.userId)">
                     {{a.accuracyCounts}}
                 </div>
             </div>

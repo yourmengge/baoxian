@@ -17,7 +17,11 @@ login.controller('loginCtrl', ['$scope', 'APIService', function($scope, APIServi
                             sessionStorage.setItem('whichRole', 'shop4sAdmin')
                         } else if ((res.data.userFlag & 1) > 0) { //查看三者车
                             sessionStorage.setItem('whichRole', 'third')
-                        } else { //保险人员
+                        } else if ((res.data.userFlag & 2) > 0) { //保险人员无抢单车队权限
+                            sessionStorage.setItem('admin', 'adminNot')
+                            sessionStorage.setItem('whichRole', 'admin')
+                        } else {
+                            sessionStorage.setItem('admin', 'adminALL')
                             sessionStorage.setItem('whichRole', 'admin')
                         }
                         setTimeout(function() {

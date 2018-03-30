@@ -1,5 +1,5 @@
 <div class="adddriver" ng-controller="orderlistCtrl" ng-init="initData()">
-    <h2>查看订单</h2>
+    <h2>订单列表</h2>
     <!-- <p style="font-size: 15px;">
         订单总量：
         <span class="ordertotal">{{orderTotalCount}}</span>
@@ -203,12 +203,15 @@
         </div>
     </div> -->
     <div class="orderlist" ng-hide="table">
-        <div class="index_div">
+        <!-- <div class="index_div">
             <div class="index_blank"></div>
             <div ng-repeat="a in orderList">{{$index + 1}}</div>
-        </div>
+        </div> -->
         <table cellspacing="0">
             <tr>
+                <th class="index">
+
+                </th>
                 <th>
                     订单状态
                 </th>
@@ -259,15 +262,18 @@
                 </th>
             </tr>
             <tr ng-repeat="a in orderList" ng-click="detail(a.orderNo)">
+                <td class="index">
+                    {{$index + 1}}
+                </td>
                 <td ng-class="switchColor(a.statusDesc)">{{a.statusDesc}}</td>
                 <td style="text-align: left;width:110px">
                     <img ng-src="{{switchImg(a.pushFixResult)}}" class="pushImg" alt=""><span>{{a.pushFixResultDesc}}</span></td>
-                <td>
+                <td style="text-align:left;padding-left:10px;">
                     <a ng-class="a.directType == 1?'directType_zhi':'directType'">直</a> {{a.orderTypeDesc}}</td>
                 <td>{{a.inspectorName}}</td>
                 <td style="text-align: left;"><img ng-src="{{switchCarType(a.insuranceType)}}" class="carImg" alt=""><span>{{a.accidentCarNo}}</span></td>
                 <td>{{a.createTime | ToLocal}}</td>
-                <td>{{a.statusDesc}}</td>
+                <td>{{a.accidentTime | ToDay}}</td>
                 <td>{{a.accidentDriverName}}</td>
                 <td>{{a.accidentDriverPhone}}</td>
                 <td>{{a.grabFleetName}}</td>
@@ -277,8 +283,8 @@
                 <td>{{a.shop4sConfirmTime | ToLocal}}</td>
                 <td>{{a.fixDiffDistance}}</td>
                 <td>
-                    <span class="button_span" style="min-width:50px;" ng-hide="a.status >= 4 || whichRole == 'liSuan' || whichRole == 'shop4sAdmin'" ng-click="editOrder(a,$event)">修改</span>
-                    <span class="button_span red_font" style="min-width:50px;" ng-click="cancel(a.orderNo,$event)" ng-hide="a.status >= 4 || whichRole == 'liSuan' || whichRole == 'shop4sAdmin'">取消</span>
+                    <span class="button_span" style="min-width:50px;" ng-hide="hideEdit(a.statusDesc)" ng-click="editOrder(a,$event)">修改</span>
+                    <span class="button_span red_font" style="min-width:50px;" ng-click="cancel(a.orderNo,$event)" ng-hide="hideEdit(a.statusDesc)">取消</span>
                 </td>
             </tr>
         </table>

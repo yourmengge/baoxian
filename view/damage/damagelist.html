@@ -18,7 +18,7 @@
         <img src="img/guanbi-dianji.png" alt="" class="close_img" ng-click="closeBG()">
         <p style="    text-align: left;    margin-left: 53px;">
             定损邮箱：
-            <input type="email" class="input" style="width: 67%;" ng-model="email">
+            <input type="email" class="input" style="width: 67%;" ng-model="email" placeholder="请输入邮箱">
         </p>
         <p>
             <button class="button {{email != ''?'':'button_disabled'}}" ng-click="submit_add()" ng-disabled="Name != '' && phone != ''?'':'true'">确定</button>

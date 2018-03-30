@@ -38,13 +38,16 @@ main.controller('mainCtrl', ['$scope', 'APIService', function($scope, APIService
             $scope.menuList[0].hide = false;
             $scope.menuList[0].secondList[1].hide = false;
         } else if ($scope.whichRole == 'third') { //如果只只查看三者车的账号，隐藏左边栏
-            $scope.menuList[4].hide = false;
-            $scope.menuList[4].secondList[0].hide = false;
+            $scope.menuList[2].hide = false;
+            $scope.menuList[2].secondList[0].hide = false;
         } else if ($scope.whichRole == 'shop4sAdmin') { //车商人员
             $scope.menuList[0].hide = false;
             $scope.menuList[0].secondList[0].hide = false;
+            $scope.menuList[2].hide = false;
+            $scope.menuList[2].secondList[0].hide = false;
             $scope.menuList[4].hide = false;
             $scope.menuList[4].secondList[1].hide = false;
+            $scope.hasChat = true;
         } else if ($scope.whichRole == 'admin') {
             APIService.get_menu().then(function(res) {
                 if (res.data.http_status == 200) {
@@ -68,12 +71,17 @@ main.controller('mainCtrl', ['$scope', 'APIService', function($scope, APIService
                             }
                         }
                     }
-                    if (res.data.items[0].url == 'chat') {
-                        $scope.hasChat = true;
+                    for (let i in res.data.items) {
+                        if (res.data.items[i].url == 'chat') {
+                            $scope.hasChat = true;
+                        }
                     }
+
                     //17045账号登录，隐藏抢单车队
-                    if (sessionStorage.getItem('userId') == "21966") {
+                    if (sessionStorage.getItem('admin') == "adminNot") {
                         $scope.menuList[3].secondList[0].hide = true;
+                    } else if (sessionStorage.getItem('admin') == "adminALL") {
+                        $scope.menuList[3].secondList[0].hide = false;
                     }
                 } else {
                     isError(res)
