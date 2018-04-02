@@ -1,7 +1,7 @@
 <div ng-controller="damageCtrl" ng-init="initData()">
     <div class="detail_div">
         <div ng-repeat="damage in damagelist" class="damage_div">
-            <button ng-hide="damage.zipPath == null || type == 'orderdetail'" class="button" style="margin-left:0;margin-bottom: 14px;" ng-click="download(damage.zipPath)">下载</button>
+            <button ng-hide="damage.zipPath == null || type == 'orderdetail'" class="button" style="margin-left:0;margin-bottom: 12px;" ng-click="download(damage.zipPath)">下载</button>
             <div>
                 <p>
                     <span>{{damage.address}}&emsp;</span>

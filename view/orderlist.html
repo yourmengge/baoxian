@@ -215,7 +215,7 @@
                 <th>
                     订单状态
                 </th>
-                <th style="width:110px">
+                <th style="width:140px">
                     推修结果
                 </th>
                 <th>
@@ -266,7 +266,7 @@
                     {{$index + 1}}
                 </td>
                 <td ng-class="switchColor(a.statusDesc)">{{a.statusDesc}}</td>
-                <td style="text-align: left;width:110px">
+                <td style="text-align: left;width:140px">
                     <img ng-src="{{switchImg(a.pushFixResult)}}" class="pushImg" alt=""><span>{{a.pushFixResultDesc}}</span></td>
                 <td style="text-align:left;padding-left:10px;">
                     <a ng-class="a.directType == 1?'directType_zhi':'directType'">直</a> {{a.orderTypeDesc}}</td>

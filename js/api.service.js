@@ -560,7 +560,7 @@ Road167.factory('APIService', function($http) {
         }
         //获取车辆品牌列表
     service.get_car_brand = function(limit, offset, keyword) {
-            return service.get(host + urlV1 + '/car-brand/page?$offset=' + offset + '&$limit=' + limit + '&name=' + keyword)
+            return service.get(host + urlV1 + '/car-brand/page?$offset=' + offset + '&$limit=' + limit + '&keywords=' + keyword)
         }
         //添加车辆品牌
     service.add_car_brand = function(data) {

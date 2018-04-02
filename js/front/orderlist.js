@@ -212,7 +212,7 @@ orderlist.controller('orderlistCtrl', ['$scope', 'APIService', '$http', function
         window.open(host + urlV1 + '/order/export/third?OrderStatus2=' + $scope.status + '&orderType=' + $scope.ordertype + '&$limit=999&startDay=' + $scope.start + '&endDay=' +
                 $scope.endDay + '&keyword=' + $scope.caseNo + '&fixDiffDistance=' + $scope.WuCha + '&insuranceType=' + $scope.insuranceType + '&DirectType=' + $scope.peifu +
                 '&accidentDateStart=' + $scope.accidentDateStart + '&accidentDateEnd=' + $scope.accidentDateEnd + '&PushResult=' +
-                $scope.pushResult + '&createUserId=' + $scope.createUserId + '&pushShop4sId' + $scope.pushShop4sId + '&Authorization=' + APIService.token + '&user-id=' + APIService.userId)
+                $scope.pushResult + '&createUserId=' + $scope.createUserId + '&pushShop4sId=' + $scope.pushShop4sId + '&Authorization=' + APIService.token + '&user-id=' + APIService.userId)
             //window.open('http://dev.road167.com:8080/extrication/v1/order/export');
             // APIService.export().then(function (res) {
             //     console.log(res.data);
@@ -372,14 +372,20 @@ orderlist.controller('orderlistCtrl', ['$scope', 'APIService', '$http', function
         id: 'SUCCESS',
         name: '成功'
     }, {
-        id: 'SAME',
-        name: '准确'
-    }, {
         id: 'BE_CONFIRMED',
         name: '待确认'
     }, {
         id: 'FAIL',
         name: '失败'
+    }, {
+        id: 'SAME',
+        name: '准确'
+    }, {
+        id: 'SAME_SUCCESS',
+        name: '准确（成功）'
+    }, {
+        id: 'SAME_FAIL',
+        name: '准确（不成功）'
     }]
     $scope.insuranceTypeTexts = [{
         id: '',
@@ -502,7 +508,9 @@ orderlist.controller('orderlistCtrl', ['$scope', 'APIService', '$http', function
                 return 'img/icon_daiqueren.png'
             case 1:
                 return 'img/icon_yiwancheng.png'
-            case 2:
+            case 21:
+                return 'img/icon_zhunque_cg.png'
+            case 22:
                 return 'img/icon_zhunque.png'
             case -1:
                 return 'img/icon_shibai.png'

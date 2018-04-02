@@ -2345,7 +2345,7 @@ audio {
 
 .message_logo {
     background: url(../img/icon_message_nor.png) no-repeat;
-    height: 34px;
+    height: 38px;
     width: 20px;
     border: none;
     vertical-align: middle;
@@ -2978,7 +2978,7 @@ img {
 .damage_div .under_line {
     height: 1px;
     background: #dedede;
-    margin: 30px 140px 40px 60px;
+    margin: 30px 140px 30px 60px;
 }
 
 .damage_img_div {

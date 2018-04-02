@@ -1,6 +1,6 @@
 <div class="adddriver" ng-controller="damagelistCtrl" ng-init="initData()">
     <h2>定损处理</h2>
-    <div class="button_span email" ng-click="openSetting()"><img src="../img/icon_mailsetting.png" alt="">邮箱设置</div>
+    <div class="button_span email" ng-click="openSetting()"><img src="img/icon_mailsetting.png" alt="">邮箱设置</div>
     <p class="search_div">
         上传时间：
         <input type="date" id="startDay" class="input"> 至：
@@ -32,13 +32,13 @@
             <td>
                 车牌号
             </td>
-            <td>
+            <td style="width:150px">
                 案件号
             </td>
             <td>
                 出险日期
             </td>
-            <td>
+            <td style="width:150px">
                 定损点
             </td>
             <td>
@@ -47,7 +47,7 @@
             <td>
                 上传人
             </td>
-            <td>
+            <td style="width:150px">
                 备注
             </td>
             <td>
@@ -61,13 +61,13 @@
             <td>
                 {{a.accidentCarNo}}
             </td>
-            <td>
+            <td style="width:150px">
                 {{a.caseNo}}
             </td>
             <td>
                 {{a.accidentTime | ToDay}}
             </td>
-            <td>
+            <td style="width:150px">
                 {{a.address}}
             </td>
             <td>
@@ -76,7 +76,7 @@
             <td>
                 {{a.name}}
             </td>
-            <td>{{a.remark}}</td>
+            <td style="width:150px">{{a.remark}}</td>
             <td>
                 <span class="button_span" style="min-width:50px;" ng-click="goto(a.accidentCarNo,a.caseNo)">详情</span>
             </td>
